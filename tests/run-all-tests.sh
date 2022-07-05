@@ -6,4 +6,6 @@
 }
 
 # Zend/*/AllTests.php,Zend/*Test.php
-# $PHPUNIT --stderr -d memory_limit=-1 -d error_reporting=E_ALL\&E_STRICT -d display_errors=1 XXX.php
+# E_ALL = 32767
+
+$PHPUNIT --bootstrap=TestHelper.php --stderr -d memory_limit=-1 -d error_reporting=32767 -d display_errors=1 Zend/Acl/AllTests.php
