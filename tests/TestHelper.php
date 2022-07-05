@@ -25,35 +25,47 @@
  */
 error_reporting(E_ALL | E_STRICT);
 
-/*
- * Determine the root, library, and tests directories of the framework
- * distribution.
- */
-$zfRoot        = realpath(dirname(dirname(__FILE__)));
-$zfCoreLibrary = "$zfRoot/library";
-$zfCoreTests   = "$zfRoot/tests";
-
-/*
- * Prepend the Zend Framework library/ and tests/ directories to the
- * include_path. This allows the tests to run out of the box and helps prevent
- * loading other copies of the framework code and tests that would supersede
- * this copy.
- */
-$path = array(
-    $zfCoreLibrary,
-    $zfCoreTests,
-    get_include_path()
-    );
-set_include_path(implode(PATH_SEPARATOR, $path));
-
-/*
- * Load the user-defined test configuration file, if it exists; otherwise, load
- * the default configuration.
- */
-if (is_readable($zfCoreTests . DIRECTORY_SEPARATOR . 'TestConfiguration.php')) {
-    require_once $zfCoreTests . DIRECTORY_SEPARATOR . 'TestConfiguration.php';
+if (defined('__BPC__')) {
+    set_include_path("tests" . PATH_SEPARATOR . get_include_path());
+    if (include_once_silent(__DIR__ . '/TestConfiguration.php') === false) {
+        require_once __DIR__ . '/TestConfiguration.php.dist';
+    }
 } else {
-    require_once $zfCoreTests . DIRECTORY_SEPARATOR . 'TestConfiguration.php.dist';
+    /*
+     * Determine the root, library, and tests directories of the framework
+     * distribution.
+     */
+    $zfRoot        = realpath(dirname(dirname(__FILE__)));
+    $zfCoreLibrary = "$zfRoot/library";
+    $zfCoreTests   = "$zfRoot/tests";
+
+    /*
+     * Prepend the Zend Framework library/ and tests/ directories to the
+     * include_path. This allows the tests to run out of the box and helps prevent
+     * loading other copies of the framework code and tests that would supersede
+     * this copy.
+     */
+    $path = array(
+        $zfCoreLibrary,
+        $zfCoreTests,
+        get_include_path()
+        );
+    set_include_path(implode(PATH_SEPARATOR, $path));
+
+    /*
+     * Load the user-defined test configuration file, if it exists; otherwise, load
+     * the default configuration.
+     */
+    if (is_readable($zfCoreTests . DIRECTORY_SEPARATOR . 'TestConfiguration.php')) {
+        require_once $zfCoreTests . DIRECTORY_SEPARATOR . 'TestConfiguration.php';
+    } else {
+        require_once $zfCoreTests . DIRECTORY_SEPARATOR . 'TestConfiguration.php.dist';
+    }
+
+    /*
+     * Unset global variables that are no longer needed.
+     */
+    unset($zfRoot, $zfCoreLibrary, $zfCoreTests, $path);
 }
 
 /**
@@ -62,11 +74,6 @@ if (is_readable($zfCoreTests . DIRECTORY_SEPARATOR . 'TestConfiguration.php')) {
 if (defined('TESTS_ZEND_OB_ENABLED') && constant('TESTS_ZEND_OB_ENABLED')) {
     ob_start();
 }
-
-/*
- * Unset global variables that are no longer needed.
- */
-unset($zfRoot, $zfCoreLibrary, $zfCoreTests, $path);
 
 // Suppress DateTime warnings
 date_default_timezone_set(@date_default_timezone_get());

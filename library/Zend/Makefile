@@ -1,0 +1,9 @@
+libzend_u-4.4a.so:
+	bpc -v -l zend --input-file src.list
+
+install:
+	bpc -l zend --install
+
+clean:
+	@rm -rf .bpc-build-* md5.map
+	@rm -fv libzend_u-4.4a.so libzend_u-4.4a.a zend.heap zend.sch
