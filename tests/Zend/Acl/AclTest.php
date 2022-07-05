@@ -1180,11 +1180,12 @@ class Zend_Acl_AclTest extends PHPUnit_Framework_TestCase
 
     /**
      * Returns an array of registered roles
-     * @expectedException PHPUnit_Framework_Error
      * @group ZF-5638
      */
     public function testGetRegisteredRoles()
     {
+        $this->expectException('PHPUnit_Framework_Error');
+
         $acl = $this->_acl;
         $acl->addRole('developer');
 
