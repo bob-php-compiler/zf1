@@ -20,10 +20,6 @@
  * @version    $Id$
  */
 
-if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Zend_Log_Writer_AbstractTest::main');
-}
-
 /** Zend_Log_Writer_Abstract */
 require_once 'Zend/Log/Writer/Abstract.php';
 
@@ -42,12 +38,6 @@ class Zend_Log_Writer_AbstractTest extends PHPUnit_Framework_TestCase
      */
     protected $_writer;
 
-    public static function main()
-    {
-        $suite  = new PHPUnit_Framework_TestSuite(__CLASS__);
-        $result = PHPUnit_TextUI_TestRunner::run($suite);
-    }
-
     protected function setUp()
     {
         $this->_writer = new Zend_Log_Writer_AbstractTest_Concrete();
@@ -56,6 +46,7 @@ class Zend_Log_Writer_AbstractTest extends PHPUnit_Framework_TestCase
     /**
      * @group ZF-6085
      */
+/*
     public function testSetFormatter()
     {
         if (version_compare(phpversion(), '7', '>=')) {
@@ -67,6 +58,7 @@ class Zend_Log_Writer_AbstractTest extends PHPUnit_Framework_TestCase
         $this->setExpectedException('PHPUnit_Framework_Error');
         $this->_writer->setFormatter(new StdClass());
     }
+*/
 
     public function testAddFilter()
     {
@@ -99,8 +91,4 @@ class Zend_Log_Writer_AbstractTest_Concrete extends Zend_Log_Writer_Abstract
     static public function factory($config)
     {
     }
-}
-
-if (PHPUnit_MAIN_METHOD == 'Zend_Log_Writer_AbstractTest::main') {
-    Zend_Log_Writer_AbstractTest::main();
 }

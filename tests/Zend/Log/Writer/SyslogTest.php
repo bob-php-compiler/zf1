@@ -20,10 +20,6 @@
  * @version    $Id$
  */
 
-if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Zend_Log_Writer_SyslogTest::main');
-}
-
 /** Zend_Log_Writer_Syslog */
 require_once 'Zend/Log/Writer/Syslog.php';
 
@@ -37,12 +33,6 @@ require_once 'Zend/Log/Writer/Syslog.php';
  */
 class Zend_Log_Writer_SyslogTest extends PHPUnit_Framework_TestCase
 {
-    public static function main()
-    {
-        $suite  = new PHPUnit_Framework_TestSuite(__CLASS__);
-        $result = PHPUnit_TextUI_TestRunner::run($suite);
-    }
-
     public function testWrite()
     {
         $fields = array('message' => 'foo', 'priority' => LOG_NOTICE);
@@ -78,6 +68,7 @@ class Zend_Log_Writer_SyslogTest extends PHPUnit_Framework_TestCase
     /**
      * @group ZF-7603
      */
+/*
     public function testThrowExceptionIfFacilityInvalidInWindows()
     {
         if ('WIN' != strtoupper(substr(PHP_OS, 0, 3))) {
@@ -91,6 +82,7 @@ class Zend_Log_Writer_SyslogTest extends PHPUnit_Framework_TestCase
             $this->assertContains('Only LOG_USER is a valid', $e->getMessage());
         }
     }
+*/
 
     /**
      * @group ZF-8953
@@ -138,8 +130,4 @@ class WriterSyslogCustom extends Zend_Log_Writer_Syslog
     {
         return $this->_facility;
     }
-}
-
-if (PHPUnit_MAIN_METHOD == 'Zend_Log_Writer_SyslogTest::main') {
-    Zend_Log_Writer_SyslogTest::main();
 }

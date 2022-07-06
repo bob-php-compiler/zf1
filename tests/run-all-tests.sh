@@ -1,19 +1,25 @@
 #!/bin/bash
 
 [ "$PHPUNIT" == "" ] && {
-    echo "Usage 1: PHPUNIT=phpunit-4.8.36 ./run-all-tests.sh"
-    echo "Usage 2: PHPUNIT=phpunit-bpc ./run-all-tests.sh"
-    echo "Usage 3: PHPUNIT=\"phpunit-bpc --bpc=.\" ./run-all-tests.sh"
-    echo "Usage 4: PHPUNIT=./test ./run-all-tests.sh"
+    echo "Usage 1: PHPUNIT=phpunit-4.8.36 ./run-all-tests.sh TEST"
+    echo "Usage 2: PHPUNIT=phpunit-bpc ./run-all-tests.sh TEST"
+    echo "Usage 3: PHPUNIT=\"phpunit-bpc --bpc=.\" ./run-all-tests.sh TEST"
+    echo "Usage 4: PHPUNIT=./test ./run-all-tests.sh TEST"
     exit
 }
 
 # Zend/*/AllTests.php,Zend/*Test.php
 # E_ALL = 32767
 
-TEST_LIST="Zend/Acl/AllTests.php
-           Zend/ConfigTest.php
-           Zend/Config/AllTests.php"
+if [ "$1" == "" ]
+then
+    TEST_LIST="Zend/Acl/AllTests.php
+               Zend/ConfigTest.php
+               Zend/Config/AllTests.php
+               Zend/Log/AllTests.php"
+else
+    TEST_LIST=$1
+fi
 
 for i in $TEST_LIST
 do

@@ -20,10 +20,6 @@
  * @version    $Id$
  */
 
-if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Zend_Log_Formatter_SimpleTest::main');
-}
-
 /** Zend_Log_Formatter_Simple */
 require_once 'Zend/Log/Formatter/Simple.php';
 
@@ -37,12 +33,6 @@ require_once 'Zend/Log/Formatter/Simple.php';
  */
 class Zend_Log_Formatter_SimpleTest extends PHPUnit_Framework_TestCase
 {
-    public static function main()
-    {
-        $suite  = new PHPUnit_Framework_TestSuite(__CLASS__);
-        $result = PHPUnit_TextUI_TestRunner::run($suite);
-    }
-
     public function testConstructorThrowsOnBadFormatString()
     {
         try {
@@ -84,11 +74,11 @@ class Zend_Log_Formatter_SimpleTest extends PHPUnit_Framework_TestCase
 
         $fields['message'] = 10;
         $line = $f->format($fields);
-        $this->assertContains($fields['message'], $line);
+        $this->assertContains((string)$fields['message'], $line);
 
         $fields['message'] = 10.5;
         $line = $f->format($fields);
-        $this->assertContains($fields['message'], $line);
+        $this->assertContains((string)$fields['message'], $line);
 
         $fields['message'] = true;
         $line = $f->format($fields);
@@ -134,8 +124,4 @@ class Zend_Log_Formatter_SimpleTest_TestObject1 {
 }
 
 class Zend_Log_Formatter_SimpleTest_TestObject2 {
-}
-
-if (PHPUnit_MAIN_METHOD == 'Zend_Log_Formatter_SimpleTest::main') {
-    Zend_Log_Formatter_SimpleTest::main();
 }

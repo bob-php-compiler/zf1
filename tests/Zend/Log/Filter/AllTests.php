@@ -20,10 +20,6 @@
  * @version    $Id$
  */
 
-if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Zend_Log_Filter_AllTests::main');
-}
-
 require_once 'Zend/Log/Filter/ChainingTest.php';
 require_once 'Zend/Log/Filter/MessageTest.php';
 require_once 'Zend/Log/Filter/PriorityTest.php';
@@ -40,11 +36,6 @@ require_once 'Zend/Log/Filter/SuppressTest.php';
  */
 class Zend_Log_Filter_AllTests
 {
-    public static function main()
-    {
-        PHPUnit_TextUI_TestRunner::run(self::suite());
-    }
-
     public static function suite()
     {
         $suite = new PHPUnit_Framework_TestSuite('Zend Framework - Zend_Log_Filter');
@@ -56,8 +47,4 @@ class Zend_Log_Filter_AllTests
 
         return $suite;
     }
-}
-
-if (PHPUnit_MAIN_METHOD == 'Zend_Log_Filter_AllTests::main') {
-    Zend_Log_Filter_AllTests::main();
 }
