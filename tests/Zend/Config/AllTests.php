@@ -20,10 +20,6 @@
  * @version    $Id$
  */
 
-if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Zend_Config_AllTests::main');
-}
-
 require_once 'Zend/Config/Writer/AllTests.php';
 require_once 'Zend/Config/IniTest.php';
 require_once 'Zend/Config/JsonTest.php';
@@ -40,11 +36,6 @@ require_once 'Zend/Config/YamlTest.php';
  */
 class Zend_Config_AllTests
 {
-    public static function main()
-    {
-        PHPUnit_TextUI_TestRunner::run(self::suite());
-    }
-
     public static function suite()
     {
         $suite = new PHPUnit_Framework_TestSuite('Zend Framework - Zend_Config');
@@ -58,8 +49,4 @@ class Zend_Config_AllTests
 
         return $suite;
     }
-}
-
-if (PHPUnit_MAIN_METHOD == 'Zend_Config_AllTests::main') {
-    Zend_Config_AllTests::main();
 }

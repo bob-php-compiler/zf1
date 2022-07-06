@@ -219,7 +219,7 @@ class Zend_Config_IniTest extends PHPUnit_Framework_TestCase
         }
 
     }
-
+/*
     public function testZF739()
     {
         if (version_compare('5.3.0', PHP_VERSION) < 1) {
@@ -233,7 +233,7 @@ class Zend_Config_IniTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('live', $config->db->name);
         $this->assertEquals('multi', $config->one->two->three);
     }
-
+*/
     public function testZF2508NoSections()
     {
         $config = new Zend_Config_Ini($this->_iniFileNoSectionsConfig);

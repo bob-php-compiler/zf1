@@ -11,6 +11,12 @@
 # Zend/*/AllTests.php,Zend/*Test.php
 # E_ALL = 32767
 
-set -x
+TEST_LIST="Zend/Acl/AllTests.php
+           Zend/ConfigTest.php
+           Zend/Config/AllTests.php"
 
-$PHPUNIT --bootstrap=TestHelper.php --stderr -d memory_limit=-1 -d error_reporting=32767 -d display_errors=1 Zend/Acl/AllTests.php
+for i in $TEST_LIST
+do
+    printf "\n\n\033[32;49;1m@@ $i @@\033[39;49;0m\n\n"
+    $PHPUNIT --bootstrap=TestHelper.php --stderr -d memory_limit=-1 -d error_reporting=32767 -d display_errors=1 $i
+done
