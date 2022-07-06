@@ -25,11 +25,6 @@
 require_once 'Zend/Config.php';
 
 /**
- * @see Zend_Json
- */
-require_once 'Zend/Json.php';
-
-/**
  * JSON Adapter for Zend_Config
  *
  * @category  Zend
@@ -128,9 +123,8 @@ class Zend_Config_Json extends Zend_Config
         }
 
         // Parse/decode
-        try {
-            $config = Zend_Json::decode($json);
-        } catch (Zend_Json_Exception $e) {
+        $config = json_decode($json, true);
+        if ($config === null && json_last_error() != JSON_ERROR_NONE) {
             // decode failed
             require_once 'Zend/Config/Exception.php';
             throw new Zend_Config_Exception("Error parsing JSON data");

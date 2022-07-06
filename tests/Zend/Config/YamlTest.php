@@ -37,20 +37,20 @@ class Zend_Config_YamlTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->_iniFileConfig             = dirname(__FILE__) . '/_files/config.yaml';
-        $this->_iniFileAllSectionsConfig  = dirname(__FILE__) . '/_files/allsections.yaml';
-        $this->_iniFileCircularConfig     = dirname(__FILE__) . '/_files/circular.yaml';
-        $this->_nonReadableConfig         = dirname(__FILE__) . '/_files/nonreadable.yaml';
-        $this->_iniFileInvalid            = dirname(__FILE__) . '/_files/invalid.yaml';
-        $this->_iniFileSameNameKeysConfig = dirname(__FILE__) . '/_files/array.yaml';
-        $this->_badIndentationConfig      = dirname(__FILE__) . '/_files/badindentation.yaml';
-        $this->_booleansConfig            = dirname(__FILE__) . '/_files/booleans.yaml';
-        $this->_constantsConfig           = dirname(__FILE__) . '/_files/constants.yaml';
-        $this->_yamlInlineCommentsConfig  = dirname(__FILE__) . '/_files/inlinecomments.yaml';
-        $this->_yamlIndentedCommentsConfig  = dirname(__FILE__) . '/_files/indentedcomments.yaml';
-        $this->_yamlListConstantsConfig     = dirname(__FILE__) . '/_files/listconstants.yaml';
-        $this->_listBooleansConfig          = dirname(__FILE__) . '/_files/listbooleans.yaml';
-        $this->_yamlSingleQuotedString    = dirname(__FILE__) . '/_files/zf11934.yaml';
+        $this->_iniFileConfig             = TEST_ROOT_DIR . '/Zend/Config/_files/config.yaml';
+        $this->_iniFileAllSectionsConfig  = TEST_ROOT_DIR . '/Zend/Config/_files/allsections.yaml';
+        $this->_iniFileCircularConfig     = TEST_ROOT_DIR . '/Zend/Config/_files/circular.yaml';
+        $this->_nonReadableConfig         = TEST_ROOT_DIR . '/Zend/Config/_files/nonreadable.yaml';
+        $this->_iniFileInvalid            = TEST_ROOT_DIR . '/Zend/Config/_files/invalid.yaml';
+        $this->_iniFileSameNameKeysConfig = TEST_ROOT_DIR . '/Zend/Config/_files/array.yaml';
+        $this->_badIndentationConfig      = TEST_ROOT_DIR . '/Zend/Config/_files/badindentation.yaml';
+        $this->_booleansConfig            = TEST_ROOT_DIR . '/Zend/Config/_files/booleans.yaml';
+        $this->_constantsConfig           = TEST_ROOT_DIR . '/Zend/Config/_files/constants.yaml';
+        $this->_yamlInlineCommentsConfig  = TEST_ROOT_DIR . '/Zend/Config/_files/inlinecomments.yaml';
+        $this->_yamlIndentedCommentsConfig  = TEST_ROOT_DIR . '/Zend/Config/_files/indentedcomments.yaml';
+        $this->_yamlListConstantsConfig     = TEST_ROOT_DIR . '/Zend/Config/_files/listconstants.yaml';
+        $this->_listBooleansConfig          = TEST_ROOT_DIR . '/Zend/Config/_files/listbooleans.yaml';
+        $this->_yamlSingleQuotedString    = TEST_ROOT_DIR . '/Zend/Config/_files/zf11934.yaml';
     }
 
     public function testLoadSingleSection()
@@ -310,7 +310,7 @@ class Zend_Config_YamlTest extends PHPUnit_Framework_TestCase
             define('ZEND_CONFIG_YAML_ENV', 'testing');
         }
         if (!defined('ZEND_CONFIG_YAML_ENV_PATH')) {
-            define('ZEND_CONFIG_YAML_ENV_PATH', dirname(__FILE__));
+            define('ZEND_CONFIG_YAML_ENV_PATH', TEST_ROOT_DIR . '/Zend/Config');
         }
         $config = new Zend_Config_Yaml($this->_constantsConfig, 'production');
         $this->assertEquals(ZEND_CONFIG_YAML_ENV, $config->env);
@@ -323,7 +323,7 @@ class Zend_Config_YamlTest extends PHPUnit_Framework_TestCase
             define('ZEND_CONFIG_YAML_ENV', 'testing');
         }
         if (!defined('ZEND_CONFIG_YAML_ENV_PATH')) {
-            define('ZEND_CONFIG_YAML_ENV_PATH', dirname(__FILE__));
+            define('ZEND_CONFIG_YAML_ENV_PATH', TEST_ROOT_DIR . '/Zend/Config');
         }
         $config = new Zend_Config_Yaml(
             $this->_constantsConfig, 'production', array('ignore_constants' => true)
@@ -331,7 +331,7 @@ class Zend_Config_YamlTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('ZEND_CONFIG_YAML_ENV', $config->env);
         $this->assertEquals('ZEND_CONFIG_YAML_ENV_PATH/test/this', $config->path);
     }
-    
+
     /**
      * @group ZF-11329
      */
@@ -348,7 +348,7 @@ class Zend_Config_YamlTest extends PHPUnit_Framework_TestCase
             $config->resources->frontController->controllerDirectory
         );
     }
-    
+
     /**
      * @group ZF-11384
      */
@@ -365,7 +365,7 @@ class Zend_Config_YamlTest extends PHPUnit_Framework_TestCase
             $config->resources->frontController->controllerDirectory
         );
     }
-    
+
     /**
      * @group ZF-11702
      */
@@ -373,13 +373,13 @@ class Zend_Config_YamlTest extends PHPUnit_Framework_TestCase
     {
         if (!defined('ZEND_CONFIG_YAML_TEST_PATH')) {
             define('ZEND_CONFIG_YAML_TEST_PATH', 'testing');
-        }        
+        }
         $config = new Zend_Config_Yaml($this->_yamlListConstantsConfig, 'production');
 
         $this->assertEquals(ZEND_CONFIG_YAML_TEST_PATH, $config->paths->{0});
         $this->assertEquals(ZEND_CONFIG_YAML_TEST_PATH . '/library/test', $config->paths->{1});
     }
-    
+
     /**
      * @group ZF-11702
      */
@@ -415,7 +415,7 @@ class Zend_Config_YamlTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($config->usingTitleCasedOff->{0});
         $this->assertFalse($config->usingCapitalOff->{0});
     }
-    
+
     /**
      * @group ZF-11934
      */

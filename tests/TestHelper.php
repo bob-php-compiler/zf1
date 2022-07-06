@@ -77,3 +77,5 @@ if (defined('TESTS_ZEND_OB_ENABLED') && constant('TESTS_ZEND_OB_ENABLED')) {
 
 // Suppress DateTime warnings
 date_default_timezone_set(@date_default_timezone_get());
+
+define('TEST_ROOT_DIR', getcwd());

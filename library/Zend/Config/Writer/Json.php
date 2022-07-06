@@ -97,10 +97,6 @@ class Zend_Config_Writer_Json extends Zend_Config_Writer_FileAbstract
             }
         }
 
-        $out = Zend_Json::encode($data);
-        if ($this->prettyPrint()) {
-             $out = Zend_Json::prettyPrint($out);
-        }
-        return $out;
+        return json_encode($data, $this->_prettyPrint ? JSON_PRETTY_PRINT : 0);
     }
 }

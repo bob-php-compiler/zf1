@@ -23,7 +23,7 @@
 require_once 'Zend/Config/Writer/AllTests.php';
 require_once 'Zend/Config/IniTest.php';
 require_once 'Zend/Config/JsonTest.php';
-require_once 'Zend/Config/XmlTest.php';
+//require_once 'Zend/Config/XmlTest.php';
 require_once 'Zend/Config/YamlTest.php';
 
 /**
@@ -44,7 +44,7 @@ class Zend_Config_AllTests
 
         $suite->addTestSuite('Zend_Config_IniTest');
         $suite->addTestSuite('Zend_Config_JsonTest');
-        $suite->addTestSuite('Zend_Config_XmlTest');
+        //$suite->addTestSuite('Zend_Config_XmlTest');
         $suite->addTestSuite('Zend_Config_YamlTest');
 
         return $suite;

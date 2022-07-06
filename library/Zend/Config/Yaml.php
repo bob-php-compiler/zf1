@@ -202,7 +202,7 @@ class Zend_Config_Yaml extends Zend_Config
                 if (!isset($config[$sectionName])) {
                     require_once 'Zend/Config/Exception.php';
                     throw new Zend_Config_Exception(sprintf(
-                        'Section "%s" cannot be found', 
+                        'Section "%s" cannot be found',
                         implode(' ', (array)$section)
                     ));
                 }
@@ -214,7 +214,7 @@ class Zend_Config_Yaml extends Zend_Config
             if (!isset($config[$section])) {
                 require_once 'Zend/Config/Exception.php';
                 throw new Zend_Config_Exception(sprintf(
-                    'Section "%s" cannot be found', 
+                    'Section "%s" cannot be found',
                     implode(' ', (array)$section)
                 ));
             }
@@ -362,11 +362,11 @@ class Zend_Config_Yaml extends Zend_Config
         $value = trim($value);
 
         // remove quotes from string.
-        if ('"' == $value['0']) {
-            if ('"' == $value[count($value) -1]) {
+        if ('"' == $value[0]) {
+            if ('"' == $value[strlen($value) -1]) {
                 $value = substr($value, 1, -1);
             }
-        } elseif ('\'' == $value['0'] && '\'' == $value[count($value) -1]) {
+        } elseif ('\'' == $value[0] && '\'' == $value[strlen($value) -1]) {
             $value = strtr($value, array("''" => "'", "'" => ''));
         }
 

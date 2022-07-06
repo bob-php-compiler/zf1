@@ -40,13 +40,13 @@ class Zend_Config_JsonTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->_iniFileConfig = dirname(__FILE__) . '/_files/config.json';
-        $this->_iniFileAllSectionsConfig = dirname(__FILE__) . '/_files/allsections.json';
-        $this->_iniFileCircularConfig = dirname(__FILE__) . '/_files/circular.json';
-        $this->_iniFileMultipleInheritanceConfig = dirname(__FILE__) . '/_files/multipleinheritance.json';
-        $this->_nonReadableConfig = dirname(__FILE__) . '/_files/nonreadable.json';
-        $this->_iniFileNoSectionsConfig = dirname(__FILE__) . '/_files/nosections.json';
-        $this->_iniFileInvalid = dirname(__FILE__) . '/_files/invalid.json';
+        $this->_iniFileConfig = TEST_ROOT_DIR . '/Zend/Config/_files/config.json';
+        $this->_iniFileAllSectionsConfig = TEST_ROOT_DIR . '/Zend/Config/_files/allsections.json';
+        $this->_iniFileCircularConfig = TEST_ROOT_DIR . '/Zend/Config/_files/circular.json';
+        $this->_iniFileMultipleInheritanceConfig = TEST_ROOT_DIR . '/Zend/Config/_files/multipleinheritance.json';
+        $this->_nonReadableConfig = TEST_ROOT_DIR . '/Zend/Config/_files/nonreadable.json';
+        $this->_iniFileNoSectionsConfig = TEST_ROOT_DIR . '/Zend/Config/_files/nosections.json';
+        $this->_iniFileInvalid = TEST_ROOT_DIR . '/Zend/Config/_files/invalid.json';
     }
 
     public function testLoadSingleSection()
@@ -240,7 +240,7 @@ EOJ;
             define('ZEND_CONFIG_JSON_ENV', 'testing');
         }
         if (!defined('ZEND_CONFIG_JSON_ENV_PATH')) {
-            define('ZEND_CONFIG_JSON_ENV_PATH', dirname(__FILE__));
+            define('ZEND_CONFIG_JSON_ENV_PATH', TEST_ROOT_DIR . '/Zend/Config');
         }
         if (!defined('ZEND_CONFIG_JSON_ENV_INT')) {
             define('ZEND_CONFIG_JSON_ENV_INT', 42);
@@ -268,7 +268,7 @@ EOJ;
             define('ZEND_CONFIG_JSON_ENV', 'testing');
         }
         if (!defined('ZEND_CONFIG_JSON_ENV_PATH')) {
-            define('ZEND_CONFIG_JSON_ENV_PATH', dirname(__FILE__));
+            define('ZEND_CONFIG_JSON_ENV_PATH', TEST_ROOT_DIR . '/Zend/Config');
         }
         if (!defined('ZEND_CONFIG_JSON_ENV_INT')) {
             define('ZEND_CONFIG_JSON_ENV_INT', 42);

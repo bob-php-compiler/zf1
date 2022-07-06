@@ -12,5 +12,5 @@ test: $(FILES)
 
 clean:
 	@rm -rf .bpc-build-* md5.map
-	@rm -fv $(FILES) test
+	@rm -fv $(FILES) TESTCASE_LIST.php test
 	@rm -rf MockClassFile
