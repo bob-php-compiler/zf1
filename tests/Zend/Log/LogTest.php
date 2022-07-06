@@ -121,7 +121,7 @@ class Zend_Log_LogTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($writer1->shutdown);
         $this->assertFalse($writer2->shutdown);
 
-        $logger = null;
+        $logger->close();
 
         $this->assertTrue($writer1->shutdown);
         $this->assertTrue($writer2->shutdown);
@@ -281,7 +281,7 @@ class Zend_Log_LogTest extends PHPUnit_Framework_TestCase
     public function testFactoryUsesNameAndNamespaceWithoutModifications()
     {
         $cfg = array('log' => array('memory' => array(
-            'writerName'      => "ZendMonitor",
+            'writerName'      => "Null",
             'writerNamespace' => "Zend_Log_Writer",
         )));
 
@@ -331,7 +331,7 @@ class Zend_Log_LogTest extends PHPUnit_Framework_TestCase
      * Used by testUsingWithErrorHandler -
      * verifies that the data written to the original logger is the same as the data written in Zend_Log
      */
-    public function verifyHandlerData($errno, $errstr, $errfile, $errline, $errcontext)
+    public function verifyHandlerData($errno, $errstr, $errfile, $errline)
     {
         if ($this->expectingLogging) {
             $this->assertFalse(empty($this->errWriter->events));
@@ -513,7 +513,7 @@ class Zend_Log_LogTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals('c', $logger->getTimestampFormat());
     }
-
+/*
     public function testFactorySupportsPHP53Namespaces()
     {
         if (version_compare(PHP_VERSION, '5.3.0') < 0) {
@@ -538,7 +538,7 @@ class Zend_Log_LogTest extends PHPUnit_Framework_TestCase
             $this->fail('Unable to load namespaced class');
         }
     }
-
+*/
     /**
      * @group #85
      */

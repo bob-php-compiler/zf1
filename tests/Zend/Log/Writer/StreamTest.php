@@ -38,7 +38,7 @@ class Zend_Log_Writer_StreamTest extends PHPUnit_Framework_TestCase
 {
     public function testConstructorThrowsWhenResourceIsNotStream()
     {
-        $resource = xml_parser_create();
+        $resource = finfo_open();
         try {
             new Zend_Log_Writer_Stream($resource);
             $this->fail();
@@ -46,7 +46,7 @@ class Zend_Log_Writer_StreamTest extends PHPUnit_Framework_TestCase
             $this->assertTrue($e instanceof Zend_Log_Exception);
             $this->assertRegExp('/not a stream/i', $e->getMessage());
         }
-        xml_parser_free($resource);
+        finfo_close($resource);
     }
 
     public function testConstructorWithValidStream()

@@ -52,7 +52,16 @@ class Zend_Log
      * @var array of priorities where the keys are the
      * priority numbers and the values are the priority names
      */
-    protected $_priorities = array();
+    protected $_priorities = array(
+        0 => 'EMERG',
+        1 => 'ALERT',
+        2 => 'CRIT',
+        3 => 'ERR',
+        4 => 'WARN',
+        5 => 'NOTICE',
+        6 => 'INFO',
+        7 => 'DEBUG'
+    );
 
     /**
      * @var array of Zend_Log_Writer_Abstract
@@ -118,9 +127,6 @@ class Zend_Log
      */
     public function __construct(Zend_Log_Writer_Abstract $writer = null)
     {
-        $r = new ReflectionClass($this);
-        $this->_priorities = array_flip($r->getConstants());
-
         if ($writer !== null) {
             $this->addWriter($writer);
         }
@@ -288,15 +294,15 @@ class Zend_Log
             Zend_Loader::loadClass($className);
         }
 
-        $reflection = new ReflectionClass($className);
-        if (!$reflection->implementsInterface('Zend_Log_FactoryInterface')) {
+        $implements = class_implements($className);
+        if (!isset($implements['Zend_Log_FactoryInterface'])) {
             require_once 'Zend/Log/Exception.php';
             throw new Zend_Log_Exception(
                 $className . ' does not implement Zend_Log_FactoryInterface and can not be constructed from config.'
             );
         }
 
-        return call_user_func(array($className, 'factory'), $params);
+        return $className::factory($params);
     }
 
     /**
@@ -354,6 +360,15 @@ class Zend_Log
         );
     }
 
+    public function close()
+    {
+        /** @var Zend_Log_Writer_Abstract $writer */
+        foreach($this->_writers as $writer) {
+            $writer->shutdown();
+        }
+        $this->_writers = null;
+    }
+
     /**
      * Class destructor.  Shutdown log writers
      *
@@ -361,9 +376,8 @@ class Zend_Log
      */
     public function __destruct()
     {
-        /** @var Zend_Log_Writer_Abstract $writer */
-        foreach($this->_writers as $writer) {
-            $writer->shutdown();
+        if ($this->_writers) {
+            $this->close();
         }
     }
 
@@ -619,7 +633,7 @@ class Zend_Log
      * @param array $errcontext
      * @return boolean
      */
-    public function errorHandler($errno, $errstr, $errfile, $errline, $errcontext)
+    public function errorHandler($errno, $errstr, $errfile, $errline)
     {
         $errorLevel = error_reporting();
 
@@ -629,11 +643,11 @@ class Zend_Log
             } else {
                 $priority = Zend_Log::INFO;
             }
-            $this->log($errstr, $priority, array('errno'=>$errno, 'file'=>$errfile, 'line'=>$errline, 'context'=>$errcontext));
+            $this->log($errstr, $priority, array('errno'=>$errno, 'file'=>$errfile, 'line'=>$errline));
         }
 
         if ($this->_origErrorHandler !== null) {
-            return call_user_func($this->_origErrorHandler, $errno, $errstr, $errfile, $errline, $errcontext);
+            return call_user_func($this->_origErrorHandler, $errno, $errstr, $errfile, $errline);
         }
         return false;
     }

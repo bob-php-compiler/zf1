@@ -23,3 +23,25 @@ Config/Json.php
 Config/Exception.php
 Config/Yaml.php
 Config/Writer.php
+# Loader
+Loader.php
+# Log
+Log.php
+Log/FactoryInterface.php
+#Log/Formatter/Xml.php
+Log/Formatter/Abstract.php
+Log/Formatter/Simple.php
+Log/Formatter/Interface.php
+Log/Writer/Null.php
+Log/Writer/Syslog.php
+Log/Writer/Stream.php
+Log/Writer/Db.php
+Log/Writer/Abstract.php
+#Log/Writer/Mail.php
+Log/Writer/Mock.php
+Log/Exception.php
+Log/Filter/Message.php
+Log/Filter/Suppress.php
+Log/Filter/Abstract.php
+Log/Filter/Interface.php
+Log/Filter/Priority.php
