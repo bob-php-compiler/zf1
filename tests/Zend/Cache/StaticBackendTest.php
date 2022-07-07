@@ -304,12 +304,12 @@ class Zend_Cache_StaticBackendTest extends Zend_Cache_CommonBackendTest {
 
     public function testGetWithAnExpiredCacheId()
     {
-        $this->markTestSkipped('Irrelevant Test');
+        //$this->markTestSkipped('Irrelevant Test');
     }
 
     public function testCleanModeOld()
     {
-        $this->markTestSkipped('Irrelevant Test');
+        //$this->markTestSkipped('Irrelevant Test');
     }
 
     // Helper Methods

@@ -16,7 +16,8 @@ then
     TEST_LIST="Zend/Acl/AllTests.php
                Zend/ConfigTest.php
                Zend/Config/AllTests.php
-               Zend/Log/AllTests.php"
+               Zend/Log/AllTests.php
+               Zend/Cache/AllTests.php"
 else
     TEST_LIST=$1
 fi

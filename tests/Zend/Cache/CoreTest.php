@@ -535,13 +535,11 @@ class Zend_Cache_CoreTest extends PHPUnit_Framework_TestCase
      */
     public function testIfFileZendLogWasIncluded()
     {
-        if (class_exists('Zend_Log', false)) {
-            $this->markTestSkipped('File Zend/Log.php already included');
+        if (!class_exists('Zend_Log', false)) {
+            $cacheCore = new Zend_Cache_Core(
+                array('logging' => true)
+            );
+            $this->assertTrue($cacheCore->getOption('logger') instanceof Zend_Log);
         }
-
-        $cacheCore = new Zend_Cache_Core(
-            array('logging' => true)
-        );
-        $this->assertTrue($cacheCore->getOption('logger') instanceof Zend_Log);
     }
 }
