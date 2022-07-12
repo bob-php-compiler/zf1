@@ -1,10 +1,10 @@
 #!/bin/bash
 
 [ "$PHPUNIT" == "" ] && {
-    echo "Usage 1: PHPUNIT=phpunit-4.8.36 ./run-all-tests.sh TEST"
-    echo "Usage 2: PHPUNIT=phpunit-bpc ./run-all-tests.sh TEST"
-    echo "Usage 3: PHPUNIT=\"phpunit-bpc --bpc=.\" ./run-all-tests.sh TEST"
-    echo "Usage 4: PHPUNIT=./test ./run-all-tests.sh TEST"
+    echo "Usage 1: PHPUNIT=phpunit-4.8.36 ./run-all-tests.sh [TEST]"
+    echo "Usage 2: PHPUNIT=phpunit-bpc ./run-all-tests.sh [TEST]"
+    echo "Usage 3: PHPUNIT=\"phpunit-bpc --bpc=.\" ./run-all-tests.sh [TEST]"
+    echo "Usage 4: PHPUNIT=./test ./run-all-tests.sh [TEST]"
     exit
 }
 

@@ -195,12 +195,8 @@ class Zend_Cache_FunctionFrontendTest extends PHPUnit_Framework_TestCase {
 
     public function testCallClosureThrowsException()
     {
-        if (version_compare(PHP_VERSION, '5.3', '<')) {
-            $this->markTestSkipped();
-        }
-
         $this->setExpectedException('Zend_Cache_Exception');
-        eval('$closure = function () {};'); // no parse error on php < 5.3
+        $closure = function () {};
         $this->_instance->call($closure);
     }
 
@@ -215,4 +211,3 @@ class Zend_Cache_FunctionFrontendTest extends PHPUnit_Framework_TestCase {
     }
 
 }
-

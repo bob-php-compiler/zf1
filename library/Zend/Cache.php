@@ -144,10 +144,16 @@ abstract class Zend_Cache
             }
             if (!$autoload) {
                 $file = str_replace('_', DIRECTORY_SEPARATOR, $backendClass) . '.php';
-                if (!(self::_isReadable($file))) {
-                    self::throwException("file $file not found in include_path");
+                if (defined('__BPC__')) {
+                    if (include_once_silent($file) === false) {
+                        self::throwException("file $file not found in include_path");
+                    }
+                } else {
+                    if (!(self::_isReadable($file))) {
+                        self::throwException("file $file not found in include_path");
+                    }
+                    require_once $file;
                 }
-                require_once $file;
             }
         }
         return new $backendClass($backendOptions);
@@ -186,10 +192,16 @@ abstract class Zend_Cache
             }
             if (!$autoload) {
                 $file = str_replace('_', DIRECTORY_SEPARATOR, $frontendClass) . '.php';
-                if (!(self::_isReadable($file))) {
-                    self::throwException("file $file not found in include_path");
+                if (defined('__BPC__')) {
+                    if (include_once_silent($file) === false) {
+                        self::throwException("file $file not found in include_path");
+                    }
+                } else {
+                    if (!(self::_isReadable($file))) {
+                        self::throwException("file $file not found in include_path");
+                    }
+                    require_once $file;
                 }
-                require_once $file;
             }
         }
         return new $frontendClass($frontendOptions);

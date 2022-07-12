@@ -3,3 +3,6 @@
 ## Passed Tests
 
 - [x] Acl
+- [x] Config
+- [x] Log
+- [x] Cache

@@ -40,7 +40,7 @@ abstract class Zend_Cache_CommonBackendTest extends PHPUnit_Framework_TestCase {
     public function __construct($name = null, array $data = array(), $dataName = '')
     {
         $this->_className = $name;
-        $this->_root = dirname(__FILE__);
+        $this->_root = TEST_ROOT_DIR . '/Zend/Cache';
         date_default_timezone_set('UTC');
         parent::__construct($name, $data, $dataName);
     }
@@ -231,6 +231,8 @@ abstract class Zend_Cache_CommonBackendTest extends PHPUnit_Framework_TestCase {
 
     public function testCleanModeAll()
     {
+/*
+TODO support Memcached
         if ($this instanceof Zend_Cache_MemcachedBackendTest
             && getenv('TRAVIS')
         ) {
@@ -238,6 +240,7 @@ abstract class Zend_Cache_CommonBackendTest extends PHPUnit_Framework_TestCase {
                 'Test randomly fail on Travis CI.'
             );
         }
+*/
 
         $this->assertTrue($this->_instance->clean('all'));
         $this->assertFalse($this->_instance->test('bar'));

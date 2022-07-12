@@ -358,12 +358,19 @@ class Zend_Cache_Backend_Static
                 return false;
             }
             if (is_dir($directory)) {
-                foreach (new DirectoryIterator($directory) as $file) {
+                $dit = new DirectoryIterator($directory);
+                foreach ($dit as $file) {
                     if (true === $file->isFile()) {
                         if (false === unlink($file->getPathName())) {
+                            if (defined('__BPC__')) {
+                                $dit->close();
+                            }
                             return false;
                         }
                     }
+                }
+                if (defined('__BPC__')) {
+                    $dit->close();
                 }
             }
             rmdir($directory);

@@ -178,8 +178,7 @@ class Zend_Cache_Frontend_Class extends Zend_Cache_Core
         if (is_string($this->_cachedEntity)) {
             $this->_cachedEntityLabel = $this->_cachedEntity;
         } else {
-            $ro = new ReflectionObject($this->_cachedEntity);
-            $this->_cachedEntityLabel = $ro->getName();
+            $this->_cachedEntityLabel = get_class($this->_cachedEntity);
         }
     }
 

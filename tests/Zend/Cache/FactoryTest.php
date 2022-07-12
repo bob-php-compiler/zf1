@@ -82,17 +82,6 @@ class Zend_Cache_FactoryTest extends PHPUnit_Framework_TestCase
         $generated_frontend = Zend_Cache::factory('FooBarTestFrontend', 'File', array(), array(), true, false, true);
         $this->assertEquals('FooBarTestFrontend', get_class($generated_frontend));
     }
-    public function testFactoryLoadsPlatformBackend()
-    {
-        try {
-            $cache = Zend_Cache::factory('Core', 'Zend-Platform');
-        } catch (Zend_Cache_Exception $e) {
-            $message = $e->getMessage();
-            if (strstr($message, 'Incorrect backend')) {
-                $this->fail('Zend Platform is a valid backend');
-            }
-        }
-    }
 
     public function testBadFrontend()
     {
@@ -113,7 +102,7 @@ class Zend_Cache_FactoryTest extends PHPUnit_Framework_TestCase
         }
         $this->fail('Zend_Exception was expected but not thrown');
     }
-    
+
     /**
      * @group ZF-11988
      */
@@ -126,7 +115,7 @@ class Zend_Cache_FactoryTest extends PHPUnit_Framework_TestCase
             $this->assertNotEquals('Invalid frontend name [ZF11988\Frontend]', $e->getMessage());
         }
     }
-    
+
     /**
      * @group ZF-11988
      */

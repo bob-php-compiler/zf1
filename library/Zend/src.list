@@ -45,3 +45,24 @@ Log/Filter/Suppress.php
 Log/Filter/Abstract.php
 Log/Filter/Interface.php
 Log/Filter/Priority.php
+# Cache
+Cache.php
+Cache/Manager.php
+#Cache/Backend/Libmemcached.php
+Cache/Backend/Test.php
+Cache/Backend/Static.php
+#Cache/Backend/Sqlite.php
+Cache/Backend/BlackHole.php
+#Cache/Backend/Memcached.php
+Cache/Backend/File.php
+Cache/Backend/ExtendedInterface.php
+Cache/Backend/Interface.php
+Cache/Backend.php
+Cache/Exception.php
+Cache/Core.php
+Cache/Frontend/Capture.php
+Cache/Frontend/Output.php
+Cache/Frontend/Page.php
+Cache/Frontend/Class.php
+Cache/Frontend/File.php
+Cache/Frontend/Function.php

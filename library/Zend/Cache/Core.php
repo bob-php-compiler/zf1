@@ -486,11 +486,11 @@ class Zend_Cache_Core
 
         // we need to remove cache_id_prefix from ids (see #ZF-6178, #ZF-7600)
         if (isset($this->_options['cache_id_prefix']) && $this->_options['cache_id_prefix'] !== '') {
-            $prefix    = & $this->_options['cache_id_prefix'];
+            $prefix    = $this->_options['cache_id_prefix'];
             $prefixLen = strlen($prefix);
-            foreach ($ids as &$id) {
+            foreach ($ids as $idx => $id) {
                 if (strpos($id, $prefix) === 0) {
-                    $id = substr($id, $prefixLen);
+                    $ids[$idx] = substr($id, $prefixLen);
                 }
             }
         }
@@ -519,11 +519,11 @@ class Zend_Cache_Core
 
         // we need to remove cache_id_prefix from ids (see #ZF-6178, #ZF-7600)
         if (isset($this->_options['cache_id_prefix']) && $this->_options['cache_id_prefix'] !== '') {
-            $prefix    = & $this->_options['cache_id_prefix'];
+            $prefix    = $this->_options['cache_id_prefix'];
             $prefixLen = strlen($prefix);
-            foreach ($ids as &$id) {
+            foreach ($ids as $idx => $id) {
                 if (strpos($id, $prefix) === 0) {
-                    $id = substr($id, $prefixLen);
+                    $ids[$idx] = substr($id, $prefixLen);
                 }
             }
         }
@@ -552,11 +552,11 @@ class Zend_Cache_Core
 
         // we need to remove cache_id_prefix from ids (see #ZF-6178, #ZF-7600)
         if (isset($this->_options['cache_id_prefix']) && $this->_options['cache_id_prefix'] !== '') {
-            $prefix    = & $this->_options['cache_id_prefix'];
+            $prefix    = $this->_options['cache_id_prefix'];
             $prefixLen = strlen($prefix);
-            foreach ($ids as &$id) {
+            foreach ($ids as $idx => $id) {
                 if (strpos($id, $prefix) === 0) {
-                    $id = substr($id, $prefixLen);
+                    $ids[$idx] = substr($id, $prefixLen);
                 }
             }
         }
@@ -579,11 +579,11 @@ class Zend_Cache_Core
 
         // we need to remove cache_id_prefix from ids (see #ZF-6178, #ZF-7600)
         if (isset($this->_options['cache_id_prefix']) && $this->_options['cache_id_prefix'] !== '') {
-            $prefix    = & $this->_options['cache_id_prefix'];
+            $prefix    = $this->_options['cache_id_prefix'];
             $prefixLen = strlen($prefix);
-            foreach ($ids as &$id) {
+            foreach ($ids as $idx => $id) {
                 if (strpos($id, $prefix) === 0) {
-                    $id = substr($id, $prefixLen);
+                    $ids[$idx] = substr($id, $prefixLen);
                 }
             }
         }
