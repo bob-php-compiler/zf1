@@ -20,14 +20,10 @@
  * @version    $Id$
  */
 
-if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Zend_Loader_AllTests::main');
-}
-
 require_once 'Zend/Loader/AutoloaderTest.php';
 require_once 'Zend/Loader/AutoloaderFactoryClassMapLoaderTest.php';
 require_once 'Zend/Loader/AutoloaderFactoryTest.php';
-require_once 'Zend/Loader/AutoloaderMultiVersionTest.php';
+//require_once 'Zend/Loader/AutoloaderMultiVersionTest.php';
 require_once 'Zend/Loader/Autoloader/ResourceTest.php';
 require_once 'Zend/Loader/ClassMapAutoloaderTest.php';
 require_once 'Zend/Loader/PluginLoaderTest.php';
@@ -43,11 +39,6 @@ require_once 'Zend/Loader/StandardAutoloaderTest.php';
  */
 class Zend_Loader_AllTests
 {
-    public static function main()
-    {
-        PHPUnit_TextUI_TestRunner::run(self::suite());
-    }
-
     public static function suite()
     {
         $suite = new PHPUnit_Framework_TestSuite('Zend Framework - Zend_Loader');
@@ -55,7 +46,7 @@ class Zend_Loader_AllTests
         $suite->addTestSuite('Zend_Loader_AutoloaderTest');
         $suite->addTestSuite('Zend_Loader_AutoloaderFactoryClassMapLoaderTest');
         $suite->addTestSuite('Zend_Loader_AutoloaderFactoryTest');
-        $suite->addTestSuite('Zend_Loader_AutoloaderMultiVersionTest');
+        //$suite->addTestSuite('Zend_Loader_AutoloaderMultiVersionTest');
         $suite->addTestSuite('Zend_Loader_Autoloader_ResourceTest');
         $suite->addTestSuite('Zend_Loader_ClassMapAutoloaderTest');
         $suite->addTestSuite('Zend_Loader_PluginLoaderTest');
@@ -63,8 +54,4 @@ class Zend_Loader_AllTests
 
         return $suite;
     }
-}
-
-if (PHPUnit_MAIN_METHOD == 'Zend_Loader_AllTests::main') {
-    Zend_Loader_AllTests::main();
 }

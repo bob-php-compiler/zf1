@@ -20,10 +20,6 @@
  * @version    $Id$
  */
 
-if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Zend_Loader_Autoloader_ResourceTest::main');
-}
-
 /**
  * @see Zend_Loader_Autoloader
  */
@@ -52,12 +48,6 @@ require_once 'Zend/Config.php';
  */
 class Zend_Loader_Autoloader_ResourceTest extends PHPUnit_Framework_TestCase
 {
-    public static function main()
-    {
-        $suite  = new PHPUnit_Framework_TestSuite(__CLASS__);
-        $result = PHPUnit_TextUI_TestRunner::run($suite);
-    }
-
     public function setUp()
     {
         // Store original autoloaders
@@ -102,27 +92,21 @@ class Zend_Loader_Autoloader_ResourceTest extends PHPUnit_Framework_TestCase
         Zend_Loader_Autoloader::resetInstance();
     }
 
-    /**
-     * @expectedException Zend_Loader_Exception
-     */
     public function testAutoloaderInstantiationShouldRaiseExceptionWithoutNamespace()
     {
+        $this->expectException('Zend_Loader_Exception');
         $loader = new Zend_Loader_Autoloader_Resource(array('basePath' => dirname(__FILE__)));
     }
 
-    /**
-     * @expectedException Zend_Loader_Exception
-     */
     public function testAutoloaderInstantiationShouldRaiseExceptionWithoutBasePath()
     {
+        $this->expectException('Zend_Loader_Exception');
         $loader = new Zend_Loader_Autoloader_Resource(array('namespace' => 'Foo'));
     }
 
-    /**
-     * @expectedException Zend_Loader_Exception
-     */
     public function testAutoloaderInstantiationShouldRaiseExceptionWhenInvalidOptionsTypeProvided()
     {
+        $this->expectException('Zend_Loader_Exception');
         $loader = new Zend_Loader_Autoloader_Resource('foo');
     }
 
@@ -149,19 +133,15 @@ class Zend_Loader_Autoloader_ResourceTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(empty($resourceTypes));
     }
 
-    /**
-     * @expectedException Zend_Loader_Exception
-     */
     public function testInitialResourceTypeDefinitionShouldRequireNamespace()
     {
+        $this->expectException('Zend_Loader_Exception');
         $this->loader->addResourceType('foo', 'foo');
     }
 
-    /**
-     * @expectedException Zend_Loader_Exception
-     */
     public function testPassingNonStringPathWhenAddingResourceTypeShouldRaiseAnException()
     {
+        $this->expectException('Zend_Loader_Exception');
         $this->loader->addResourceType('foo', array('foo'), 'Foo');
     }
 
@@ -194,19 +174,15 @@ class Zend_Loader_Autoloader_ResourceTest extends PHPUnit_Framework_TestCase
         $this->assertContains('form', array_keys($resources));
     }
 
-    /**
-     * @expectedException Zend_Loader_Exception
-     */
     public function testAddingMultipleResourceTypesShouldRaiseExceptionWhenReceivingNonArrayItem()
     {
+        $this->expectException('Zend_Loader_Exception');
         $this->loader->addResourceTypes(array('foo' => 'bar'));
     }
 
-    /**
-     * @expectedException Zend_Loader_Exception
-     */
     public function testAddingMultipleResourceTypesShouldRaiseExceptionWhenMissingResourcePath()
     {
+        $this->expectException('Zend_Loader_Exception');
         $this->loader->addResourceTypes(array('model' => array('namespace' => 'Model')));
     }
 
@@ -270,19 +246,15 @@ class Zend_Loader_Autoloader_ResourceTest extends PHPUnit_Framework_TestCase
         $this->assertNull($this->loader->getDefaultResourceType());
     }
 
-    /**
-     * @expectedException Zend_Loader_Exception
-     */
     public function testLoadShouldRaiseExceptionWhenNotTypePassedAndNoDefaultSpecified()
     {
+        $this->expectException('Zend_Loader_Exception');
         $this->loader->load('Foo');
     }
 
-    /**
-     * @expectedException Zend_Loader_Exception
-     */
     public function testLoadShouldRaiseExceptionWhenResourceTypeDoesNotExist()
     {
+        $this->expectException('Zend_Loader_Exception');
         $this->loader->load('Foo', 'model');
     }
 
@@ -334,27 +306,21 @@ class Zend_Loader_Autoloader_ResourceTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($this->loader->autoload('FooBar_Baz_Bat'));
     }
 
-    /**
-     * @expectedException Zend_Loader_Exception
-     */
     public function testMethodOverloadingShouldRaiseExceptionForNonGetterMethodCalls()
     {
+        $this->expectException('Zend_Loader_Exception');
         $this->loader->lalalalala();
     }
 
-    /**
-     * @expectedException Zend_Loader_Exception
-     */
     public function testMethodOverloadingShouldRaiseExceptionWhenRequestedResourceDoesNotExist()
     {
+        $this->expectException('Zend_Loader_Exception');
         $this->loader->getModel('Foo');
     }
 
-    /**
-     * @expectedException Zend_Loader_Exception
-     */
     public function testMethodOverloadingShouldRaiseExceptionWhenNoArgumentPassed()
     {
+        $this->expectException('Zend_Loader_Exception');
         $this->loader->addResourceTypes(array(
             'model' => array('path' => 'models', 'namespace' => 'Model'),
         ));
@@ -466,8 +432,4 @@ class Zend_Loader_Autoloader_ResourceTest extends PHPUnit_Framework_TestCase
         $path = $this->loader->getClassPath('Foo_Bar_Model_Baz');
         $this->assertEquals(dirname(__FILE__) . '/_files/models/Baz.php', $path, var_export($path, 1));
     }
-}
-
-if (PHPUnit_MAIN_METHOD == 'Zend_Loader_Autoloader_ResourceTest::main') {
-    Zend_Loader_Autoloader_ResourceTest::main();
 }
