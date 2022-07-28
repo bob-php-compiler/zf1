@@ -184,35 +184,4 @@ class Zend_Loader_ClassMapAutoloaderTest extends PHPUnit_Framework_TestCase
         }
         $this->assertTrue($found, 'Autoloader not found in stack');
     }
-
-    public function testCanLoadClassMapFromPhar()
-    {
-        if (!class_exists('Phar')) {
-            $this->markTestSkipped('Test requires Phar extension');
-        }
-        $map = 'phar://' . dirname(__FILE__) . '/_files/classmap.phar/test/.//../autoload_classmap.php';
-        $this->loader->registerAutoloadMap($map);
-        $this->loader->autoload('some_loadedclass');
-        $this->assertTrue(class_exists('some_loadedclass', false));
-        $test = $this->loader->getAutoloadMap();
-        $this->assertEquals(2, count($test));
-
-        // will not register duplicate, even with a different relative path
-        $map = 'phar://' . __DIR__ . '/_files/classmap.phar/test/./foo/../../autoload_classmap.php';
-        $this->loader->registerAutoloadMap($map);
-        $test = $this->loader->getAutoloadMap();
-        $this->assertEquals(2, count($test));
-    }
-
-    public function testCanLoadNamespacedClassFromPhar()
-    {
-        if (version_compare(PHP_VERSION, '5.3.0', '<')) {
-            $this->markTestSkipped('Namespace support is valid for PHP >= 5.3.0 only');
-        }
-
-        $map = 'phar://' . __DIR__ . '/_files/classmap.phar/test/.//../autoload_classmap.php';
-        $this->loader->registerAutoloadMap($map);
-        $this->loader->autoload('some\namespacedclass');
-        $this->assertTrue(class_exists('some\namespacedclass', false));
-    }
 }

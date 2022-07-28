@@ -69,7 +69,7 @@ class Zend_Loader_Autoloader_ResourceTest extends PHPUnit_Framework_TestCase
 
         $this->loader = new Zend_Loader_Autoloader_Resource(array(
             'namespace' => 'FooBar',
-            'basePath'  => realpath(dirname(__FILE__) . '/_files'),
+            'basePath'  => dirname(__FILE__) . '/_files',
         ));
     }
 
@@ -123,7 +123,7 @@ class Zend_Loader_Autoloader_ResourceTest extends PHPUnit_Framework_TestCase
 
     public function testAutoloaderShouldAllowRetrievingBasePath()
     {
-        $this->assertEquals(realpath(dirname(__FILE__) . '/_files'), $this->loader->getBasePath());
+        $this->assertEquals(dirname(__FILE__) . '/_files', $this->loader->getBasePath());
     }
 
     public function testNoResourceTypesShouldBeRegisteredByDefault()
@@ -282,7 +282,7 @@ class Zend_Loader_Autoloader_ResourceTest extends PHPUnit_Framework_TestCase
     {
         $loader = new Zend_Loader_Autoloader_Resource(array(
             'namespace' => '',
-            'basePath'  => realpath(dirname(__FILE__) . '/_files'),
+            'basePath'  => dirname(__FILE__) . '/_files',
         ));
         $loader->addResourceTypes(array(
             'service' => array('path' => 'services', 'namespace' => 'Service'),
@@ -365,12 +365,12 @@ class Zend_Loader_Autoloader_ResourceTest extends PHPUnit_Framework_TestCase
      */
     public function testAutoloaderResourceGetClassPath()
     {
+        // getClassPath合并进autoload了
         $this->loader->addResourceTypes(array(
             'model' => array('path' => 'models', 'namespace' => 'Model'),
         ));
-        $path = $this->loader->getClassPath('FooBar_Model_Class_Model');
-        // if true we have // in path
-        $this->assertFalse(strpos($path, '//'));
+        $ret = $this->loader->autoload('FooBar_Model_Class_Model');
+        $this->assertFalse($ret);
     }
 
     /**
@@ -382,8 +382,8 @@ class Zend_Loader_Autoloader_ResourceTest extends PHPUnit_Framework_TestCase
         $this->loader->addResourceTypes(array(
             'model' => array('path' => 'models', 'namespace' => 'Model'),
         ));
-        $path = $this->loader->autoload('Something_Totally_Wrong');
-        $this->assertFalse($path);
+        $ret = $this->loader->autoload('Something_Totally_Wrong');
+        $this->assertFalse($ret);
     }
 
     /**
@@ -429,7 +429,8 @@ class Zend_Loader_Autoloader_ResourceTest extends PHPUnit_Framework_TestCase
         $this->loader->setNamespace('Foo_Bar')
             ->setBasePath(dirname(__FILE__) . '/_files')
             ->addResourceType('model', 'models', 'Model');
-        $path = $this->loader->getClassPath('Foo_Bar_Model_Baz');
-        $this->assertEquals(dirname(__FILE__) . '/_files/models/Baz.php', $path, var_export($path, 1));
+        // getClassPath合并进autoload了
+        $ret = $this->loader->autoload('Foo_Bar_Model_Baz');
+        $this->assertTrue($ret !== false);
     }
 }

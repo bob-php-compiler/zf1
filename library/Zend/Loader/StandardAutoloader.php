@@ -106,7 +106,7 @@ class Zend_Loader_StandardAutoloader implements Zend_Loader_SplAutoloader
             switch ($type) {
                 case self::AUTOREGISTER_ZF:
                     if ($pairs) {
-                        $this->registerPrefix('Zend', dirname(dirname(__FILE__)));
+                        $this->registerPrefix('Zend', 'Zend');
                     }
                     break;
                 case self::LOAD_NS:
@@ -314,21 +314,15 @@ class Zend_Loader_StandardAutoloader implements Zend_Loader_SplAutoloader
         if ($type === self::ACT_AS_FALLBACK) {
             // create filename
             $filename = $this->transformClassNameToFilename($class, '');
-            if (version_compare(PHP_VERSION, '5.3.2', '>=')) {
+            if (defined('__BPC__')) {
+                return include_silent($filename);
+            } else {
                 $resolvedName = stream_resolve_include_path($filename);
                 if ($resolvedName !== false) {
                     return include $resolvedName;
                 }
                 return false;
             }
-            $this->error = false;
-            set_error_handler(array($this, 'handleError'), E_WARNING);
-            include $filename;
-            restore_error_handler();
-            if ($this->error) {
-                return false;
-            }
-            return class_exists($class, false);
         }
 
         // Namespace and/or prefix autoloading
@@ -339,10 +333,14 @@ class Zend_Loader_StandardAutoloader implements Zend_Loader_SplAutoloader
 
                 // create filename
                 $filename = $this->transformClassNameToFilename($trimmedClass, $path);
-                if (file_exists($filename)) {
-                    return include $filename;
+                if (defined('__BPC__')) {
+                    return include_silent($filename);
+                } else {
+                    if (file_exists($filename)) {
+                        return include $filename;
+                    }
+                    return false;
                 }
-                return false;
             }
         }
         return false;

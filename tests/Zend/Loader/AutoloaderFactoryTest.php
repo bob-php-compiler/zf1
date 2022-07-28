@@ -190,9 +190,12 @@ class Zend_Loader_AutoloaderFactoryTest extends PHPUnit_Framework_TestCase
 
     public function testCannotBeInstantiatedViaConstructor()
     {
-        $reflection = new ReflectionClass('Zend_Loader_AutoloaderFactory');
-        $constructor = $reflection->getConstructor();
-        $this->assertNull($constructor);
+        try {
+            new Zend_Loader_AutoloaderFactory();
+            $this->assertTrue(false);
+        } catch (Error $e) {
+            $this->assertEquals($e->getMessage(), 'Cannot instantiate abstract class Zend_Loader_AutoloaderFactory');
+        }
     }
 
     public function testPassingNoArgumentsToFactoryInstantiatesAndRegistersStandardAutoloader()

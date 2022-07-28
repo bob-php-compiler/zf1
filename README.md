@@ -6,3 +6,4 @@
 - [x] Config
 - [x] Log
 - [x] Cache
+- [x] Loader

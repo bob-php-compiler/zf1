@@ -38,18 +38,6 @@ require_once 'Zend/Loader.php';
 class Zend_Loader_PluginLoader implements Zend_Loader_PluginLoader_Interface
 {
     /**
-     * Class map cache file
-     * @var string
-     */
-    protected static $_includeFileCache;
-
-    /**
-     * Class map cache file handler
-     * @var resource
-     */
-    protected static $_includeFileCacheHandler;
-
-    /**
      * Instance loaded plugin paths
      *
      * @var array
@@ -340,18 +328,6 @@ class Zend_Loader_PluginLoader implements Zend_Loader_PluginLoader_Interface
             return $this->_loadedPluginPaths[$name];
         }
 
-        if ($this->isLoaded($name)) {
-            $class = $this->getClassName($name);
-            $r     = new ReflectionClass($class);
-            $path  = $r->getFileName();
-            if ($this->_useStaticRegistry) {
-                self::$_staticLoadedPluginPaths[$this->_useStaticRegistry][$name] = $path;
-            } else {
-                $this->_loadedPluginPaths[$name] = $path;
-            }
-            return $path;
-        }
-
         return false;
     }
 
@@ -385,29 +361,42 @@ class Zend_Loader_PluginLoader implements Zend_Loader_PluginLoader_Interface
         } else {
             $classFile = str_replace('_', DIRECTORY_SEPARATOR, $name) . '.php';
         }
-        $incFile   = self::getIncludeFileCache();
         foreach ($registry as $prefix => $paths) {
             $className = $prefix . $name;
 
+            /*
+             我们需要走下边的流程来取得$className对应的$loadFile,所以不能在这里break
+             @see PluginLoaderTest::testClassFilesGrabCorrectPathForLoadedClasses()
             if (class_exists($className, false)) {
                 $found = true;
                 break;
             }
+            */
 
-            $paths     = array_reverse($paths, true);
+            $paths = array_reverse($paths, true);
 
             foreach ($paths as $path) {
                 $loadFile = $path . $classFile;
-                if (Zend_Loader::isReadable($loadFile)) {
-                    include_once $loadFile;
-                    if (class_exists($className, false)) {
-                        if (null !== $incFile) {
-                            self::_appendIncFile($loadFile);
+                if (defined('__BPC__')) {
+                    if (include_once_silent($loadFile) !== false) {
+                        if (class_exists($className, false)) {
+                            $found = true;
+                            break;
                         }
-                        $found = true;
-                        break 2;
+                    }
+                } else {
+                    if (Zend_Loader::isReadable($loadFile)) {
+                        include_once $loadFile;
+                        if (class_exists($className, false)) {
+                            $found = true;
+                            break;
+                        }
                     }
                 }
+            }
+
+            if ($found) {
+                break;
             }
         }
 
@@ -426,81 +415,11 @@ class Zend_Loader_PluginLoader implements Zend_Loader_PluginLoader_Interface
 
         if ($this->_useStaticRegistry) {
             self::$_staticLoadedPlugins[$this->_useStaticRegistry][$name]     = $className;
+            self::$_staticLoadedPluginPaths[$this->_useStaticRegistry][$name] = $loadFile;
         } else {
             $this->_loadedPlugins[$name]     = $className;
+            $this->_loadedPluginPaths[$name] = $loadFile;
         }
         return $className;
-    }
-
-    /**
-     * Set path to class file cache
-     *
-     * Specify a path to a file that will add include_once statements for each
-     * plugin class loaded. This is an opt-in feature for performance purposes.
-     *
-     * @param  string $file
-     * @return void
-     * @throws Zend_Loader_PluginLoader_Exception if file is not writeable or path does not exist
-     */
-    public static function setIncludeFileCache($file)
-    {
-        if (!empty(self::$_includeFileCacheHandler)) {
-            flock(self::$_includeFileCacheHandler, LOCK_UN);
-            fclose(self::$_includeFileCacheHandler);
-        }
-
-        self::$_includeFileCacheHandler = null;
-
-        if (null === $file) {
-            self::$_includeFileCache = null;
-            return;
-        }
-
-        if (!file_exists($file) && !file_exists(dirname($file))) {
-            require_once 'Zend/Loader/PluginLoader/Exception.php';
-            throw new Zend_Loader_PluginLoader_Exception('Specified file does not exist and/or directory does not exist (' . $file . ')');
-        }
-        if (file_exists($file) && !is_writable($file)) {
-            require_once 'Zend/Loader/PluginLoader/Exception.php';
-            throw new Zend_Loader_PluginLoader_Exception('Specified file is not writeable (' . $file . ')');
-        }
-        if (!file_exists($file) && file_exists(dirname($file)) && !is_writable(dirname($file))) {
-            require_once 'Zend/Loader/PluginLoader/Exception.php';
-            throw new Zend_Loader_PluginLoader_Exception('Specified file is not writeable (' . $file . ')');
-        }
-
-        self::$_includeFileCache = $file;
-    }
-
-    /**
-     * Retrieve class file cache path
-     *
-     * @return string|null
-     */
-    public static function getIncludeFileCache()
-    {
-        return self::$_includeFileCache;
-    }
-
-    /**
-     * Append an include_once statement to the class file cache
-     *
-     * @param  string $incFile
-     * @return void
-     */
-    protected static function _appendIncFile($incFile)
-    {
-        if (!isset(self::$_includeFileCacheHandler)) {
-            self::$_includeFileCacheHandler = fopen(self::$_includeFileCache, 'ab');
-
-            if (!flock(self::$_includeFileCacheHandler, LOCK_EX | LOCK_NB, $wouldBlock) || $wouldBlock) {
-                self::$_includeFileCacheHandler = false;
-            }
-        }
-
-        if (false !== self::$_includeFileCacheHandler) {
-            $line = "<?php include_once '$incFile'?>\n";
-            fwrite(self::$_includeFileCacheHandler, $line, strlen($line));
-        }
     }
 }

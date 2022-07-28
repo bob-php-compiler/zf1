@@ -176,73 +176,24 @@ class Zend_Loader_ClassMapAutoloader implements Zend_Loader_SplAutoloader
      */
     protected function loadMapFromFile($location)
     {
-        if (!file_exists($location)) {
-            require_once dirname(__FILE__) . '/Exception/InvalidArgumentException.php';
-            throw new Zend_Loader_Exception_InvalidArgumentException('Map file provided does not exist');
-        }
-
-        if (!$path = self::realPharPath($location)) {
-            $path = realpath($location);
-        }
-
-        if (in_array($path, $this->mapsLoaded)) {
+        if (in_array($location, $this->mapsLoaded)) {
             // Already loaded this map
             return $this;
         }
 
-        $map = include $path;
-
-        return $map;
-    }
-
-    /**
-     * Resolve the real_path() to a file within a phar.
-     *
-     * @see    https://bugs.php.net/bug.php?id=52769 
-     * @param  string $path 
-     * @return string
-     */
-    public static function realPharPath($path)
-    {
-        if (strpos($path, 'phar:///') !== 0) {
-            return;
+        if (defined('__BPC__')) {
+            $map = include_silent($location);
+            if ($map === false) {
+                require_once dirname(__FILE__) . '/Exception/InvalidArgumentException.php';
+                throw new Zend_Loader_Exception_InvalidArgumentException('Map file provided does not exist');
+            }
+            return $map;
+        } else {
+            if (!file_exists($location)) {
+                require_once dirname(__FILE__) . '/Exception/InvalidArgumentException.php';
+                throw new Zend_Loader_Exception_InvalidArgumentException('Map file provided does not exist');
+            }
+            return include $location;
         }
-        
-        $parts = explode('/', str_replace(array('/','\\'), '/', substr($path, 8)));
-        $parts = array_values(array_filter($parts, array(__CLASS__, 'concatPharParts')));
-
-        array_walk($parts, array(__CLASS__, 'resolvePharParentPath'), $parts);
-
-        if (file_exists($realPath = 'phar:///' . implode('/', $parts))) {
-            return $realPath;
-        }
-    }
-
-    /**
-     * Helper callback for filtering phar paths
-     * 
-     * @param  string $part 
-     * @return bool
-     */
-    public static function concatPharParts($part)
-    {
-        return ($part !== '' && $part !== '.');
-    }
-
-    /**
-     * Helper callback to resolve a parent path in a Phar archive
-     * 
-     * @param  string $value 
-     * @param  int $key 
-     * @param  array $parts 
-     * @return void
-     */
-    public static function resolvePharParentPath($value, $key, &$parts)
-    {
-        if ($value !== '...') {
-            return;
-        }
-        unset($parts[$key], $parts[$key-1]);
-        $parts = array_values($parts);
     }
 }

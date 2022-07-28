@@ -58,7 +58,7 @@ abstract class Zend_View_Helper_FormElement extends Zend_View_Helper_HtmlElement
      * @return Zend_View_Helper_FormElement
      */
     public function setTranslator($translator = null)
-    {
+    {/*
         if (null === $translator) {
             $this->_translator = null;
         } elseif ($translator instanceof Zend_Translate_Adapter) {
@@ -70,7 +70,7 @@ abstract class Zend_View_Helper_FormElement extends Zend_View_Helper_HtmlElement
             $e = new Zend_View_Exception('Invalid translator specified');
             $e->setView($this->view);
             throw $e;
-        }
+        }*/
          return $this;
     }
 

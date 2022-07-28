@@ -133,12 +133,12 @@ class Zend_Loader_Autoloader_Resource implements Zend_Loader_Autoloader_Interfac
     }
 
     /**
-     * Helper method to calculate the correct class path
+     * Attempt to autoload a class
      *
-     * @param string $class
-     * @return False if not matched other wise the correct path
+     * @param  string $class
+     * @return mixed False if not matched, otherwise result if include operation
      */
-    public function getClassPath($class)
+    public function autoload($class)
     {
         $segments          = explode('_', $class);
         $namespaceTopLevel = $this->getNamespace();
@@ -181,26 +181,14 @@ class Zend_Loader_Autoloader_Resource implements Zend_Loader_Autoloader_Interfac
         $path = $this->_components[$lastMatch];
         $classPath = $path . '/' . str_replace('_', '/', $final) . '.php';
 
-        if (Zend_Loader::isReadable($classPath)) {
-            return $classPath;
+        if (defined('__BPC__')) {
+            return include_silent($classPath);
+        } else {
+            if (Zend_Loader::isReadable($classPath)) {
+                return include $classPath;
+            }
+            return false;
         }
-
-        return false;
-    }
-
-    /**
-     * Attempt to autoload a class
-     *
-     * @param  string $class
-     * @return mixed False if not matched, otherwise result if include operation
-     */
-    public function autoload($class)
-    {
-        $classPath = $this->getClassPath($class);
-        if (false !== $classPath) {
-            return include $classPath;
-        }
-        return false;
     }
 
     /**
