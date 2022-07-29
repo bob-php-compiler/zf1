@@ -181,6 +181,12 @@ class Zend_Locale_Math
             $value = str_replace($convert['negative_sign'], "", $value);
             $value = "-" . $value;
         }
+        
+        if (strlen($value) == 0) {
+            // Zend_Locale_Math_PhpMath::Pow(null, 2)
+            // Warning: A non-numeric value encountered
+            $value = '0';
+        }
 
         return $value;
     }

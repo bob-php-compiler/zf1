@@ -1534,7 +1534,7 @@ class Zend_Locale_MathTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(Zend_Locale_Math_PhpMath::Scale(0));
         $this->assertEquals(0, Zend_Locale_Math_PhpMath::Comp(10.5556, 10.4444));
     }
-
+/*
     public function testExponent()
     {
         if (!extension_loaded('bcmath')) {
@@ -1634,7 +1634,7 @@ class Zend_Locale_MathTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('-1', Zend_Locale_Math::Comp(2, '1e3'));
         $this->assertEquals('0', Zend_Locale_Math::Comp('1e3', '1e3'));
     }
-
+*/
     public function testNegativeRounding()
     {
         $this->assertEquals(               '-3', Zend_Locale_Math::round('-3.4'));

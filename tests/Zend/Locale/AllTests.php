@@ -20,10 +20,6 @@
  * @version    $Id$
  */
 
-if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Zend_Locale_AllTests::main');
-}
-
 // define('TESTS_ZEND_LOCALE_BCMATH_ENABLED', false); // uncomment to disable use of bcmath extension by Zend_Date
 
 require_once 'Zend/Locale/DataTest.php';
@@ -42,16 +38,6 @@ require_once 'Zend/Locale/MathTest.php';
  */
 class Zend_Locale_AllTests
 {
-    public static function main()
-    {
-        if (defined('TESTS_ZEND_LOCALE_FORMAT_SETLOCALE') && TESTS_ZEND_LOCALE_FORMAT_SETLOCALE) {
-            // run all tests in a special locale
-            setlocale(LC_ALL, TESTS_ZEND_LOCALE_FORMAT_SETLOCALE);
-        }
-
-        PHPUnit_TextUI_TestRunner::run(self::suite());
-    }
-
     public static function suite()
     {
         $suite = new PHPUnit_Framework_TestSuite('Zend Framework - Zend_Locale');
@@ -62,8 +48,4 @@ class Zend_Locale_AllTests
 
         return $suite;
     }
-}
-
-if (PHPUnit_MAIN_METHOD == 'Zend_Locale_AllTests::main') {
-    Zend_Locale_AllTests::main();
 }
