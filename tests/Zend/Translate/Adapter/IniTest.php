@@ -35,17 +35,6 @@ require_once 'Zend/Translate/Adapter/Ini.php';
  */
 class Zend_Translate_Adapter_IniTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * Runs the test methods of this class.
-     *
-     * @return void
-     */
-    public static function main()
-    {
-        $suite  = new PHPUnit_Framework_TestSuite("Zend_Translate_Adapter_IniTest");
-        $result = PHPUnit_TextUI_TestRunner::run($suite);
-    }
-
     public function testCreate()
     {
         $adapter = new Zend_Translate_Adapter_Ini(dirname(__FILE__) . '/_files/translation_en.ini');
@@ -76,11 +65,13 @@ class Zend_Translate_Adapter_IniTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Message 1 (en)', $adapter->_('Message_1'));
         $this->assertEquals('Message_6', $adapter->translate('Message_6'));
         $this->assertEquals('Küchen Möbel (en)', $adapter->translate('Cooking_furniture'));
+        /*
         if (0 > version_compare(PHP_VERSION, '5.3.0')) {
             $this->assertEquals('Cooking furniture (en)', $adapter->translate('Küchen_Möbel'), var_export($adapter->getMessages('en'), 1));
         } else {
             $this->markTestSkipped('PHP 5.3 cannot utilize non-ASCII characters for INI option keys');
         }
+        */
     }
 
     public function testIsTranslated()
@@ -215,9 +206,4 @@ class Zend_Translate_Adapter_IniTest extends PHPUnit_Framework_TestCase
     {
         $this->_errorOccurred = true;
     }
-}
-
-// Call Zend_Translate_Adapter_IniTest::main() if this source file is executed directly.
-if (PHPUnit_MAIN_METHOD == "Zend_Translate_Adapter_IniTest::main") {
-    Zend_Translate_Adapter_IniTest::main();
 }

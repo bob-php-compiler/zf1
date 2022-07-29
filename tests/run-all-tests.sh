@@ -19,7 +19,9 @@ then
                Zend/Log/AllTests.php
                Zend/Cache/AllTests.php
                Zend/LoaderTest.php
-               Zend/Loader/AllTests.php"
+               Zend/Loader/AllTests.php
+               Zend/TranslateTest.php
+               Zend/Translate/AllTests.php"
 else
     TEST_LIST=$1
 fi

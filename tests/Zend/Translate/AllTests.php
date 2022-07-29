@@ -20,10 +20,6 @@
  * @version    $Id$
  */
 
-if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Zend_Translate_AllTests::main');
-}
-
 require_once 'Zend/Translate/Adapter/AllTests.php';
 
 /**
@@ -36,11 +32,6 @@ require_once 'Zend/Translate/Adapter/AllTests.php';
  */
 class Zend_Translate_AllTests
 {
-    public static function main()
-    {
-        PHPUnit_TextUI_TestRunner::run(self::suite());
-    }
-
     public static function suite()
     {
         $suite = new PHPUnit_Framework_TestSuite('Zend Framework - Zend_Translate');
@@ -50,8 +41,3 @@ class Zend_Translate_AllTests
         return $suite;
     }
 }
-
-if (PHPUnit_MAIN_METHOD == 'Zend_Translate_Adapter_AllTests::main') {
-    Zend_Translate_AllTests::main();
-}
-
