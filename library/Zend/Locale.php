@@ -2009,4 +2009,10 @@ class Zend_Locale
 
         return (string) $locale;
     }
+
+    // for Zend/LocaleTest.php::testEachDataFileShouldPresentAsLocaleData()
+    public static function getLocaleData()
+    {
+        return self::$_localeData;
+    }
 }

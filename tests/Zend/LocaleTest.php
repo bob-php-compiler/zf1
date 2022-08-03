@@ -48,7 +48,7 @@ class Zend_LocaleTest extends PHPUnit_Framework_TestCase
         require_once 'Zend/Cache.php';
         $this->_cache = Zend_Cache::factory('Core', 'File',
                  array('lifetime' => 120, 'automatic_serialization' => true),
-                 array('cache_dir' => dirname(__FILE__) . '/_files/'));
+                 array('cache_dir' => TEST_ROOT_DIR . '/Zend/_files/'));
         Zend_LocaleTestHelper::resetObject();
         Zend_LocaleTestHelper::setCache($this->_cache);
 
@@ -896,12 +896,8 @@ class Zend_LocaleTest extends PHPUnit_Framework_TestCase
 
     public function testEachDataFileShouldPresentAsLocaleData()
     {
-        if (version_compare(PHP_VERSION, '5.3.2', 'lt')) {
-            $this->markTestSkipped('ReflectionMethod::setAccessible can only be run under 5.3.2 or later');
-        }
-
         $dir = new DirectoryIterator(
-            dirname(__FILE__) . '/../../library/Zend/Locale/Data'
+            TEST_ROOT_DIR . '/../library/Zend/Locale/Data'
         );
         $skip = array(
             'characters.xml',
@@ -930,13 +926,7 @@ class Zend_LocaleTest extends PHPUnit_Framework_TestCase
             }
         }
 
-        $class    = new ReflectionClass('Zend_Locale');
-        $property = $class->getProperty('_localeData');
-        $property->setAccessible(true);
-
-        $locale     = new Zend_Locale();
-        $localeData = $property->getValue($locale);
-        $localeData = array_keys($localeData);
+        $localeData = array_keys(Zend_Locale::getLocaleData());
 
         $this->assertEquals(array(), array_diff($files, $localeData));
     }
@@ -951,7 +941,7 @@ class Zend_LocaleTest extends PHPUnit_Framework_TestCase
      * @param  array   $errcontext
      * @return void
      */
-    public function errorHandlerIgnore($errno, $errstr, $errfile, $errline, array $errcontext)
+    public function errorHandlerIgnore($errno, $errstr, $errfile, $errline)
     {
         $this->_errorOccurred = true;
     }

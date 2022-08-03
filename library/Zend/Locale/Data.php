@@ -25,8 +25,12 @@
  */
 require_once 'Zend/Locale.php';
 
-/** @see Zend_Xml_Security */
-require_once 'Zend/Xml/Security.php';
+if (defined('__BPC__')) {
+    // not require Zend/Xml
+} else {
+    /** @see Zend_Xml_Security */
+    require_once 'Zend/Xml/Security.php';
+}
 
 /**
  * Locale data reader, handles the CLDR
@@ -106,7 +110,7 @@ class Zend_Locale_Data
 
             $result = self::$_ldml[(string) $locale]->xpath($path);
             if (!empty($result)) {
-                foreach ($result as &$found) {
+                foreach ($result as $found) {
 
                     if (empty($value)) {
 
@@ -152,12 +156,21 @@ class Zend_Locale_Data
         // needed for alias tag when referring to other locale
         if (empty(self::$_ldml[(string) $locale])) {
             $filename = dirname(__FILE__) . '/Data/' . $locale . '.xml';
-            if (!file_exists($filename)) {
-                require_once 'Zend/Locale/Exception.php';
-                throw new Zend_Locale_Exception("Missing locale file '$filename' for '$locale' locale.");
-            }
+            if (defined('__BPC__')) {
+                $contents = resource_get_contents($filename);
+                if (!$contents) {
+                    require_once 'Zend/Locale/Exception.php';
+                    throw new Zend_Locale_Exception("Missing locale file '$filename' for '$locale' locale.");
+                }
+                self::$_ldml[(string) $locale] = new SimpleXMLElement($contents);
+            } else {
+                if (!file_exists($filename)) {
+                    require_once 'Zend/Locale/Exception.php';
+                    throw new Zend_Locale_Exception("Missing locale file '$filename' for '$locale' locale.");
+                }
 
-            self::$_ldml[(string) $locale] = Zend_Xml_Security::scanFile($filename);
+                self::$_ldml[(string) $locale] = Zend_Xml_Security::scanFile($filename);
+            }
         }
 
         // search for 'alias' tag in the search path for redirection
@@ -652,10 +665,11 @@ class Zend_Locale_Data
                     if (!isset($val[$key])) {
                         continue;
                     }
-                    if (!isset($temp[$val[$key]])) {
-                        $temp[$val[$key]] = $key;
+                    $k = $val[$key];
+                    if (!isset($temp[$k])) {
+                        $temp[$k] = $key;
                     } else {
-                        $temp[$val[$key]] .= " " . $key;
+                        $temp[$k] .= " " . $key;
                     }
                 }
                 break;
@@ -700,10 +714,11 @@ class Zend_Locale_Data
                     if (!isset($val[$key])) {
                         continue;
                     }
-                    if (!isset($temp[$val[$key]])) {
-                        $temp[$val[$key]] = $key;
+                    $k = $val[$key];
+                    if (!isset($temp[$k])) {
+                        $temp[$k] = $key;
                     } else {
-                        $temp[$val[$key]] .= " " . $key;
+                        $temp[$k] .= " " . $key;
                     }
                 }
                 break;
@@ -856,10 +871,11 @@ class Zend_Locale_Data
                     if (!isset($val[$key])) {
                         continue;
                     }
-                    if (!isset($temp[$val[$key]])) {
-                        $temp[$val[$key]] = $key;
+                    $k = $val[$key];
+                    if (!isset($temp[$k])) {
+                        $temp[$k] = $key;
                     } else {
-                        $temp[$val[$key]] .= " " . $key;
+                        $temp[$k] .= " " . $key;
                     }
                 }
                 break;
@@ -1242,13 +1258,17 @@ class Zend_Locale_Data
                 $temp = array();
                 foreach ($_temp as $key => $keyvalue) {
                     $val = self::_getFile($locale, '/ldml/numbers/currencies/currency[@type=\'' . $key . '\']/displayName', '', $key);
-                    if (!isset($val[$key]) or ($val[$key] != $value)) {
+                    if (!isset($val[$key])) {
                         continue;
                     }
-                    if (!isset($temp[$val[$key]])) {
-                        $temp[$val[$key]] = $key;
+                    $k = $val[$key];
+                    if ($k != $value) {
+                        continue;
+                    }
+                    if (!isset($temp[$k])) {
+                        $temp[$k] = $key;
                     } else {
-                        $temp[$val[$key]] .= " " . $key;
+                        $temp[$k] .= " " . $key;
                     }
                 }
                 break;
@@ -1284,13 +1304,17 @@ class Zend_Locale_Data
                 $temp = array();
                 foreach ($_temp as $key => $keyvalue) {
                     $val = self::_getFile('supplementalData', '/supplementalData/currencyData/region[@iso3166=\'' . $key . '\']/currency', 'iso4217', $key);
-                    if (!isset($val[$key]) or ($val[$key] != $value)) {
+                    if (!isset($val[$key])) {
                         continue;
                     }
-                    if (!isset($temp[$val[$key]])) {
-                        $temp[$val[$key]] = $key;
+                    $k = $val[$key];
+                    if ($k != $value) {
+                        continue;
+                    }
+                    if (!isset($temp[$k])) {
+                        $temp[$k] = $key;
                     } else {
-                        $temp[$val[$key]] .= " " . $key;
+                        $temp[$k] .= " " . $key;
                     }
                 }
                 break;
