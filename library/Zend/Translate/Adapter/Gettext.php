@@ -66,15 +66,30 @@ class Zend_Translate_Adapter_Gettext extends Zend_Translate_Adapter {
     {
         $this->_data      = array();
         $this->_bigEndian = false;
-        $this->_file      = @fopen($filename, 'rb');
+        if (defined('__BPC__')) {
+            $contents = resource_get_contents($filename);
+            if ($contents) {
+                $this->_file = fopen('data://text/plain;base64,' . base64_encode($contents), 'r');
+            }
+        } else {
+            $this->_file = @fopen($filename, 'rb');
+        }
         if (!$this->_file) {
             require_once 'Zend/Translate/Exception.php';
             throw new Zend_Translate_Exception('Error opening translation file \'' . $filename . '\'.');
         }
-        if (@filesize($filename) < 10) {
-            @fclose($this->_file);
-            require_once 'Zend/Translate/Exception.php';
-            throw new Zend_Translate_Exception('\'' . $filename . '\' is not a gettext file');
+        if (defined('__BPC__')) {
+            if (strlen($contents) < 10) {
+                fclose($this->_file);
+                require_once 'Zend/Translate/Exception.php';
+                throw new Zend_Translate_Exception('\'' . $filename . '\' is not a gettext file');
+            }
+        } else {
+            if (@filesize($filename) < 10) {
+                @fclose($this->_file);
+                require_once 'Zend/Translate/Exception.php';
+                throw new Zend_Translate_Exception('\'' . $filename . '\' is not a gettext file');
+            }
         }
 
         // get Endian
@@ -133,8 +148,9 @@ class Zend_Translate_Adapter_Gettext extends Zend_Translate_Adapter {
                 }
             }
         }
-        
+
         @fclose($this->_file);
+        $this->_file = false;
 
         $this->_data[$locale][''] = trim($this->_data[$locale]['']);
         if (empty($this->_data[$locale][''])) {

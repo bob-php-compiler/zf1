@@ -127,8 +127,14 @@ class Zend_Translate {
             $options = array('adapter' => $options);
         }
 
-        if (Zend_Loader::isReadable('Zend/Translate/Adapter/' . ucfirst($options['adapter']). '.php')) {
-            $options['adapter'] = 'Zend_Translate_Adapter_' . ucfirst($options['adapter']);
+        if (defined('__BPC__')) {
+            if (include_once_silent('Zend/Translate/Adapter/' . ucfirst($options['adapter']). '.php') !== false) {
+                $options['adapter'] = 'Zend_Translate_Adapter_' . ucfirst($options['adapter']);
+            }
+        } else {
+            if (Zend_Loader::isReadable('Zend/Translate/Adapter/' . ucfirst($options['adapter']). '.php')) {
+                $options['adapter'] = 'Zend_Translate_Adapter_' . ucfirst($options['adapter']);
+            }
         }
 
         if (!class_exists($options['adapter'])) {

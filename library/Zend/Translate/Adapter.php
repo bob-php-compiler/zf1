@@ -214,7 +214,7 @@ abstract class Zend_Translate_Adapter {
         } else if (!is_array($options)) {
             $options = array('content' => $options);
         }
-        
+
         if (!isset($options['content']) || empty($options['content'])) {
             require_once 'Zend/Translate/Exception.php';
             throw new Zend_Translate_Exception("Required option 'content' is missing");
@@ -245,86 +245,8 @@ abstract class Zend_Translate_Adapter {
 
         $options  = $options + $this->_options;
         if (is_string($options['content']) and is_dir($options['content'])) {
-            $options['content'] = realpath($options['content']);
-            $prev = '';
-            $iterator = new RecursiveIteratorIterator(
-                new RecursiveRegexIterator(
-                    new RecursiveDirectoryIterator($options['content'], RecursiveDirectoryIterator::KEY_AS_PATHNAME),
-                    '/^(?!.*(\.svn|\.cvs)).*$/', RecursiveRegexIterator::MATCH
-                ),
-                RecursiveIteratorIterator::SELF_FIRST
-            );
-            
-            foreach ($iterator as $directory => $info) {
-                $file = $info->getFilename();
-                if (is_array($options['ignore'])) {
-                    foreach ($options['ignore'] as $key => $ignore) {
-                        if (strpos($key, 'regex') !== false) {
-                            if (preg_match($ignore, $directory)) {
-                                // ignore files matching the given regex from option 'ignore' and all files below
-                                continue 2;
-                            }
-                        } else if (strpos($directory, DIRECTORY_SEPARATOR . $ignore) !== false) {
-                            // ignore files matching first characters from option 'ignore' and all files below
-                            continue 2;
-                        }
-                    }
-                } else {
-                    if (strpos($directory, DIRECTORY_SEPARATOR . $options['ignore']) !== false) {
-                        // ignore files matching first characters from option 'ignore' and all files below
-                        continue;
-                    }
-                }
-
-                if ($info->isDir()) {
-                    // pathname as locale
-                    if (($options['scan'] === self::LOCALE_DIRECTORY) and (Zend_Locale::isLocale($file, true, false))) {
-                        $options['locale'] = $file;
-                        $prev              = (string) $options['locale'];
-                    }
-                } else if ($info->isFile()) {
-                    // filename as locale
-                    if ($options['scan'] === self::LOCALE_FILENAME) {
-                        $filename = explode('.', $file);
-                        array_pop($filename);
-                        $filename = implode('.', $filename);
-                        if (Zend_Locale::isLocale((string) $filename, true, false)) {
-                            $options['locale'] = (string) $filename;
-                        } else {
-                            $parts  = explode('.', $file);
-                            $parts2 = array();
-                            foreach($parts as $token) {
-                                $parts2 += explode('_', $token);
-                            }
-                            $parts  = array_merge($parts, $parts2);
-                            $parts2 = array();
-                            foreach($parts as $token) {
-                                $parts2 += explode('-', $token);
-                            }
-                            $parts = array_merge($parts, $parts2);
-                            $parts = array_unique($parts);
-                            $prev  = '';
-                            foreach($parts as $token) {
-                                if (Zend_Locale::isLocale($token, true, false)) {
-                                    if (strlen($prev) <= strlen($token)) {
-                                        $options['locale'] = $token;
-                                        $prev              = $token;
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    try {
-                        $options['content'] = $info->getPathname();
-                        $this->_addTranslationData($options);
-                    } catch (Zend_Translate_Exception $e) {
-                        // ignore failed sources while scanning
-                    }
-                }
-            }
-            
-            unset($iterator);
+            require_once 'Zend/Translate/Exception.php';
+            throw new Zend_Translate_Exception("not support dir");
         } else {
             $this->_addTranslationData($options);
         }

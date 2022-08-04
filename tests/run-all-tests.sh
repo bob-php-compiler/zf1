@@ -30,6 +30,6 @@ fi
 
 for i in $TEST_LIST
 do
-    printf "\n\n\033[32;49;1m@@ $i @@\033[39;49;0m\n\n"
+    printf "\n\n\033[32;49;1m@@ $i @@\033[39;49;0m\n\n" >&2
     $PHPUNIT --bootstrap=TestHelper.php --stderr -d memory_limit=-1 -d error_reporting=32767 -d display_errors=1 $i
 done

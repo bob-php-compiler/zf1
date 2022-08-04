@@ -83,13 +83,22 @@ class Zend_Translate_Adapter_Csv extends Zend_Translate_Adapter
     {
         $this->_data = array();
         $options     = $options + $this->_options;
-        $this->_file = @fopen($filename, 'rb');
-        if (!$this->_file) {
+        if (defined('__BPC__')) {
+            $contents = resource_get_contents($filename);
+            if ($contents) {
+                $file = fopen('data://text/plain;base64,' . base64_encode($contents), 'r');
+            } else {
+                $file = false;
+            }
+        } else {
+            $file = @fopen($filename, 'rb');
+        }
+        if (!$file) {
             require_once 'Zend/Translate/Exception.php';
             throw new Zend_Translate_Exception('Error opening translation file \'' . $filename . '\'.');
         }
 
-        while(($data = fgetcsv($this->_file, $options['length'], $options['delimiter'], $options['enclosure'])) !== false) {
+        while(($data = fgetcsv($file, $options['length'], $options['delimiter'], $options['enclosure'])) !== false) {
             if (substr($data[0], 0, 1) === '#') {
                 continue;
             }
@@ -105,6 +114,8 @@ class Zend_Translate_Adapter_Csv extends Zend_Translate_Adapter
                 $this->_data[$locale][$singular] = $data;
             }
         }
+
+        fclose($file);
 
         return $this->_data;
     }

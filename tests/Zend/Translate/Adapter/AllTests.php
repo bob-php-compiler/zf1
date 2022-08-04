@@ -24,11 +24,11 @@ require_once 'Zend/Translate/Adapter/ArrayTest.php';
 require_once 'Zend/Translate/Adapter/CsvTest.php';
 require_once 'Zend/Translate/Adapter/GettextTest.php';
 require_once 'Zend/Translate/Adapter/IniTest.php';
-require_once 'Zend/Translate/Adapter/QtTest.php';
-require_once 'Zend/Translate/Adapter/TbxTest.php';
-require_once 'Zend/Translate/Adapter/TmxTest.php';
-require_once 'Zend/Translate/Adapter/XliffTest.php';
-require_once 'Zend/Translate/Adapter/XmlTmTest.php';
+//require_once 'Zend/Translate/Adapter/QtTest.php';
+//require_once 'Zend/Translate/Adapter/TbxTest.php';
+//require_once 'Zend/Translate/Adapter/TmxTest.php';
+//require_once 'Zend/Translate/Adapter/XliffTest.php';
+//require_once 'Zend/Translate/Adapter/XmlTmTest.php';
 
 /**
  * @category   Zend
@@ -48,11 +48,11 @@ class Zend_Translate_Adapter_AllTests
         $suite->addTestSuite('Zend_Translate_Adapter_CsvTest');
         $suite->addTestSuite('Zend_Translate_Adapter_GettextTest');
         $suite->addTestSuite('Zend_Translate_Adapter_IniTest');
-        $suite->addTestSuite('Zend_Translate_Adapter_QtTest');
-        $suite->addTestSuite('Zend_Translate_Adapter_TbxTest');
-        $suite->addTestSuite('Zend_Translate_Adapter_TmxTest');
-        $suite->addTestSuite('Zend_Translate_Adapter_XliffTest');
-        $suite->addTestSuite('Zend_Translate_Adapter_XmlTmTest');
+        //$suite->addTestSuite('Zend_Translate_Adapter_QtTest');
+        //$suite->addTestSuite('Zend_Translate_Adapter_TbxTest');
+        //$suite->addTestSuite('Zend_Translate_Adapter_TmxTest');
+        //$suite->addTestSuite('Zend_Translate_Adapter_XliffTest');
+        //$suite->addTestSuite('Zend_Translate_Adapter_XmlTmTest');
 
         return $suite;
     }

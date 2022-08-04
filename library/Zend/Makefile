@@ -1,5 +1,5 @@
 libzend_u-4.4a.so:
-	bpc -v -l zend --input-file src.list
+	bpc -v -l zend --input-file src.list --input-file resource.list
 
 install:
 	bpc -l zend --install

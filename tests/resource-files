@@ -1,0 +1,21 @@
+# mo
+Zend/Translate/Adapter/_files/translation_en.mo
+Zend/Translate/Adapter/_files/translation_en2.mo
+Zend/Translate/Adapter/_files/translation_otherencoding.mo
+Zend/Translate/Adapter/_files/translation_plural_fr.mo
+Zend/Translate/Adapter/_files/translation_plural_tr.mo
+Zend/Translate/Adapter/_files/translation_bigendian.mo
+Zend/Translate/Adapter/_files/failed.mo
+Zend/Translate/Adapter/_files/failed2.mo
+Zend/Translate/Adapter/_files/failed3.mo
+Zend/Translate/Adapter/_files/testmo/de_AT/LC_TEST/translation-de_DE.mo
+# csv
+Zend/Translate/Adapter/_files/translation_en.csv
+Zend/Translate/Adapter/_files/translation_en2.csv
+Zend/Translate/Adapter/_files/translation_otherdelimiter.csv
+Zend/Translate/Adapter/_files/translation_specialchars.csv
+Zend/Translate/Adapter/_files/failed.csv
+# ini
+Zend/Translate/Adapter/_files/translation_en.ini
+Zend/Translate/Adapter/_files/translation_en2.ini
+Zend/Translate/Adapter/_files/failed.ini

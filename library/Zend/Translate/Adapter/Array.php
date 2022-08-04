@@ -50,10 +50,16 @@ class Zend_Translate_Adapter_Array extends Zend_Translate_Adapter
     {
         $this->_data = array();
         if (!is_array($data)) {
-            if (file_exists($data)) {
+            if (defined('__BPC__')) {
                 ob_start();
-                $data = include($data);
+                $data = include_silent($data);
                 ob_end_clean();
+            } else {
+                if (file_exists($data)) {
+                    ob_start();
+                    $data = include($data);
+                    ob_end_clean();
+                }
             }
         }
         if (!is_array($data)) {
