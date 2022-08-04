@@ -458,7 +458,7 @@ class Zend_Mail_MessageTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(Zend_Mime_Decode::splitHeaderField($header, 'foo'), 'bar');
         $this->assertEquals(Zend_Mime_Decode::splitHeaderField($header, 'baz'), 42);
     }
-    
+
     /**
      * @group ZF-11514
      */
@@ -474,19 +474,19 @@ class Zend_Mail_MessageTest extends PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('constructor', $flags);
         $this->assertEquals('constructor', $flags['constructor']);
     }
-    
+
     /**
      * @group ZF-3745
      */
     public function testBackwardsCompatibilityMaintainedWhenPartClassNotSpecified()
     {
         $message = new Zend_Mail_Message(array('file' => $this->_file));
-        $this->assertGreaterThan(0, count($message));
+        $this->assertGreaterThan(0, $message->countParts());
         foreach ( $message as $part ) {
             $this->assertEquals('Zend_Mail_Part', get_class($part));
         }
     }
-    
+
     /**
      * @group ZF-3745
      */
@@ -497,14 +497,14 @@ class Zend_Mail_MessageTest extends PHPUnit_Framework_TestCase
             'partclass' => 'ZF3745_Mail_Part'
         ));
         $this->assertEquals('ZF3745_Mail_Part', $message->getPartClass());
-        
+
         // Ensure message parts use the specified part class
-        $this->assertGreaterThan(0, count($message));
+        $this->assertGreaterThan(0, $message->countParts());
         foreach ( $message as $part ) {
             $this->assertEquals('ZF3745_Mail_Part', get_class($part));
         }
     }
-    
+
     /**
      * @group ZF-3745
      */
@@ -513,15 +513,15 @@ class Zend_Mail_MessageTest extends PHPUnit_Framework_TestCase
         $message = new Zend_Mail_Message(array('file' => $this->_file));
         $message->setPartClass('ZF3745_Mail_Part');
         $this->assertEquals('ZF3745_Mail_Part', $message->getPartClass());
-        
+
         // Ensure message parts use the specified part class
-        $this->assertGreaterThan(0, count($message));
+        $this->assertGreaterThan(0, $message->countParts());
         foreach ( $message as $part ) {
             $this->assertEquals('ZF3745_Mail_Part', get_class($part));
         }
     }
 
-    public function invalidHeaders()
+    public function dataProviderTestRaisesExceptionWhenProvidedWithHeaderContainingCRLFInjection()
     {
         return array(
             'name'        => array("Fake\r\n\r\rnevilContent", 'value'),
@@ -529,9 +529,8 @@ class Zend_Mail_MessageTest extends PHPUnit_Framework_TestCase
             'multi-value' => array('Fake', array('okay', "foo-bar\r\n\r\nevilContent")),
         );
     }
-    
+
     /**
-     * @dataProvider invalidHeaders
      * @group ZF2015-04
      */
     public function testRaisesExceptionWhenProvidedWithHeaderContainingCRLFInjection($name, $value)

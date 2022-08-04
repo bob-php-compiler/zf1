@@ -883,7 +883,6 @@ class Zend_Mail_MailTest extends PHPUnit_Framework_TestCase
 
     /**
      * @group ZF-1688
-     * @dataProvider dataSubjects
      */
     public function testIfLongSubjectsHaveCorrectLineBreaksAndEncodingMarks($subject)
     {
@@ -908,10 +907,8 @@ class Zend_Mail_MailTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('foo@example.com',$mail->getReplyTo());
     }
 
-    /**
-     * @expectedException Zend_Mail_Exception
-     */
     public function testReplyToCantBeSetTwice() {
+        $this->expectException('Zend_Mail_Exception');
         $mail = new Zend_Mail();
         $mail->setReplyTo('user@example.com');
         $mail->setReplyTo('user2@example.com');
@@ -1029,7 +1026,7 @@ class Zend_Mail_MailTest extends PHPUnit_Framework_TestCase
         $this->assertFalse(isset($headers['foo']));
     }
 
-    public static function dataSubjects()
+    public static function dataProviderTestIfLongSubjectsHaveCorrectLineBreaksAndEncodingMarks()
     {
         return array(
             array("Simple Ascii Subject"),

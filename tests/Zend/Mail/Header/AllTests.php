@@ -20,10 +20,6 @@
  * @version    $Id$
  */
 
-if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Zend_Mail_Header_AllTests::main');
-}
-
 require_once 'Zend/Mail/Header/HeaderNameTest.php';
 require_once 'Zend/Mail/Header/HeaderValueTest.php';
 
@@ -37,11 +33,6 @@ require_once 'Zend/Mail/Header/HeaderValueTest.php';
  */
 class Zend_Mail_Header_AllTests
 {
-    public static function main()
-    {
-        PHPUnit_TextUI_TestRunner::run(self::suite());
-    }
-
     public static function suite()
     {
         $suite = new PHPUnit_Framework_TestSuite('Zend Framework - Zend_Mail_Header');
@@ -51,8 +42,4 @@ class Zend_Mail_Header_AllTests
 
         return $suite;
     }
-}
-
-if (PHPUnit_MAIN_METHOD == 'Zend_Mail_Header_AllTests::main') {
-    Zend_Mail_Header_AllTests::main();
 }

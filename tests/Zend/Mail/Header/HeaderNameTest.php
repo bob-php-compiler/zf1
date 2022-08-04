@@ -30,7 +30,7 @@ class Zend_Mail_Header_HeaderNameTest extends PHPUnit_Framework_TestCase
     /**
      * Data for filter name
      */
-    public function getFilterNames()
+    public function dataProviderTestFilterName ()
     {
         return array(
             array('Subject', 'Subject'),
@@ -44,7 +44,6 @@ class Zend_Mail_Header_HeaderNameTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider getFilterNames
      * @group ZF2015-04
      */
     public function testFilterName($name, $expected)
@@ -52,7 +51,7 @@ class Zend_Mail_Header_HeaderNameTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, Zend_Mail_Header_HeaderName::filter($name));
     }
 
-    public function validateNames()
+    public function dataProviderTestValidateName()
     {
         return array(
             array('Subject', 'assertTrue'),
@@ -66,7 +65,6 @@ class Zend_Mail_Header_HeaderNameTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider validateNames
      * @group ZF2015-04
      */
     public function testValidateName($name, $assertion)
@@ -74,7 +72,7 @@ class Zend_Mail_Header_HeaderNameTest extends PHPUnit_Framework_TestCase
         $this->{$assertion}(Zend_Mail_Header_HeaderName::isValid($name));
     }
 
-    public function assertNames()
+    public function dataProviderTestAssertValidRaisesExceptionForInvalidNames()
     {
         return array(
             array('Subject:'),
@@ -85,7 +83,6 @@ class Zend_Mail_Header_HeaderNameTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider assertNames
      * @group ZF2015-04
      */
     public function testAssertValidRaisesExceptionForInvalidNames($name)

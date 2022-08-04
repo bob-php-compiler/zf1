@@ -20,10 +20,6 @@
  * @version    $Id$
  */
 
-if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Zend_Mail_AllTests::main');
-}
-
 require_once 'Zend/Mail/Header/AllTests.php';
 require_once 'Zend/Mail/MailTest.php';
 require_once 'Zend/Mail/MboxTest.php';
@@ -52,11 +48,6 @@ require_once 'Zend/Mail/FileTransportTest.php';
  */
 class Zend_Mail_AllTests
 {
-    public static function main()
-    {
-        PHPUnit_TextUI_TestRunner::run(self::suite());
-    }
-
     public static function suite()
     {
         $suite = new PHPUnit_Framework_TestSuite('Zend Framework - Zend_Mail');
@@ -80,8 +71,8 @@ class Zend_Mail_AllTests
             $suite->addTestSuite('Zend_Mail_MaildirFolderTest');
             $suite->addTestSuite('Zend_Mail_MaildirWritableTest');
         }
-	$suite->addTestSuite('Zend_Mail_SmtpOfflineTest');
-	$suite->addTestSuite('Zend_Mail_SmtpProtocolTest');
+        $suite->addTestSuite('Zend_Mail_SmtpOfflineTest');
+        $suite->addTestSuite('Zend_Mail_SmtpProtocolTest');
         if (defined('TESTS_ZEND_MAIL_SMTP_ENABLED') && constant('TESTS_ZEND_MAIL_SMTP_ENABLED') == true) {
             $suite->addTestSuite('Zend_Mail_SmtpTest');
         }
@@ -89,8 +80,4 @@ class Zend_Mail_AllTests
 
         return $suite;
     }
-}
-
-if (PHPUnit_MAIN_METHOD == 'Zend_Mail_AllTests::main') {
-    Zend_Mail_AllTests::main();
 }

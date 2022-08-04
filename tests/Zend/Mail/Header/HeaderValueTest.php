@@ -30,7 +30,7 @@ class Zend_Mail_Header_HeaderValueTest extends PHPUnit_Framework_TestCase
     /**
      * Data for filter value
      */
-    public function getFilterValues()
+    public function dataProviderTestFilterValue()
     {
         return array(
             array("This is a\n test", "This is a test"),
@@ -48,7 +48,6 @@ class Zend_Mail_Header_HeaderValueTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider getFilterValues
      * @group ZF2015-04
      */
     public function testFilterValue($value, $expected)
@@ -56,7 +55,7 @@ class Zend_Mail_Header_HeaderValueTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, Zend_Mail_Header_HeaderValue::filter($value));
     }
 
-    public function validateValues()
+    public function dataProviderTestValidateValue()
     {
         return array(
             array("This is a\n test", 'assertFalse'),
@@ -74,7 +73,6 @@ class Zend_Mail_Header_HeaderValueTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider validateValues
      * @group ZF2015-04
      */
     public function testValidateValue($value, $assertion)
@@ -82,7 +80,7 @@ class Zend_Mail_Header_HeaderValueTest extends PHPUnit_Framework_TestCase
         $this->{$assertion}(Zend_Mail_Header_HeaderValue::isValid($value));
     }
 
-    public function assertValues()
+    public function dataProviderTestAssertValidRaisesExceptionForInvalidValues()
     {
         return array(
             array("This is a\n test"),
@@ -99,7 +97,6 @@ class Zend_Mail_Header_HeaderValueTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider assertValues
      * @group ZF2015-04
      */
     public function testAssertValidRaisesExceptionForInvalidValues($value)
