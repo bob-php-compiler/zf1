@@ -24,7 +24,9 @@ then
                Zend/Locale/AllTests.php
                Zend/TranslateTest.php
                Zend/Translate/AllTests.php
-               Zend/RegistryTest.php"
+               Zend/RegistryTest.php
+               Zend/MimeTest.php
+               Zend/Mime/AllTests.php"
 else
     TEST_LIST=$1
 fi

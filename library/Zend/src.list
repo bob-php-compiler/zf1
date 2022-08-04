@@ -133,3 +133,9 @@ Translate/Adapter/Ini.php
 #Translate/Adapter/XmlTm.php
 # Registry
 Registry.php
+# Mime
+Mime.php
+Mime/Exception.php
+Mime/Decode.php
+Mime/Message.php
+Mime/Part.php

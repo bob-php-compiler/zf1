@@ -10,3 +10,4 @@
 - [x] Locale
 - [x] Translate
 - [x] Registry
+- [x] Mime
