@@ -11,3 +11,4 @@
 - [x] Translate
 - [x] Registry
 - [x] Mime
+- [x] Mail

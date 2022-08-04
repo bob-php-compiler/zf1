@@ -43,7 +43,7 @@ require_once 'Zend/Mail/Transport/Smtp.php';
 /**
  * Zend_Date
  */
-require_once 'Zend/Date.php';
+//require_once 'Zend/Date.php';
 
 /**
  * Zend_Config
@@ -747,7 +747,7 @@ class Zend_Mail_MailTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($mock->called);
         $this->assertTrue(strpos(implode('', $mock->headers['Date']), 'Mon, 29 Jun 1981') === 0);
     }
-
+/*
     public function testSetDateObject()
     {
         $mail = new Zend_Mail();
@@ -763,7 +763,7 @@ class Zend_Mail_MailTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($mock->called);
         $this->assertTrue(strpos(implode('', $mock->headers['Date']), 'Mon, 29 Jun 1981') === 0);
     }
-
+*/
     public function testSetDateInvalidString()
     {
         $mail = new Zend_Mail();

@@ -97,15 +97,21 @@ class Zend_Mail_Storage_Maildir extends Zend_Mail_Storage_Abstract
         }
 
         $flags = array_flip($flags);
-           foreach ($this->_files as $file) {
-               foreach ($flags as $flag => $v) {
-                   if (!isset($file['flaglookup'][$flag])) {
-                       continue 2;
-                   }
-               }
-               ++$count;
-           }
-           return $count;
+        foreach ($this->_files as $file) {
+            $continueFlag = false;
+            foreach ($flags as $flag => $v) {
+                if (!isset($file['flaglookup'][$flag])) {
+                    $continueFlag = true;
+                    break;
+                }
+            }
+            if ($continueFlag) {
+                continue;
+            }
+            ++$count;
+        }
+
+        return $count;
     }
 
     /**

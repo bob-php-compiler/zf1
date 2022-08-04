@@ -39,7 +39,7 @@ class Zend_Mail_InterfaceTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->_mboxFile = dirname(__FILE__) . '/_files/test.mbox/INBOX';
+        $this->_mboxFile = TEST_ROOT_DIR . '/Zend/Mail/_files/test.mbox/INBOX';
     }
 
     public function testCount()

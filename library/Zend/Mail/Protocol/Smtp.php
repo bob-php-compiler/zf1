@@ -187,13 +187,13 @@ class Zend_Mail_Protocol_Smtp extends Zend_Mail_Protocol_Abstract
         }
 
         // Validate client hostname
-        if (!$this->_validHost->isValid($host)) {
+        //if (!$this->_validHost->isValid($host)) {
             /**
              * @see Zend_Mail_Protocol_Exception
              */
-            require_once 'Zend/Mail/Protocol/Exception.php';
-            throw new Zend_Mail_Protocol_Exception(join(', ', $this->_validHost->getMessages()));
-        }
+            //require_once 'Zend/Mail/Protocol/Exception.php';
+            //throw new Zend_Mail_Protocol_Exception(join(', ', $this->_validHost->getMessages()));
+        //}
 
         // Initiate helo sequence
         $this->_expect(220, 300); // Timeout set for 5 minutes as per RFC 2821 4.5.3.2
@@ -232,10 +232,12 @@ class Zend_Mail_Protocol_Smtp extends Zend_Mail_Protocol_Abstract
             $this->_send('EHLO ' . $host);
             $this->_expect(250, 300); // Timeout set for 5 minutes as per RFC 2821 4.5.3.2
         } catch (Zend_Mail_Protocol_Exception $e) {
-            $this->_send('HELO ' . $host);
-            $this->_expect(250, 300); // Timeout set for 5 minutes as per RFC 2821 4.5.3.2
-        } catch (Zend_Mail_Protocol_Exception $e) {
-            throw $e;
+            try {
+                $this->_send('HELO ' . $host);
+                $this->_expect(250, 300); // Timeout set for 5 minutes as per RFC 2821 4.5.3.2
+            } catch (Zend_Mail_Protocol_Exception $e) {
+                throw $e;
+            }
         }
     }
 

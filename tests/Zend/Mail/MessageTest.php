@@ -50,7 +50,7 @@ class Zend_Mail_MessageTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->_file = tempnam(sys_get_temp_dir(), 'zm_');
-        $mail = file_get_contents(dirname(__FILE__) . '/_files/mail.txt');
+        $mail = file_get_contents(TEST_ROOT_DIR . '/Zend/Mail/_files/mail.txt');
         $mail = preg_replace("/(?<!\r)\n/", "\r\n", $mail);
         file_put_contents($this->_file, $mail);
     }
@@ -144,11 +144,11 @@ class Zend_Mail_MessageTest extends PHPUnit_Framework_TestCase
 
     public function testNoHeaderMessage()
     {
-        $message = new Zend_Mail_Message(array('file' => __FILE__));
+        $message = new Zend_Mail_Message(array('file' => TEST_ROOT_DIR . '/Zend/Mail/MessageTest.php'));
 
         $this->assertEquals(substr($message->getContent(), 0, 5), '<?php');
 
-        $raw = file_get_contents(__FILE__);
+        $raw = file_get_contents(TEST_ROOT_DIR . '/Zend/Mail/MessageTest.php');
         $raw = "\t" . $raw;
         $message = new Zend_Mail_Message(array('raw' => $raw));
 
@@ -204,7 +204,7 @@ class Zend_Mail_MessageTest extends PHPUnit_Framework_TestCase
 
     public function testMissingId()
     {
-        $mail = new Zend_Mail_Storage_Mbox(array('filename' => dirname(__FILE__) . '/_files/test.mbox/INBOX'));
+        $mail = new Zend_Mail_Storage_Mbox(array('filename' => TEST_ROOT_DIR . '/Zend/Mail/_files/test.mbox/INBOX'));
 
         try {
             $message = new Zend_Mail_Message(array('handler' => $mail));
@@ -355,7 +355,7 @@ class Zend_Mail_MessageTest extends PHPUnit_Framework_TestCase
 
     public function testLateFetch()
     {
-        $mail = new Zend_Mail_Storage_Mbox(array('filename' => dirname(__FILE__) . '/_files/test.mbox/INBOX'));
+        $mail = new Zend_Mail_Storage_Mbox(array('filename' => TEST_ROOT_DIR . '/Zend/Mail/_files/test.mbox/INBOX'));
 
         $message = new Zend_Mail_Message(array('handler' => $mail, 'id' => 5));
         $this->assertEquals($message->countParts(), 2);

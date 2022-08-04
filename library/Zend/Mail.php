@@ -990,9 +990,9 @@ class Zend_Mail extends Zend_Mime_Message
                                                   'strtotime()-compatible');
                 }
                 $date = date('r', $date);
-            } else if ($date instanceof Zend_Date) {
+            } /*else if ($date instanceof Zend_Date) {
                 $date = $date->get(Zend_Date::RFC_2822);
-            } else {
+            }*/ else {
                 /**
                  * @see Zend_Mail_Exception
                  */
