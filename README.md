@@ -7,3 +7,5 @@
 - [x] Log
 - [x] Cache
 - [x] Loader
+- [x] Locale
+- [x] Translate
