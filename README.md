@@ -9,3 +9,4 @@
 - [x] Loader
 - [x] Locale
 - [x] Translate
+- [x] Registry

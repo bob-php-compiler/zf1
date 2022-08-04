@@ -23,7 +23,8 @@ then
                Zend/LocaleTest.php
                Zend/Locale/AllTests.php
                Zend/TranslateTest.php
-               Zend/Translate/AllTests.php"
+               Zend/Translate/AllTests.php
+               Zend/RegistryTest.php"
 else
     TEST_LIST=$1
 fi

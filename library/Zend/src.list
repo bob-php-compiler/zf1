@@ -131,3 +131,5 @@ Translate/Adapter/Ini.php
 #Translate/Adapter/Tmx.php
 #Translate/Adapter/Xliff.php
 #Translate/Adapter/XmlTm.php
+# Registry
+Registry.php
