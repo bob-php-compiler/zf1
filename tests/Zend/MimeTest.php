@@ -21,7 +21,7 @@
  */
 
 /** Zend_Mail */
-//require_once 'Zend/Mail.php';
+require_once 'Zend/Mail.php';
 
 /** Zend_Mime */
 require_once 'Zend/Mime.php';
@@ -90,7 +90,7 @@ class Zend_MimeTest extends PHPUnit_Framework_TestCase
         $encoded = Zend_Mime::encodeBase64($content);
         $this->assertEquals($content, base64_decode($encoded));
     }
-/*
+
     public function testZf1058WhitespaceAtEndOfBodyCausesInfiniteLoop()
     {
         $mail = new Zend_Mail();
@@ -106,7 +106,7 @@ class Zend_MimeTest extends PHPUnit_Framework_TestCase
         $body = quoted_printable_decode($mock->body);
         $this->assertContains("my body\r\n\r\n...after two newlines", $body, $body);
     }
-*/
+
     /**
      * @group ZF-1688
      */
