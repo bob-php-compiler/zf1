@@ -20,13 +20,9 @@
  * @version    $Id$
  */
 
-if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Zend_Db_AllTests::main');
-}
-
 require_once 'Zend/Loader.php';
 require_once 'Zend/Db/SkipTests.php';
-require_once 'Zend/Db/Profiler/AllTests.php';
+//require_once 'Zend/Db/Profiler/AllTests.php';
 
 /**
  * @category   Zend
@@ -41,11 +37,6 @@ class Zend_Db_AllTests
 
     protected static $_skipTestSuite = null;
 
-    public static function main()
-    {
-        PHPUnit_TextUI_TestRunner::run(self::suite());
-    }
-
     public static function suite()
     {
         $suite = new PHPUnit_Framework_TestSuite('Zend Framework - Zend_Db');
@@ -59,26 +50,26 @@ class Zend_Db_AllTests
         }
 
         self::_addDbTestSuites($suite, 'Static');
-        self::_addDbTestSuites($suite, 'Db2');
-        self::_addDbTestSuites($suite, 'Mysqli');
-        self::_addDbTestSuites($suite, 'Oracle');
-        self::_addDbTestSuites($suite, 'Sqlsrv');
+        //self::_addDbTestSuites($suite, 'Db2');
+        //self::_addDbTestSuites($suite, 'Mysqli');
+        //self::_addDbTestSuites($suite, 'Oracle');
+        //self::_addDbTestSuites($suite, 'Sqlsrv');
 
         /**
          * @todo  self::_addDbTestSuites($suite, 'Odbc');
          */
-        self::_addDbTestSuites($suite, 'Pdo_Ibm');
-        self::_addDbTestSuites($suite, 'Pdo_Mssql');
+        //self::_addDbTestSuites($suite, 'Pdo_Ibm');
+        //self::_addDbTestSuites($suite, 'Pdo_Mssql');
         self::_addDbTestSuites($suite, 'Pdo_Mysql');
-        self::_addDbTestSuites($suite, 'Pdo_Oci');
-        self::_addDbTestSuites($suite, 'Pdo_Pgsql');
+        //self::_addDbTestSuites($suite, 'Pdo_Oci');
+        //self::_addDbTestSuites($suite, 'Pdo_Pgsql');
         self::_addDbTestSuites($suite, 'Pdo_Sqlite');
 
         if (self::$_skipTestSuite !== null) {
             $suite->addTest(self::$_skipTestSuite);
         }
 
-        $suite->addTest(Zend_Db_Profiler_AllTests::suite());
+        //$suite->addTest(Zend_Db_Profiler_AllTests::suite());
 
         return $suite;
     }
@@ -92,20 +83,20 @@ class Zend_Db_AllTests
             return;
         }
 
-        $ext = array(
-            'Oracle' => 'oci8',
-            'Db2'    => 'ibm_db2',
-            'Mysqli' => 'mysqli',
-            'Sqlsrv' => 'sqlsrv',
+        //$ext = array(
+        //    'Oracle' => 'oci8',
+        //    'Db2'    => 'ibm_db2',
+        //    'Mysqli' => 'mysqli',
+        //    'Sqlsrv' => 'sqlsrv',
             /**
              * @todo  'Odbc'
              */
-        );
+        //);
 
-        if (isset($ext[$driver]) && !extension_loaded($ext[$driver])) {
-            self::_skipTestSuite($driver, "extension '{$ext[$driver]}' is not loaded");
-            return;
-        }
+        //if (isset($ext[$driver]) && !extension_loaded($ext[$driver])) {
+        //    self::_skipTestSuite($driver, "extension '{$ext[$driver]}' is not loaded");
+        //    return;
+        //}
 
         if (preg_match('/^pdo_(.*)/i', $driver, $matches)) {
             // check for PDO extension
@@ -164,9 +155,4 @@ class Zend_Db_AllTests
 
         self::$_skipTestSuite->addTest($skipTest);
     }
-
-}
-
-if (PHPUnit_MAIN_METHOD == 'Zend_Db_AllTests::main') {
-    Zend_Db_AllTests::main();
 }

@@ -40,7 +40,8 @@ class Zend_Db_Table_Row_Pdo_MysqlTest extends Zend_Db_Table_Row_TestCommon
 
     public function testTableRowSaveInsertSequence()
     {
-        $this->markTestSkipped($this->getDriver() . ' does not support sequences');
+        //$this->markTestSkipped($this->getDriver() . ' does not support sequences');
+        $this->assertFalse(false);
     }
 
     public function getDriver()

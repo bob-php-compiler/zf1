@@ -157,11 +157,10 @@ abstract class Zend_Db_Table_Relationships_TestCommon extends Zend_Db_Table_Test
         }
     }
 
-    /**
-     * @expectedException PHPUnit_Framework_Error
-     */
     public function testTableRelationshipFindParentRowErrorOnBadString()
     {
+        $this->expectException('PHPUnit_Framework_Error');
+
         $bug_id = $this->_db->quoteIdentifier('bug_id', true);
 
         $table = $this->_table['bugs'];
@@ -172,11 +171,10 @@ abstract class Zend_Db_Table_Relationships_TestCommon extends Zend_Db_Table_Test
         $parentRow = $childRow1->findParentRow('nonexistant_class');
     }
 
-    /**
-     * @expectedException Zend_Db_Table_Exception
-     */
     public function testTableRelationshipFindParentRowExceptionOnBadClass()
     {
+        $this->expectException('Zend_Db_Table_Exception');
+
         $bug_id = $this->_db->quoteIdentifier('bug_id', true);
 
         $table = $this->_table['bugs'];
@@ -264,11 +262,10 @@ abstract class Zend_Db_Table_Relationships_TestCommon extends Zend_Db_Table_Test
         $this->assertEquals('Linux', $childRow->$product_name);
     }
 
-    /**
-     * @expectedException PHPUnit_Framework_Error
-     */
     public function testTableRelationshipFindManyToManyRowsetErrorOnBadClassNameAsString()
     {
+        $this->expectException('PHPUnit_Framework_Error');
+
         $table = $this->_table['bugs'];
 
         $originRows = $table->find(1);
@@ -279,11 +276,10 @@ abstract class Zend_Db_Table_Relationships_TestCommon extends Zend_Db_Table_Test
 
     }
 
-    /**
-     * @expectedException PHPUnit_Framework_Error
-     */
     public function testTableRelationshipFindManyToManyRowsetErrorOnBadClassNameAsStringForIntersection()
     {
+        $this->expectException('PHPUnit_Framework_Error');
+
         $table = $this->_table['bugs'];
 
         $originRows = $table->find(1);
@@ -293,11 +289,9 @@ abstract class Zend_Db_Table_Relationships_TestCommon extends Zend_Db_Table_Test
         $destRows = $originRow1->findManyToManyRowset('My_ZendDbTable_TableProducts', 'nonexistant_class');
     }
 
-    /**
-     * @expectedException Zend_Db_Table_Exception
-     */
     public function testTableRelationshipFindManyToManyRowsetExceptionOnBadClassAsString()
     {
+        $this->expectException('Zend_Db_Table_Exception');
 
         $table = $this->_table['bugs'];
 
@@ -310,11 +304,10 @@ abstract class Zend_Db_Table_Relationships_TestCommon extends Zend_Db_Table_Test
     }
 
 
-    /**
-     * @expectedException Zend_Db_Table_Exception
-     */
     public function testTableRelationshipFindManyToManyRowsetExceptionOnBadClassAsStringForIntersection()
     {
+        $this->expectException('Zend_Db_Table_Exception');
+
         $table = $this->_table['bugs'];
 
         $originRows = $table->find(1);
@@ -424,11 +417,10 @@ abstract class Zend_Db_Table_Relationships_TestCommon extends Zend_Db_Table_Test
         $this->assertEquals(3, $childRow1->$product_id);
     }
 
-    /**
-     * @expectedException PHPUnit_Framework_Error
-     */
     public function testTableRelationshipFindDependentRowsetPhpError()
     {
+        $this->expectException('PHPUnit_Framework_Error');
+
         $table = $this->_table['bugs'];
 
         $parentRows = $table->find(1);

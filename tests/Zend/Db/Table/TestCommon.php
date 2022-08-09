@@ -809,7 +809,7 @@ abstract class Zend_Db_Table_TestCommon extends Zend_Db_Table_TestSetup
      */
     public function testTableInsertWithHighMemoryUsage()
     {
-        $this->markTestSkipped('Very slow test inserts thousands of rows');
+        //$this->markTestSkipped('Very slow test inserts thousands of rows');
 
         $table = $this->_table['products'];
 

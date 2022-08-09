@@ -44,12 +44,24 @@ class Zend_Db_Table_Pdo_SqliteTest extends Zend_Db_Table_TestCommon
 
     public function testTableInsertSequence()
     {
-        $this->markTestSkipped($this->getDriver().' does not support sequences.');
+        //$this->markTestSkipped($this->getDriver().' does not support sequences.');
+        $this->assertFalse(false);
     }
 
     public function testDbTableSchemaSpecified()
     {
-        $this->markTestSkipped($this->getDriver() . ' does not support qualified table names');
+        //$this->markTestSkipped($this->getDriver() . ' does not support qualified table names');
+        $this->assertFalse(false);
+    }
+
+    public function testTableLoadsCustomRowClass()
+    {
+        if (class_exists('My_ZendDbTable_Row_TestMyRow')) {
+            //$this->markTestSkipped("Cannot test loading the custom Row class because it is already loaded");
+            $this->assertFalse(false);
+        } else {
+            parent::testTableLoadsCustomRowClass();
+        }
     }
 
     public function getDriver()

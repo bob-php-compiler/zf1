@@ -110,6 +110,7 @@ class Zend_Db_Statement_Static implements Zend_Db_Statement_Interface
      */
     public function fetchAll($style = null, $col = null)
     {
+        return array();
     }
 
     /**
