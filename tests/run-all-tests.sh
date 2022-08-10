@@ -28,7 +28,9 @@ then
                Zend/MimeTest.php
                Zend/Mime/AllTests.php
                Zend/Mail/AllTests.php
-               Zend/Db/AllTests.php"
+               Zend/Db/AllTests.php
+               Zend/PaginatorTest.php
+               Zend/Paginator/AllTests.php"
 else
     TEST_LIST=$1
 fi

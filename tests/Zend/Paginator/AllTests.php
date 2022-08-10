@@ -20,17 +20,11 @@
  * @version    $Id$
  */
 
-if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Zend_Paginator_AllTests::main');
-}
-
-require_once 'Zend/PaginatorTest.php';
-
 require_once 'Zend/Paginator/Adapter/ArrayTest.php';
 require_once 'Zend/Paginator/Adapter/DbSelectTest.php';
-require_once 'Zend/Paginator/Adapter/DbSelect/OracleTest.php';
+//require_once 'Zend/Paginator/Adapter/DbSelect/OracleTest.php';
 require_once 'Zend/Paginator/Adapter/DbTableSelectTest.php';
-require_once 'Zend/Paginator/Adapter/DbTableSelect/OracleTest.php';
+//require_once 'Zend/Paginator/Adapter/DbTableSelect/OracleTest.php';
 require_once 'Zend/Paginator/Adapter/IteratorTest.php';
 require_once 'Zend/Paginator/Adapter/NullTest.php';
 
@@ -51,15 +45,9 @@ require_once 'Zend/View/Helper/PaginationControlTest.php';
  */
 class Zend_Paginator_AllTests
 {
-    public static function main()
-    {
-        PHPUnit_TextUI_TestRunner::run(self::suite());
-    }
-
     public static function suite()
     {
         $suite = new PHPUnit_Framework_TestSuite('Zend Framework - Zend_Paginator');
-        $suite->addTestSuite('Zend_PaginatorTest');
 
         $suite->addTestSuite('Zend_Paginator_Adapter_ArrayTest');
         $suite->addTestSuite('Zend_Paginator_Adapter_DbSelectTest');
@@ -67,10 +55,10 @@ class Zend_Paginator_AllTests
         $suite->addTestSuite('Zend_Paginator_Adapter_IteratorTest');
         $suite->addTestSuite('Zend_Paginator_Adapter_NullTest');
 
-        if (TESTS_ZEND_DB_ADAPTER_ORACLE_ENABLED) {
-            $suite->addTestSuite('Zend_Paginator_Adapter_DbSelect_OracleTest');
-            $suite->addTestSuite('Zend_Paginator_Adapter_DbTableSelect_OracleTest');
-        }
+        //if (TESTS_ZEND_DB_ADAPTER_ORACLE_ENABLED) {
+        //    $suite->addTestSuite('Zend_Paginator_Adapter_DbSelect_OracleTest');
+        //    $suite->addTestSuite('Zend_Paginator_Adapter_DbTableSelect_OracleTest');
+        //}
 
         $suite->addTestSuite('Zend_Paginator_ScrollingStyle_AllTest');
         $suite->addTestSuite('Zend_Paginator_ScrollingStyle_ElasticTest');
@@ -81,8 +69,4 @@ class Zend_Paginator_AllTests
 
         return $suite;
     }
-}
-
-if (PHPUnit_MAIN_METHOD == 'Zend_Paginator_AllTests::main') {
-    Zend_Paginator_AllTests::main();
 }
