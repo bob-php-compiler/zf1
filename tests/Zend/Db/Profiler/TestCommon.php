@@ -229,10 +229,17 @@ abstract class Zend_Db_Profiler_TestCommon extends Zend_Db_TestSetup
         $this->assertSame($prof->setFilterQueryType($queryType), $prof);
         $this->assertEquals($queryType, $prof->getFilterQueryType());
 
-        $this->_db->query("SELECT * FROM $bugs");
-        $this->_db->query("INSERT INTO $bugs ($bug_status) VALUES (?)", array('NEW'));
-        $this->_db->query("DELETE FROM $bugs");
-        $this->_db->query("UPDATE $bugs SET $bug_status = ?", array('FIXED'));
+        if (defined('__BPC__')) {
+            $this->_db->query("SELECT * FROM $bugs")->destroy();
+            $this->_db->query("INSERT INTO $bugs ($bug_status) VALUES (?)", array('NEW'))->destroy();
+            $this->_db->query("DELETE FROM $bugs")->destroy();
+            $this->_db->query("UPDATE $bugs SET $bug_status = ?", array('FIXED'))->destroy();
+        } else {
+            $this->_db->query("SELECT * FROM $bugs");
+            $this->_db->query("INSERT INTO $bugs ($bug_status) VALUES (?)", array('NEW'));
+            $this->_db->query("DELETE FROM $bugs");
+            $this->_db->query("UPDATE $bugs SET $bug_status = ?", array('FIXED'));
+        }
 
         $qps = $prof->getQueryProfiles();
         $this->assertTrue(is_array($qps), 'Expecting some query profiles, got none');

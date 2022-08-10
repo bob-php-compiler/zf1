@@ -6,6 +6,7 @@ test: $(FILES)
 	    -u phpunit \
 	    -u zend \
 	    -d display_errors=on \
+	    -d max_execution_time=-1 \
 	    --php-exts .php,.inc,.phtml,.dist \
 	    run-test.php \
 	    --input-file test-files \

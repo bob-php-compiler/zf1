@@ -304,7 +304,7 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit_Framework_TestCase
      */
     public function testDbFactoryDoesNotNormalizeNamespace()
     {
-        $newIncludePath = realpath(dirname(__FILE__) . '/_files/') . PATH_SEPARATOR . get_include_path();
+        $newIncludePath = (__DIR__ . '/_files/') . PATH_SEPARATOR . get_include_path();
         $oldIncludePath = set_include_path($newIncludePath);
 
         try {
@@ -326,7 +326,7 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit_Framework_TestCase
      */
     public function testDbFactoryWillThrowExceptionWhenAssumingBadBehavior()
     {
-        $newIncludePath = realpath(dirname(__FILE__) . '/_files/') . PATH_SEPARATOR . get_include_path();
+        $newIncludePath = (__DIR__ . '/_files/') . PATH_SEPARATOR . get_include_path();
         $oldIncludePath = set_include_path($newIncludePath);
 
         if (!$this->_isCaseSensitiveFileSystem()) {
@@ -342,11 +342,15 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit_Framework_TestCase
                 );
         } catch (Exception $e) {
             set_include_path($oldIncludePath);
-            $this->assertContains('failed to open stream', $e->getMessage());
+            if (defined('__BPC__')) {
+                $this->assertContains("Failed find 'Test/MyCompany2/Dbadapter.php' for inclusion", $e->getMessage());
+            } else {
+                $this->assertContains('failed to open stream', $e->getMessage());
+            }
             return;
         }
 
-        $this->assertFalse($adapter instanceof Test_Mycompany2_Dbadapter);
+        $this->assertFalse(get_class($adapter) == 'Test_Mycompany2_Dbadapter');
         set_include_path($oldIncludePath);
     }
 
@@ -355,7 +359,7 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit_Framework_TestCase
      */
     public function testDbFactoryWillLoadCaseInsensitiveAdapterName()
     {
-        $newIncludePath = realpath(dirname(__FILE__) . '/_files/') . PATH_SEPARATOR . get_include_path();
+        $newIncludePath = (__DIR__ . '/_files/') . PATH_SEPARATOR . get_include_path();
         $oldIncludePath = set_include_path($newIncludePath);
 
         try {

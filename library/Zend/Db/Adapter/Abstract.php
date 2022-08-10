@@ -575,6 +575,7 @@ abstract class Zend_Db_Adapter_Abstract
         }
         $stmt = $this->query($sql, $bind);
         $result = $stmt->rowCount();
+        $stmt->destroy();
         return $result;
     }
 
@@ -637,6 +638,7 @@ abstract class Zend_Db_Adapter_Abstract
             $stmt = $this->query($sql, $bind);
         }
         $result = $stmt->rowCount();
+        $stmt->destroy();
         return $result;
     }
 
@@ -663,6 +665,7 @@ abstract class Zend_Db_Adapter_Abstract
          */
         $stmt = $this->query($sql);
         $result = $stmt->rowCount();
+        $stmt->destroy();
         return $result;
     }
 
@@ -681,7 +684,7 @@ abstract class Zend_Db_Adapter_Abstract
         if (!is_array($where)) {
             $where = array($where);
         }
-        foreach ($where as $cond => &$term) {
+        foreach ($where as $cond => $term) {
             // is $cond an int? (i.e. Not a condition)
             if (is_int($cond)) {
                 // $term is the full condition
@@ -693,7 +696,7 @@ abstract class Zend_Db_Adapter_Abstract
                 // and $term is quoted into the condition
                 $term = $this->quoteInto($cond, $term);
             }
-            $term = '(' . $term . ')';
+            $where[$cond] = '(' . $term . ')';
         }
 
         $where = implode(' AND ', $where);
@@ -736,6 +739,7 @@ abstract class Zend_Db_Adapter_Abstract
         }
         $stmt = $this->query($sql, $bind);
         $result = $stmt->fetchAll($fetchMode);
+        $stmt->destroy();
         return $result;
     }
 
@@ -755,6 +759,7 @@ abstract class Zend_Db_Adapter_Abstract
         }
         $stmt = $this->query($sql, $bind);
         $result = $stmt->fetch($fetchMode);
+        $stmt->destroy();
         return $result;
     }
 
@@ -779,6 +784,7 @@ abstract class Zend_Db_Adapter_Abstract
             $tmp = array_values(array_slice($row, 0, 1));
             $data[$tmp[0]] = $row;
         }
+        $stmt->destroy();
         return $data;
     }
 
@@ -793,6 +799,7 @@ abstract class Zend_Db_Adapter_Abstract
     {
         $stmt = $this->query($sql, $bind);
         $result = $stmt->fetchAll(Zend_Db::FETCH_COLUMN, 0);
+        $stmt->destroy();
         return $result;
     }
 
@@ -813,6 +820,7 @@ abstract class Zend_Db_Adapter_Abstract
         while ($row = $stmt->fetch(Zend_Db::FETCH_NUM)) {
             $data[$row[0]] = $row[1];
         }
+        $stmt->destroy();
         return $data;
     }
 
@@ -827,6 +835,7 @@ abstract class Zend_Db_Adapter_Abstract
     {
         $stmt = $this->query($sql, $bind);
         $result = $stmt->fetchColumn(0);
+        $stmt->destroy();
         return $result;
     }
 
@@ -869,8 +878,8 @@ abstract class Zend_Db_Adapter_Abstract
         }
 
         if (is_array($value)) {
-            foreach ($value as &$val) {
-                $val = $this->quote($val, $type);
+            foreach ($value as $idx => $val) {
+                $value[$idx] = $this->quote($val, $type);
             }
             return implode(', ', $value);
         }

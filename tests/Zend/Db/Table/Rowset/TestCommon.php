@@ -390,6 +390,7 @@ abstract class Zend_Db_Table_Rowset_TestCommon extends Zend_Db_Table_TestSetup
     /**
       * @group GH-172
       */
+/* TODO
     public function testFixForRowsetContainsDisconnectedRowObjectsWhenDeserializedDoesNotBreakPaginator()
     {
         $table = $this->_table['bugs'];
@@ -404,7 +405,7 @@ abstract class Zend_Db_Table_Rowset_TestCommon extends Zend_Db_Table_TestSetup
             $this->assertTrue($test instanceof Zend_Db_Table_Row);
         }
     }
-
+*/
     /**
       * @group GH-172
       * @see https://github.com/zendframework/zf1/commit/d418b73b53964c3bd84a6624075008106e7d5962#commitcomment-4438005

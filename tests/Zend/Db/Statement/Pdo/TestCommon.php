@@ -112,6 +112,7 @@ abstract class Zend_Db_Statement_Pdo_TestCommon extends Zend_Db_Statement_TestCo
         $stmt = $this->_db->prepare($sql);
         $stmt->bindValue('product_id', 1);
         $stmt->execute();
+        $stmt->destroy();
 
         $params = $this->_db->getProfiler()->getLastQueryProfile()->getQueryParams();
 

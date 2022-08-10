@@ -437,4 +437,10 @@ class Zend_Db_Statement_Pdo extends Zend_Db_Statement implements IteratorAggrega
         }
     }
 
+    public function destroy()
+    {
+        if (defined('__BPC__')) {
+            $this->_stmt->destroy();
+        }
+    }
 }

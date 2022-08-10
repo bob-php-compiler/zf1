@@ -163,7 +163,12 @@ abstract class Zend_Db_Adapter_Pdo_Abstract extends Zend_Db_Adapter_Abstract
      */
     public function closeConnection()
     {
-        $this->_connection = null;
+        if (!is_null($this->_connection)) {
+            if (defined('__BPC__')) {
+                $this->_connection->closeConnection();
+            }
+            $this->_connection = null;
+        }
     }
 
     /**

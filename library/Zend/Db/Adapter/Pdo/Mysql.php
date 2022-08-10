@@ -88,7 +88,7 @@ class Zend_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Abstract
         }
         return $dsn;
     }
-    
+
     /**
      * Creates a PDO object and connects to the database.
      *
@@ -172,6 +172,7 @@ class Zend_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Abstract
 
         // Use FETCH_NUM so we are not dependent on the CASE attribute of the PDO connection
         $result = $stmt->fetchAll(Zend_Db::FETCH_NUM);
+        $stmt->destroy();
 
         $field   = 0;
         $type    = 1;

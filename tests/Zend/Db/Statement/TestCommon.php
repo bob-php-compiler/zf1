@@ -330,6 +330,8 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
                 'Expecting object of type Zend_Db_Statement_Exception, got '.get_class($e));
             $this->assertRegExp('#invalid fetch mode#i', $e->getMessage());
         }
+
+        $stmt->destroy();
     }
 
     public function testStatementFetchAll()
@@ -813,6 +815,8 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
                 $this->assertContains($key, array_keys($meta));
             }
         }
+
+        $stmt->destroy();
     }
 
     public function testStatementNextRowset()

@@ -141,6 +141,8 @@ class Zend_Db_Table_Select extends Zend_Db_Select
                 $column = $alias;
             }
 
+            $breakForeach = false;
+
             switch (true) {
                 case ($column == self::SQL_WILDCARD):
                     break;
@@ -148,7 +150,12 @@ class Zend_Db_Table_Select extends Zend_Db_Select
                 case ($column instanceof Zend_Db_Expr):
                 case (!in_array($column, $cols)):
                     $readOnly = true;
-                    break 2;
+                    $breakForeach = true;
+                    break;
+            }
+
+            if ($breakForeach) {
+                break;
             }
         }
 

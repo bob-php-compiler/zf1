@@ -211,6 +211,7 @@ class Zend_Db_Adapter_Pdo_Sqlite extends Zend_Db_Adapter_Pdo_Abstract
          * Use FETCH_NUM so we are not dependent on the CASE attribute of the PDO connection
          */
         $result = $stmt->fetchAll(Zend_Db::FETCH_NUM);
+        $stmt->destroy();
 
         $cid        = 0;
         $name       = 1;
