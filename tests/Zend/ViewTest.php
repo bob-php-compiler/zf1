@@ -955,21 +955,6 @@ class Zend_ViewTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testUseStreamWrapperFlagShouldDefaultToFalse()
-    {
-        $this->view = new Zend_View();
-        $this->assertFalse($this->view->useStreamWrapper());
-    }
-
-    public function testUseStreamWrapperStateShouldBeConfigurable()
-    {
-        $this->testUseStreamWrapperFlagShouldDefaultToFalse();
-        $this->view->setUseStreamWrapper(true);
-        $this->assertTrue($this->view->useStreamWrapper());
-        $this->view->setUseStreamWrapper(false);
-        $this->assertFalse($this->view->useStreamWrapper());
-    }
-
     /**
      * @group ZF-5748
      */
@@ -1119,19 +1104,6 @@ class Zend_ViewTest extends PHPUnit_Framework_TestCase
     	$helper = new Zend_View_Helper_Doctype();
     	$view->registerHelper($helper, 'doctype');
         $this->assertSame($view, $helper->view);
-    }
-
-    /**
-     * @group ZF-9000
-	 * @group ZF-4622
-     */
-    public function testAddingStreamSchemeAsScriptPathShouldNotMangleThePath()
-    {
-    	$view = new Zend_View();
-        $path = rtrim('file://' . str_replace('\\', '/', realpath(dirname(__FILE__))), '/') . '/';
-        $view->addScriptPath($path);
-        $paths = $view->getScriptPaths();
-        $this->assertContains($path, $paths, var_export($paths, 1));
     }
 
     /**
