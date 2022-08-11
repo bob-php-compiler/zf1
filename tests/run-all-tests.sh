@@ -33,7 +33,9 @@ then
                Zend/View/AllTests.php
                Zend/PaginatorTest.php
                Zend/Paginator/AllTests.php
-               Zend/Http/AllTests.php"
+               Zend/Http/AllTests.php
+               Zend/UriTest.php
+               Zend/Uri/AllTests.php"
 else
     TEST_LIST=$1
 fi

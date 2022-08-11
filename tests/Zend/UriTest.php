@@ -20,10 +20,6 @@
  * @version    $Id $
  */
 
-if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Zend_UriTest::main');
-}
-
 /**
  * Zend_Uri
  */
@@ -44,12 +40,6 @@ require_once 'Zend/Config.php';
  */
 class Zend_UriTest extends PHPUnit_Framework_TestCase
 {
-    public static function main()
-    {
-        $suite  = new PHPUnit_Framework_TestSuite("Zend_UriTest");
-        $result = PHPUnit_TextUI_TestRunner::run($suite);
-    }
-
     public function setUp()
     {
         $this->notices = array();
@@ -89,13 +79,13 @@ class Zend_UriTest extends PHPUnit_Framework_TestCase
     {
         $this->_testValidUri('https');
     }
-
+/*
     public function testSchemeMailto()
     {
         $this->markTestIncomplete('Zend_Uri_Mailto is not implemented yet');
         $this->_testValidUri('mailto');
     }
-
+*/
     /**
      * Tests that Zend_Uri::setConfig() allows Zend_Config
      *
@@ -121,10 +111,11 @@ class Zend_UriTest extends PHPUnit_Framework_TestCase
      * nor Zend_Config is given as first parameter
      *
      * @group ZF-5578
-     * @expectedException Zend_Uri_Exception
      */
     public function testSetConfigInvalid()
     {
+        $this->expectException('Zend_Uri_Exception');
+
         Zend_Uri::setConfig('This should cause an exception');
     }
 
@@ -228,9 +219,4 @@ class Zend_Uri_ExceptionCausing extends Zend_Uri
 }
 class Fake_Zend_Uri
 {
-}
-
-// Call Zend_UriTest::main() if this source file is executed directly.
-if (PHPUnit_MAIN_METHOD == "Zend_UriTest::main") {
-    Zend_UriTest::main();
 }
