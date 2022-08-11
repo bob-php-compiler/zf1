@@ -267,8 +267,8 @@ class Zend_Http_CookieTest extends PHPUnit_Framework_TestCase
         $now = time() + 7200;
 
         $cookies = array(
-            'cookie=foo; domain=example.com; expires=' . date(DATE_COOKIE, $notexpired),
-            'cookie=foo; domain=example.com; expires=' . date(DATE_COOKIE, $expired)
+            'cookie=foo; domain=example.com; expires=' . gmdate(DATE_COOKIE, $notexpired),
+            'cookie=foo; domain=example.com; expires=' . gmdate(DATE_COOKIE, $expired)
         );
 
         // Make sure all cookies are expired
@@ -414,12 +414,12 @@ class Zend_Http_CookieTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($cookie->match('https://www.example.com/', false, time() - 3600), 'Cookie expected not to match, but it did');
 
         // A cookie with expiry time in the future
-        $cookie = Zend_Http_Cookie::fromString('foo=bar; domain=.example.com; expires=' . date(DATE_COOKIE, time() + 3600));
+        $cookie = Zend_Http_Cookie::fromString('foo=bar; domain=.example.com; expires=' . gmdate(DATE_COOKIE, time() + 3600));
         $this->assertTrue($cookie->match('http://www.example.com/'), 'Cookie expected to match, but didn\'t');
         $this->assertFalse($cookie->match('https://www.example.com/', true, time() + 7200), 'Cookie expected not to match, but it did');
 
         // A cookie with expiry time in the past
-        $cookie = Zend_Http_Cookie::fromString('foo=bar; domain=.example.com; expires=' . date(DATE_COOKIE, time() - 3600));
+        $cookie = Zend_Http_Cookie::fromString('foo=bar; domain=.example.com; expires=' . gmdate(DATE_COOKIE, time() - 3600));
         $this->assertFalse($cookie->match('http://www.example.com/'), 'Cookie expected not to match, but it did');
         $this->assertTrue($cookie->match('https://www.example.com/', true, time() - 7200), 'Cookie expected to match, but didn\'t');
     }
@@ -547,7 +547,7 @@ class Zend_Http_CookieTest extends PHPUnit_Framework_TestCase
                 )
             ),
             array(
-                'domain=unittests; expires=' . date(DATE_COOKIE, $now) . '; domain=example.com; path=/some%20value/',
+                'domain=unittests; expires=' . gmdate(DATE_COOKIE, $now) . '; domain=example.com; path=/some%20value/',
                 array(
                     'name'    => 'domain',
                     'domain'  => 'example.com',
@@ -557,7 +557,7 @@ class Zend_Http_CookieTest extends PHPUnit_Framework_TestCase
                 )
             ),
             array(
-                'path=indexAction; path=/; domain=.foo.com; expires=' . date(DATE_COOKIE, $yesterday),
+                'path=indexAction; path=/; domain=.foo.com; expires=' . gmdate(DATE_COOKIE, $yesterday),
                 array(
                     'name'    => 'path',
                     'domain'  => '.foo.com',
@@ -598,8 +598,8 @@ class Zend_Http_CookieTest extends PHPUnit_Framework_TestCase
     public static function cookieWithExpiredFlagProvider()
     {
         return array(
-            array('cookie=foo;domain=example.com;expires=' . date(DATE_COOKIE, time() +  12 * 3600), false),
-            array('cookie=foo;domain=example.com;expires=' . date(DATE_COOKIE, time() - 15), true),
+            array('cookie=foo;domain=example.com;expires=' . gmdate(DATE_COOKIE, time() +  12 * 3600), false),
+            array('cookie=foo;domain=example.com;expires=' . gmdate(DATE_COOKIE, time() - 15), true),
             array('cookie=foo;domain=example.com;', false),
             array('cookie=foo;domain=example.com;expires=Fri, 01-Mar-2109 00:19:21 GMT', false),
             array('cookie=foo;domain=example.com;expires=Fri, 06-Jun-1966 00:19:21 GMT', true),

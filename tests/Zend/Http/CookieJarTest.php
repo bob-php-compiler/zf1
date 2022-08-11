@@ -306,15 +306,15 @@ class Zend_Http_CookieJarTest extends PHPUnit_Framework_TestCase
     {
         $jar = new Zend_Http_CookieJar();
         $cookies = array(
-            Zend_Http_Cookie::fromString('foo1=bar1; domain=.foo.com; path=/path; expires=' . date(DATE_COOKIE, time() + 3600)),
-            Zend_Http_Cookie::fromString('foo2=bar2; domain=foo.com; path=/; expires=' . date(DATE_COOKIE, time() + 3600)),
-            Zend_Http_Cookie::fromString('foo3=bar3; domain=.foo.com; path=/; expires=' . date(DATE_COOKIE, time() - 3600)),
+            Zend_Http_Cookie::fromString('foo1=bar1; domain=.foo.com; path=/path; expires=' . gmdate(DATE_COOKIE, time() + 3600)),
+            Zend_Http_Cookie::fromString('foo2=bar2; domain=foo.com; path=/; expires=' . gmdate(DATE_COOKIE, time() + 3600)),
+            Zend_Http_Cookie::fromString('foo3=bar3; domain=.foo.com; path=/; expires=' . gmdate(DATE_COOKIE, time() - 3600)),
             Zend_Http_Cookie::fromString('foo4=bar4; domain=.foo.com; path=/;'),
-            Zend_Http_Cookie::fromString('foo5=bar5; domain=.foo.com; path=/; secure; expires=' . date(DATE_COOKIE, time() + 3600)),
-            Zend_Http_Cookie::fromString('foo6=bar6; domain=.foo.com; path=/otherpath; expires=' . date(DATE_COOKIE, time() + 3600)),
-            Zend_Http_Cookie::fromString('foo7=bar7; domain=www.foo.com; path=/path; expires=' . date(DATE_COOKIE, time() + 3600)),
+            Zend_Http_Cookie::fromString('foo5=bar5; domain=.foo.com; path=/; secure; expires=' . gmdate(DATE_COOKIE, time() + 3600)),
+            Zend_Http_Cookie::fromString('foo6=bar6; domain=.foo.com; path=/otherpath; expires=' . gmdate(DATE_COOKIE, time() + 3600)),
+            Zend_Http_Cookie::fromString('foo7=bar7; domain=www.foo.com; path=/path; expires=' . gmdate(DATE_COOKIE, time() + 3600)),
             Zend_Http_Cookie::fromString('foo7=bar7; domain=newwww.foo.com; path=/;'),
-            Zend_Http_Cookie::fromString('foo8=bar8; domain=subdomain.foo.com; path=/path; expires=' . date(DATE_COOKIE, time() + 3600)),
+            Zend_Http_Cookie::fromString('foo8=bar8; domain=subdomain.foo.com; path=/path; expires=' . gmdate(DATE_COOKIE, time() + 3600)),
         );
 
         foreach ($cookies as $cookie) $jar->addCookie($cookie);
@@ -341,14 +341,14 @@ class Zend_Http_CookieJarTest extends PHPUnit_Framework_TestCase
     {
         $jar = new Zend_Http_CookieJar();
         $cookies = array(
-            Zend_Http_Cookie::fromString('foo1=bar1; domain=.foo.com; path=/path; expires=' . date(DATE_COOKIE, time() + 3600)),
-            Zend_Http_Cookie::fromString('foo2=bar2; domain=.foo.com; path=/; expires=' . date(DATE_COOKIE, time() + 3600)),
-            Zend_Http_Cookie::fromString('foo3=bar3; domain=.foo.com; path=/; expires=' . date(DATE_COOKIE, time() - 3600)),
+            Zend_Http_Cookie::fromString('foo1=bar1; domain=.foo.com; path=/path; expires=' . gmdate(DATE_COOKIE, time() + 3600)),
+            Zend_Http_Cookie::fromString('foo2=bar2; domain=.foo.com; path=/; expires=' . gmdate(DATE_COOKIE, time() + 3600)),
+            Zend_Http_Cookie::fromString('foo3=bar3; domain=.foo.com; path=/; expires=' . gmdate(DATE_COOKIE, time() - 3600)),
             Zend_Http_Cookie::fromString('foo4=bar4; domain=.foo.com; path=/;'),
-            Zend_Http_Cookie::fromString('foo5=bar5; domain=.foo.com; path=/; secure; expires=' . date(DATE_COOKIE, time() + 3600)),
-            Zend_Http_Cookie::fromString('foo6=bar6; domain=.foo.com; path=/otherpath; expires=' . date(DATE_COOKIE, time() + 3600)),
-            Zend_Http_Cookie::fromString('foo7=bar7; domain=www.foo.com; path=/path; expires=' . date(DATE_COOKIE, time() + 3600)),
-            Zend_Http_Cookie::fromString('foo8=bar8; domain=subdomain.foo.com; path=/path; expires=' . date(DATE_COOKIE, time() + 3600)),
+            Zend_Http_Cookie::fromString('foo5=bar5; domain=.foo.com; path=/; secure; expires=' . gmdate(DATE_COOKIE, time() + 3600)),
+            Zend_Http_Cookie::fromString('foo6=bar6; domain=.foo.com; path=/otherpath; expires=' . gmdate(DATE_COOKIE, time() + 3600)),
+            Zend_Http_Cookie::fromString('foo7=bar7; domain=www.foo.com; path=/path; expires=' . gmdate(DATE_COOKIE, time() + 3600)),
+            Zend_Http_Cookie::fromString('foo8=bar8; domain=subdomain.foo.com; path=/path; expires=' . gmdate(DATE_COOKIE, time() + 3600)),
         );
 
         foreach ($cookies as $cookie) $jar->addCookie($cookie);
@@ -369,14 +369,14 @@ class Zend_Http_CookieJarTest extends PHPUnit_Framework_TestCase
     {
         $jar = new Zend_Http_CookieJar();
         $cookies = array(
-            Zend_Http_Cookie::fromString('foo1=bar1; domain=.foo.com; path=/path; expires=' . date(DATE_COOKIE, time() + 3600)),
-            Zend_Http_Cookie::fromString('foo2=bar2; domain=.foo.com; path=/; expires=' . date(DATE_COOKIE, time() + 7200)),
-            Zend_Http_Cookie::fromString('foo3=bar3; domain=.foo.com; path=/; expires=' . date(DATE_COOKIE, time() - 3600)),
+            Zend_Http_Cookie::fromString('foo1=bar1; domain=.foo.com; path=/path; expires=' . gmdate(DATE_COOKIE, time() + 3600)),
+            Zend_Http_Cookie::fromString('foo2=bar2; domain=.foo.com; path=/; expires=' . gmdate(DATE_COOKIE, time() + 7200)),
+            Zend_Http_Cookie::fromString('foo3=bar3; domain=.foo.com; path=/; expires=' . gmdate(DATE_COOKIE, time() - 3600)),
             Zend_Http_Cookie::fromString('foo4=bar4; domain=.foo.com; path=/;'),
-            Zend_Http_Cookie::fromString('foo5=bar5; domain=.foo.com; path=/; secure; expires=' . date(DATE_COOKIE, time() - 7200)),
-            Zend_Http_Cookie::fromString('foo6=bar6; domain=.foo.com; path=/otherpath; expires=' . date(DATE_COOKIE, time() + 3600)),
-            Zend_Http_Cookie::fromString('foo7=bar7; domain=www.foo.com; path=/path; expires=' . date(DATE_COOKIE, time() + 3600)),
-            Zend_Http_Cookie::fromString('foo8=bar8; domain=subdomain.foo.com; path=/path; expires=' . date(DATE_COOKIE, time() + 3600)),
+            Zend_Http_Cookie::fromString('foo5=bar5; domain=.foo.com; path=/; secure; expires=' . gmdate(DATE_COOKIE, time() - 7200)),
+            Zend_Http_Cookie::fromString('foo6=bar6; domain=.foo.com; path=/otherpath; expires=' . gmdate(DATE_COOKIE, time() + 3600)),
+            Zend_Http_Cookie::fromString('foo7=bar7; domain=www.foo.com; path=/path; expires=' . gmdate(DATE_COOKIE, time() + 3600)),
+            Zend_Http_Cookie::fromString('foo8=bar8; domain=subdomain.foo.com; path=/path; expires=' . gmdate(DATE_COOKIE, time() + 3600)),
         );
 
         foreach ($cookies as $cookie) $jar->addCookie($cookie);
@@ -397,14 +397,14 @@ class Zend_Http_CookieJarTest extends PHPUnit_Framework_TestCase
     {
         $jar = new Zend_Http_CookieJar();
         $cookies = array(
-            Zend_Http_Cookie::fromString('foo1=bar1; domain=.foo.com; path=/path; expires=' . date(DATE_COOKIE, time() + 3600)),
-            Zend_Http_Cookie::fromString('foo2=bar2; domain=.foo.com; path=/; expires=' . date(DATE_COOKIE, time() + 3600)),
-            Zend_Http_Cookie::fromString('foo3=bar3; domain=.foo.com; path=/; expires=' . date(DATE_COOKIE, time() - 3600)),
+            Zend_Http_Cookie::fromString('foo1=bar1; domain=.foo.com; path=/path; expires=' . gmdate(DATE_COOKIE, time() + 3600)),
+            Zend_Http_Cookie::fromString('foo2=bar2; domain=.foo.com; path=/; expires=' . gmdate(DATE_COOKIE, time() + 3600)),
+            Zend_Http_Cookie::fromString('foo3=bar3; domain=.foo.com; path=/; expires=' . gmdate(DATE_COOKIE, time() - 3600)),
             Zend_Http_Cookie::fromString('foo4=bar4; domain=.foo.com; path=/;'),
-            Zend_Http_Cookie::fromString('foo5=bar5; domain=.foo.com; path=/; secure; expires=' . date(DATE_COOKIE, time() + 3600)),
-            Zend_Http_Cookie::fromString('foo6=bar6; domain=.foo.com; path=/otherpath; expires=' . date(DATE_COOKIE, time() + 3600)),
-            Zend_Http_Cookie::fromString('foo7=bar7; domain=www.foo.com; path=/path; expires=' . date(DATE_COOKIE, time() + 3600)),
-            Zend_Http_Cookie::fromString('foo8=bar8; domain=subdomain.foo.com; path=/path; expires=' . date(DATE_COOKIE, time() + 3600)),
+            Zend_Http_Cookie::fromString('foo5=bar5; domain=.foo.com; path=/; secure; expires=' . gmdate(DATE_COOKIE, time() + 3600)),
+            Zend_Http_Cookie::fromString('foo6=bar6; domain=.foo.com; path=/otherpath; expires=' . gmdate(DATE_COOKIE, time() + 3600)),
+            Zend_Http_Cookie::fromString('foo7=bar7; domain=www.foo.com; path=/path; expires=' . gmdate(DATE_COOKIE, time() + 3600)),
+            Zend_Http_Cookie::fromString('foo8=bar8; domain=subdomain.foo.com; path=/path; expires=' . gmdate(DATE_COOKIE, time() + 3600)),
         );
 
         foreach ($cookies as $cookie) $jar->addCookie($cookie);
