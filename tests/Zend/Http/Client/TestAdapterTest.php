@@ -63,11 +63,11 @@ class Zend_Http_Client_TestAdapterTest extends PHPUnit_Framework_TestCase
 
     /**
      * Make sure an exception is thrown on invalid cofiguration
-     *
-     * @expectedException Zend_Http_Client_Adapter_Exception
      */
     public function testSetConfigThrowsOnInvalidConfig()
     {
+        $this->expectException('Zend_Http_Client_Adapter_Exception');
+
         $this->adapter->setConfig('foo');
     }
 
@@ -127,10 +127,13 @@ class Zend_Http_Client_TestAdapterTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected[0], $this->adapter->read());
     }
 
+    public function dataProviderTestAddResponseAsString()
+    {
+        return $this->validHttpResponseProvider();
+    }
+
     /**
      * Test that responses could be added as strings
-     *
-     * @dataProvider validHttpResponseProvider
      */
     public function testAddResponseAsString($testResponse)
     {
@@ -140,11 +143,15 @@ class Zend_Http_Client_TestAdapterTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($testResponse, $this->adapter->read());
     }
 
+    public function dataProviderTestAddResponseAsObject()
+    {
+        return $this->validHttpResponseProvider();
+    }
+
     /**
      * Test that responses could be added as objects (ZF-7009)
      *
      * @link http://framework.zend.com/issues/browse/ZF-7009
-     * @dataProvider validHttpResponseProvider
      */
     public function testAddResponseAsObject($testResponse)
     {

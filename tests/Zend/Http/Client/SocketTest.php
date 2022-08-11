@@ -102,14 +102,18 @@ class Zend_Http_Client_SocketTest extends Zend_Http_Client_CommonHttpTests
         $this->assertEquals($config->nested->item, $hasConfig['nested']['item']);
     }
 
+    public function dataProviderTestSetConfigInvalidConfig()
+    {
+        return $this->invalidConfigProvider();
+    }
+
     /**
      * Check that an exception is thrown when trying to set invalid config
-     *
-     * @expectedException Zend_Http_Client_Adapter_Exception
-     * @dataProvider invalidConfigProvider
      */
     public function testSetConfigInvalidConfig($config)
     {
+        $this->expectException('Zend_Http_Client_Adapter_Exception');
+
         $this->_adapter->setConfig($config);
     }
 
@@ -153,38 +157,40 @@ class Zend_Http_Client_SocketTest extends Zend_Http_Client_CommonHttpTests
         $this->assertEquals($options, stream_context_get_options($adapter->getStreamContext()));
     }
 
+    public function dataProviderTestSetInvalidContextOptions()
+    {
+        return $this->invalidContextProvider();
+    }
+
     /**
      * Test that setting invalid options / context causes an exception
-     *
-     * @dataProvider      invalidContextProvider
-     * @expectedException Zend_Http_Client_Adapter_Exception
      */
     public function testSetInvalidContextOptions($invalid)
     {
+        $this->expectException('Zend_Http_Client_Adapter_Exception');
+
         $adapter = new $this->config['adapter'];
         $adapter->setStreamContext($invalid);
     }
 
     public function testSetHttpsStreamContextParam()
     {
-        if ($this->client->getUri()->getScheme() != 'https') {
-            $this->markTestSkipped();
+        if ($this->client->getUri()->getScheme() == 'https') {
+            $adapter = new $this->config['adapter'];
+            $adapter->setStreamContext(array(
+                'ssl' => array(
+                    'capture_peer_cert' => true,
+                    'capture_peer_chain' => true
+                )
+            ));
+
+            $this->client->setAdapter($adapter);
+            $this->client->setUri($this->baseuri . '/testSimpleRequests.php');
+            $this->client->request();
+
+            $opts = stream_context_get_options($adapter->getStreamContext());
+            $this->assertTrue(isset($opts['ssl']['peer_certificate']));
         }
-
-        $adapter = new $this->config['adapter'];
-        $adapter->setStreamContext(array(
-            'ssl' => array(
-                'capture_peer_cert' => true,
-                'capture_peer_chain' => true
-            )
-        ));
-
-        $this->client->setAdapter($adapter);
-        $this->client->setUri($this->baseuri . '/testSimpleRequests.php');
-        $this->client->request();
-
-        $opts = stream_context_get_options($adapter->getStreamContext());
-        $this->assertTrue(isset($opts['ssl']['peer_certificate']));
     }
 
     /**

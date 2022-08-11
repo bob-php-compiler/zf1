@@ -106,14 +106,18 @@ class Zend_Http_CookieJarTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($cookie_str, $jar->getAllCookies(Zend_Http_CookieJar::COOKIE_STRING_CONCAT));
     }
 
+    public function dataProviderTestExceptAddCookiesInvalidResponse()
+    {
+        return $this->invalidResponseProvider();
+    }
+
     /**
      * Test we get an exception in case of invalid response objects
-     *
-     * @dataProvider invalidResponseProvider
-     * @expectedException Zend_Http_Exception
      */
     public function testExceptAddCookiesInvalidResponse($resp)
     {
+        $this->expectException('Zend_Http_Exception');
+
         $jar = new Zend_Http_Cookiejar();
         $jar->addCookiesFromResponse($resp, 'http://www.example.com');
     }
@@ -297,10 +301,13 @@ class Zend_Http_CookieJarTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    public function dataProviderTestGetMatchingCookies()
+    {
+        return $this->cookieMatchTestProvider();
+    }
+
     /**
      * Test we can get all matching cookies for a request, with session cookies
-     *
-     * @dataProvider cookieMatchTestProvider
      */
     public function testGetMatchingCookies($url, $expected)
     {

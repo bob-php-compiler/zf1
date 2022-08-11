@@ -25,6 +25,8 @@
  */
 error_reporting(E_ALL | E_STRICT);
 
+define('TEST_ROOT_DIR', getcwd());
+
 if (defined('__BPC__')) {
     set_include_path("tests" . PATH_SEPARATOR . get_include_path());
     if (include_once_silent(__DIR__ . '/TestConfiguration.php') === false) {
@@ -77,5 +79,3 @@ if (defined('TESTS_ZEND_OB_ENABLED') && constant('TESTS_ZEND_OB_ENABLED')) {
 
 // Suppress DateTime warnings
 date_default_timezone_set(@date_default_timezone_get());
-
-define('TEST_ROOT_DIR', getcwd());

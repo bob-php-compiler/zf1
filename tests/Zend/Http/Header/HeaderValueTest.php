@@ -53,8 +53,12 @@ class Zend_Http_Header_HeaderValueTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function dataProviderTestFiltersValuesPerRfc7230()
+    {
+        return $this->getFilterValues();
+    }
+
     /**
-     * @dataProvider getFilterValues
      * @group ZF2015-04
      */
     public function testFiltersValuesPerRfc7230($value, $expected)
@@ -79,8 +83,12 @@ class Zend_Http_Header_HeaderValueTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function dataProviderTestValidatesValuesPerRfc7230()
+    {
+        return $this->validateValues();
+    }
+
     /**
-     * @dataProvider validateValues
      * @group ZF2015-04
      */
     public function testValidatesValuesPerRfc7230($value, $assertion)
@@ -104,8 +112,12 @@ class Zend_Http_Header_HeaderValueTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function dataProviderTestAssertValidRaisesExceptionForInvalidValue()
+    {
+        return $this->assertValues();
+    }
+
     /**
-     * @dataProvider assertValues
      * @group ZF2015-04
      */
     public function testAssertValidRaisesExceptionForInvalidValue($value)

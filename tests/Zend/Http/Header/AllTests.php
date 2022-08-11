@@ -20,10 +20,6 @@
  * @version    $Id$
  */
 
-if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Zend_Http_Header_AllTests::main');
-}
-
 /**
  * @see Zend_Http_Header_HeaderValue
  */
@@ -45,11 +41,6 @@ require_once 'Zend/Http/Header/SetCookieTest.php';
  */
 class Zend_Http_Header_AllTests
 {
-    public static function main()
-    {
-        PHPUnit_TextUI_TestRunner::run(self::suite());
-    }
-
     public static function suite()
     {
         $suite = new PHPUnit_Framework_TestSuite('Zend Framework - Zend_Http - Header');
@@ -59,8 +50,4 @@ class Zend_Http_Header_AllTests
 
         return $suite;
     }
-}
-
-if (PHPUnit_MAIN_METHOD == 'Zend_Http_Header_AllTests::main') {
-    Zend_Http_Header_AllTests::main();
 }

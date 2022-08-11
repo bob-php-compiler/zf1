@@ -57,8 +57,12 @@ class Zend_Http_Client_ClientTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function dataProviderTestHeadersContainingCRLFInjectionRaiseAnException()
+    {
+        return $this->invalidHeaders();
+    }
+
     /**
-     * @dataProvider invalidHeaders
      * @group ZF2015-04
      */
     public function testHeadersContainingCRLFInjectionRaiseAnException($name, $value)

@@ -20,10 +20,6 @@
  * @version    $Id$
  */
 
-if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Zend_Http_Client_CurlTest::main');
-}
-
 require_once dirname(__FILE__) . '/CommonHttpTests.php';
 
 require_once 'Zend/Http/Client/Adapter/Curl.php';
@@ -59,12 +55,6 @@ class Zend_Http_Client_CurlTest extends Zend_Http_Client_CommonHttpTests
     protected $config = array(
         'adapter'     => 'Zend_Http_Client_Adapter_Curl'
     );
-
-    public static function main()
-    {
-        $suite  = new PHPUnit_Framework_TestSuite(__CLASS__);
-        $result = PHPUnit_TextUI_TestRunner::run($suite);
-    }
 
     protected function setUp()
     {
@@ -120,35 +110,19 @@ class Zend_Http_Client_CurlTest extends Zend_Http_Client_CommonHttpTests
         $this->assertEquals($config->nested->item, $hasConfig['nested']['item']);
     }
 
-    /**
-     * Check that an exception is thrown when trying to set invalid config
-     *
-     * @expectedException Zend_Http_Client_Adapter_Exception
-     * @dataProvider invalidConfigProvider
-     */
-    public function testSetConfigInvalidConfig($config)
+    public function dataProviderTestSetConfigInvalidConfig()
     {
-        $this->_adapter->setConfig($config);
+        return $this->invalidConfigProvider();
     }
 
     /**
-     * CURLOPT_CLOSEPOLICY never worked and returns false on setopt always:
-     * @link http://de2.php.net/manual/en/function.curl-setopt.php#84277
-     *
-     * This should throw an exception.
-     *
-     * @expectedException Zend_Http_Exception
+     * Check that an exception is thrown when trying to set invalid config
      */
-    public function testSettingInvalidCurlOption()
+    public function testSetConfigInvalidConfig($config)
     {
-        $config = array(
-            'adapter'     => 'Zend_Http_Client_Adapter_Curl',
-            'curloptions' => array(CURLOPT_CLOSEPOLICY => true),
-        );
-        $this->client = new Zend_Http_Client($this->client->getUri(true), $config);
+        $this->expectException('Zend_Http_Client_Adapter_Exception');
 
-        $this->client->request('GET');
-        $this->fail();
+        $this->_adapter->setConfig($config);
     }
 
     public function testRedirectWithGetOnly()
@@ -175,11 +149,11 @@ class Zend_Http_Client_CurlTest extends Zend_Http_Client_CommonHttpTests
      *
      * Set CURLOPT_FOLLOWLOCATION = false for this type of request and let the Zend_Http_Client handle redirects
      * in his own loop.
-     *
-     * @expectedException Zend_Http_Client_Exception
      */
     public function testRedirectPostToGetWithCurlFollowLocationOptionLeadsToTimeout()
     {
+        $this->expectException('Zend_Http_Client_Exception');
+
         $adapter = new Zend_Http_Client_Adapter_Curl();
         $this->client->setAdapter($adapter);
         $adapter->setConfig(array(
@@ -263,7 +237,7 @@ class Zend_Http_Client_CurlTest extends Zend_Http_Client_CommonHttpTests
 
         $this->assertEquals(
             array('curloptions' => array('foo' => 'bar', 'bar' => 'baz')),
-            $this->readAttribute($adapter, '_config')
+            $adapter->getConfig()
         );
     }
 
@@ -285,9 +259,7 @@ class Zend_Http_Client_CurlTest extends Zend_Http_Client_CommonHttpTests
             ),
         );
 
-        $this->assertEquals(
-            $expected, $this->readAttribute($adapter, '_config')
-        );
+        $this->assertEquals($expected, $adapter->getConfig());
     }
 
     /**
@@ -301,7 +273,7 @@ class Zend_Http_Client_CurlTest extends Zend_Http_Client_CommonHttpTests
 
         $this->assertTrue(is_resource($adapter->getHandle()));
     }
-    
+
     /**
      * @group ZF-9857
      */
@@ -313,8 +285,4 @@ class Zend_Http_Client_CurlTest extends Zend_Http_Client_CommonHttpTests
         $this->client->request('HEAD');
         $this->assertEquals('', $this->client->getLastResponse()->getBody());
     }
-}
-
-if (PHPUnit_MAIN_METHOD == 'Zend_Http_Client_CurlTest::main') {
-    Zend_Http_Client_CurlTest::main();
 }

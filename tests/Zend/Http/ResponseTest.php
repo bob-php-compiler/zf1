@@ -182,12 +182,12 @@ class Zend_Http_ResponseTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($response->isSuccessful(), 'Response is OK, but isSuccessful() returned false');
         $this->assertFalse($response->isRedirect(), 'Response is OK, but isRedirect() returned true');
     }
-
+/*
     public function test100Continue()
     {
         $this->markTestIncomplete();
     }
-
+*/
     public function testAutoMessageSet()
     {
         $response = Zend_Http_Response::fromString($this->readResponse('response_403_nomessage'));
@@ -406,9 +406,13 @@ class Zend_Http_ResponseTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function dataProviderTestExtractHeadersRaisesExceptionWhenDetectingCRLFInjection()
+    {
+        return $this->invalidResponseHeaders();
+    }
+
     /**
      * @group ZF2015-04
-     * @dataProvider invalidResponseHeaders
      */
     public function testExtractHeadersRaisesExceptionWhenDetectingCRLFInjection($message)
     {
