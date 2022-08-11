@@ -20,9 +20,9 @@
  * @version    $Id$
  */
 
-require_once 'Zend/View/Helper/ActionTest.php';
-require_once 'Zend/View/Helper/BaseUrlTest.php';
-require_once 'Zend/View/Helper/CurrencyTest.php';
+//require_once 'Zend/View/Helper/ActionTest.php';
+//require_once 'Zend/View/Helper/BaseUrlTest.php';
+//require_once 'Zend/View/Helper/CurrencyTest.php';
 require_once 'Zend/View/Helper/CycleTest.php';
 require_once 'Zend/View/Helper/DeclareVarsTest.php';
 require_once 'Zend/View/Helper/DoctypeTest.php';
@@ -54,11 +54,11 @@ require_once 'Zend/View/Helper/HtmlListTest.php';
 //require_once 'Zend/View/Helper/HtmlPageTest.php';
 //require_once 'Zend/View/Helper/HtmlQuicktimeTest.php';
 require_once 'Zend/View/Helper/InlineScriptTest.php';
-require_once 'Zend/View/Helper/JsonTest.php';
-require_once 'Zend/View/Helper/LayoutTest.php';
+//require_once 'Zend/View/Helper/JsonTest.php';
+//require_once 'Zend/View/Helper/LayoutTest.php';
 //require_once 'Zend/View/Helper/Navigation/AllTests.php';
-require_once 'Zend/View/Helper/PaginationControlTest.php';
-require_once 'Zend/View/Helper/PartialTest.php';
+//require_once 'Zend/View/Helper/PaginationControlTest.php';
+//require_once 'Zend/View/Helper/PartialTest.php';
 //require_once 'Zend/View/Helper/PartialLoopTest.php';
 require_once 'Zend/View/Helper/PlaceholderTest.php';
 require_once 'Zend/View/Helper/Placeholder/ContainerTest.php';
@@ -66,8 +66,8 @@ require_once 'Zend/View/Helper/Placeholder/RegistryTest.php';
 require_once 'Zend/View/Helper/Placeholder/StandaloneContainerTest.php';
 require_once 'Zend/View/Helper/ServerUrlTest.php';
 require_once 'Zend/View/Helper/TranslateTest.php';
-require_once 'Zend/View/Helper/UrlTest.php';
-require_once 'Zend/View/Helper/UserAgentTest.php';
+//require_once 'Zend/View/Helper/UrlTest.php';
+//require_once 'Zend/View/Helper/UserAgentTest.php';
 
 /**
  * @category   Zend
@@ -84,9 +84,9 @@ class Zend_View_Helper_AllTests
     {
         $suite = new PHPUnit_Framework_TestSuite('Zend Framework - Zend_View_Helper');
 
-        $suite->addTestSuite('Zend_View_Helper_ActionTest');
-        $suite->addTestSuite('Zend_View_Helper_BaseUrlTest');
-        $suite->addTestSuite('Zend_View_Helper_CurrencyTest');
+        //$suite->addTestSuite('Zend_View_Helper_ActionTest');
+        //$suite->addTestSuite('Zend_View_Helper_BaseUrlTest');
+        //$suite->addTestSuite('Zend_View_Helper_CurrencyTest');
         $suite->addTestSuite('Zend_View_Helper_CycleTest');
         $suite->addTestSuite('Zend_View_Helper_DeclareVarsTest');
         $suite->addTestSuite('Zend_View_Helper_DoctypeTest');
@@ -118,11 +118,11 @@ class Zend_View_Helper_AllTests
         //$suite->addTestSuite('Zend_View_Helper_HtmlPageTest');
         //$suite->addTestSuite('Zend_View_Helper_HtmlQuicktimeTest');
         $suite->addTestSuite('Zend_View_Helper_InlineScriptTest');
-        $suite->addTestSuite('Zend_View_Helper_JsonTest');
-        $suite->addTestSuite('Zend_View_Helper_LayoutTest');
+        //$suite->addTestSuite('Zend_View_Helper_JsonTest');
+        //$suite->addTestSuite('Zend_View_Helper_LayoutTest');
         //$suite->addTest(Zend_View_Helper_Navigation_AllTests::suite());
-        $suite->addTestSuite('Zend_View_Helper_PaginationControlTest');
-        $suite->addTestSuite('Zend_View_Helper_PartialTest');
+        //$suite->addTestSuite('Zend_View_Helper_PaginationControlTest');
+        //$suite->addTestSuite('Zend_View_Helper_PartialTest');
         //$suite->addTestSuite('Zend_View_Helper_PartialLoopTest');
         $suite->addTestSuite('Zend_View_Helper_PlaceholderTest');
         $suite->addTestSuite('Zend_View_Helper_Placeholder_ContainerTest');
@@ -130,8 +130,8 @@ class Zend_View_Helper_AllTests
         $suite->addTestSuite('Zend_View_Helper_Placeholder_StandaloneContainerTest');
         $suite->addTestSuite('Zend_View_Helper_ServerUrlTest');
         $suite->addTestSuite('Zend_View_Helper_TranslateTest');
-        $suite->addTestSuite('Zend_View_Helper_UrlTest');
-        $suite->addTestSuite('Zend_View_Helper_UserAgentTest');
+        //$suite->addTestSuite('Zend_View_Helper_UrlTest');
+        //$suite->addTestSuite('Zend_View_Helper_UserAgentTest');
 
         return $suite;
     }

@@ -267,16 +267,16 @@ class Zend_View_Helper_HeadScriptTest extends PHPUnit_Framework_TestCase
             $item = $items[$i];
             switch ($i) {
                 case 0:
-                    $this->assertObjectHasAttribute('source', $item);
+                    $this->assertTrue(property_exists($item, 'source'));
                     $this->assertEquals('bar', $item->source);
                     break;
                 case 1:
-                    $this->assertObjectHasAttribute('attributes', $item);
+                    $this->assertTrue(property_exists($item, 'attributes'));
                     $this->assertTrue(isset($item->attributes['src']));
                     $this->assertEquals('foo', $item->attributes['src']);
                     break;
                 case 2:
-                    $this->assertObjectHasAttribute('source', $item);
+                    $this->assertTrue(property_exists($item, 'source'));
                     $this->assertEquals('baz', $item->source);
                     break;
             }
@@ -288,24 +288,18 @@ class Zend_View_Helper_HeadScriptTest extends PHPUnit_Framework_TestCase
         $this->helper->headScript('FILE', 'foo', 'set')
                      ->headScript('SCRIPT', 'bar', 'prepend')
                      ->headScript('SCRIPT', 'baz', 'append');
-        $string = $this->helper->toString();
-
-        $scripts = substr_count($string, '<script ');
-        $this->assertEquals(3, $scripts);
-        $scripts = substr_count($string, '</script>');
-        $this->assertEquals(3, $scripts);
-        $scripts = substr_count($string, 'src="');
-        $this->assertEquals(1, $scripts);
-        $scripts = substr_count($string, '><');
-        $this->assertEquals(1, $scripts);
-
-        $this->assertContains('src="foo"', $string);
-        $this->assertContains('bar', $string);
-        $this->assertContains('baz', $string);
-
-        $doc = new DOMDocument;
-        $dom = $doc->loadHtml($string);
-        $this->assertTrue($dom !== false);
+        $this->assertEquals(
+            '<script type="text/javascript">
+    //<!--
+    bar    //-->
+</script>
+<script type="text/javascript" src="foo"></script>
+<script type="text/javascript">
+    //<!--
+    baz    //-->
+</script>',
+            $this->helper->toString()
+        );
     }
 
     public function testCapturingCapturesToObject()

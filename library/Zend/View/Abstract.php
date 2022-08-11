@@ -975,9 +975,17 @@ abstract class Zend_View_Abstract implements Zend_View_Interface
             throw $e;
         }
 
-        foreach ($this->_path['script'] as $dir) {
-            if (is_readable($dir . $name)) {
-                return $dir . $name;
+        if (defined('__BPC__')) {
+            foreach ($this->_path['script'] as $dir) {
+                if (include_file_exists($dir . $name)) {
+                    return $dir . $name;
+                }
+            }
+        } else {
+            foreach ($this->_path['script'] as $dir) {
+                if (is_readable($dir . $name)) {
+                    return $dir . $name;
+                }
             }
         }
 

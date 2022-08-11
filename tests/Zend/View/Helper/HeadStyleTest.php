@@ -128,8 +128,8 @@ class Zend_View_Helper_HeadStyleTest extends PHPUnit_Framework_TestCase
             $item = $values[$i];
 
             $this->assertTrue($item instanceof stdClass);
-            $this->assertObjectHasAttribute('content', $item);
-            $this->assertObjectHasAttribute('attributes', $item);
+            $this->assertTrue(property_exists($item, 'content'));
+            $this->assertTrue(property_exists($item, 'attributes'));
             $this->assertEquals($string, $item->content);
         }
     }
@@ -145,8 +145,8 @@ class Zend_View_Helper_HeadStyleTest extends PHPUnit_Framework_TestCase
             $item = array_shift($values);
 
             $this->assertTrue($item instanceof stdClass);
-            $this->assertObjectHasAttribute('content', $item);
-            $this->assertObjectHasAttribute('attributes', $item);
+            $this->assertTrue(property_exists($item, 'content'));
+            $this->assertTrue(property_exists($item, 'attributes'));
             $this->assertEquals($string, $item->content);
         }
     }
@@ -164,8 +164,8 @@ class Zend_View_Helper_HeadStyleTest extends PHPUnit_Framework_TestCase
         $item = array_shift($values);
 
         $this->assertTrue($item instanceof stdClass);
-        $this->assertObjectHasAttribute('content', $item);
-        $this->assertObjectHasAttribute('attributes', $item);
+        $this->assertTrue(property_exists($item, 'content'));
+        $this->assertTrue(property_exists($item, 'attributes'));
         $this->assertEquals($string, $item->content);
     }
 
@@ -180,7 +180,7 @@ class Zend_View_Helper_HeadStyleTest extends PHPUnit_Framework_TestCase
         ));
         $value = $this->helper->getValue();
 
-        $this->assertObjectHasAttribute('attributes', $value);
+        $this->assertTrue(property_exists($value, 'attributes'));
         $attributes = $value->attributes;
 
         $this->assertTrue(isset($attributes['lang']));
@@ -252,18 +252,26 @@ class Zend_View_Helper_HeadStyleTest extends PHPUnit_Framework_TestCase
         $this->helper->headStyle($style1, 'SET')
                      ->headStyle($style2, 'PREPEND')
                      ->headStyle($style3, 'APPEND');
-        $html = $this->helper->toString();
-        $doc  = new DOMDocument;
-        $dom  = $doc->loadHtml($html);
-        $this->assertTrue(($dom !== false));
-
-        $styles = substr_count($html, '<style type="text/css"');
-        $this->assertEquals(3, $styles);
-        $styles = substr_count($html, '</style>');
-        $this->assertEquals(3, $styles);
-        $this->assertContains($style3, $html);
-        $this->assertContains($style2, $html);
-        $this->assertContains($style1, $html);
+        $this->assertEquals(
+            '<style type="text/css" media="screen">
+<!--
+body {}
+h1 {}
+-->
+</style>
+<style type="text/css" media="screen">
+<!--
+a {}
+-->
+</style>
+<style type="text/css" media="screen">
+<!--
+div {}
+li {}
+-->
+</style>',
+            $this->helper->toString()
+        );
     }
 
     public function testCapturingCapturesToObject()

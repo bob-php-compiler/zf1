@@ -313,7 +313,7 @@ class Zend_ViewTest extends PHPUnit_Framework_TestCase
         $view->content = 'testSubTemplate.phtml';
         $this->assertEquals('', $view->render('testParent.phtml'));
 
-        $logFile = dirname(__FILE__) . '/View/_templates/view.log';
+        $logFile = TEST_ROOT_DIR . '/Zend/View/_templates/view.log';
         $this->assertTrue(file_exists($logFile));
         $log = file_get_contents($logFile);
         unlink($logFile); // clean up...
@@ -814,7 +814,7 @@ class Zend_ViewTest extends PHPUnit_Framework_TestCase
         $view = new Zend_View();
         $view->setScriptPath(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'View' . DIRECTORY_SEPARATOR . '_templates');
         $view->strictVars(true);
-        set_error_handler(array($this, 'handleNotices'), E_USER_NOTICE);
+        set_error_handler(array($this, 'handleNotices'));
         $content = $view->render('testStrictVars.phtml');
         restore_error_handler();
         foreach (array('foo', 'bar') as $key) {

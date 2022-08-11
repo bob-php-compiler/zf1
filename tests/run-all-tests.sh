@@ -29,6 +29,8 @@ then
                Zend/Mime/AllTests.php
                Zend/Mail/AllTests.php
                Zend/Db/AllTests.php
+               Zend/ViewTest.php
+               Zend/View/AllTests.php
                Zend/PaginatorTest.php
                Zend/Paginator/AllTests.php"
 else

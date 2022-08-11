@@ -153,10 +153,10 @@ class Zend_View_Helper_HeadMetaTest extends PHPUnit_Framework_TestCase
             $this->assertEquals($i + 1, count($values));
 
             $item   = $values[$i];
-            $this->assertObjectHasAttribute('type', $item);
-            $this->assertObjectHasAttribute('modifiers', $item);
-            $this->assertObjectHasAttribute('content', $item);
-            $this->assertObjectHasAttribute($item->type, $item);
+            $this->assertTrue(property_exists($item, 'type'));
+            $this->assertTrue(property_exists($item, 'modifiers'));
+            $this->assertTrue(property_exists($item, 'content'));
+            $this->assertTrue(property_exists($item, $item->type));
             $this->assertEquals('keywords', $item->{$item->type});
             $this->assertEquals($string, $item->content);
         }
@@ -173,10 +173,10 @@ class Zend_View_Helper_HeadMetaTest extends PHPUnit_Framework_TestCase
             $this->assertEquals($i + 1, count($values));
             $item = array_shift($values);
 
-            $this->assertObjectHasAttribute('type', $item);
-            $this->assertObjectHasAttribute('modifiers', $item);
-            $this->assertObjectHasAttribute('content', $item);
-            $this->assertObjectHasAttribute($item->type, $item);
+            $this->assertTrue(property_exists($item, 'type'));
+            $this->assertTrue(property_exists($item, 'modifiers'));
+            $this->assertTrue(property_exists($item, 'content'));
+            $this->assertTrue(property_exists($item, $item->type));
             $this->assertEquals('keywords', $item->{$item->type});
             $this->assertEquals($string, $item->content);
         }
@@ -196,10 +196,10 @@ class Zend_View_Helper_HeadMetaTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(1, count($values));
         $item = array_shift($values);
 
-        $this->assertObjectHasAttribute('type', $item);
-        $this->assertObjectHasAttribute('modifiers', $item);
-        $this->assertObjectHasAttribute('content', $item);
-        $this->assertObjectHasAttribute($item->type, $item);
+        $this->assertTrue(property_exists($item, 'type'));
+        $this->assertTrue(property_exists($item, 'modifiers'));
+        $this->assertTrue(property_exists($item, 'content'));
+        $this->assertTrue(property_exists($item, $item->type));
         $this->assertEquals('keywords', $item->{$item->type});
         $this->assertEquals($string, $item->content);
     }
@@ -257,7 +257,7 @@ class Zend_View_Helper_HeadMetaTest extends PHPUnit_Framework_TestCase
         $this->helper->setName('keywords', 'foo bar', array('lang' => 'us_en', 'scheme' => 'foo', 'bogus' => 'unused'));
         $value = $this->helper->getValue();
 
-        $this->assertObjectHasAttribute('modifiers', $value);
+        $this->assertTrue(property_exists($value, 'modifiers'));
         $modifiers = $value->modifiers;
         $this->assertTrue(array_key_exists('lang', $modifiers));
         $this->assertEquals('us_en', $modifiers['lang']);

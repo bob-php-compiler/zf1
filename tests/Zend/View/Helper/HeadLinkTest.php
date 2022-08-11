@@ -296,8 +296,8 @@ class Zend_View_Helper_HeadLinkTest extends PHPUnit_Framework_TestCase
     {
         $this->helper->setStylesheet('/styles.css', 'projection', 'ie6');
         $item = $this->helper->getValue();
-        $this->assertObjectHasAttribute('media', $item);
-        $this->assertObjectHasAttribute('conditionalStylesheet', $item);
+        $this->assertTrue(property_exists($item, 'media'));
+        $this->assertTrue(property_exists($item, 'conditionalStylesheet'));
 
         $this->assertEquals('projection', $item->media);
         $this->assertEquals('ie6', $item->conditionalStylesheet);
@@ -307,7 +307,7 @@ class Zend_View_Helper_HeadLinkTest extends PHPUnit_Framework_TestCase
     {
         $this->helper->setStylesheet('/styles.css');
         $item = $this->helper->getValue();
-        $this->assertObjectHasAttribute('conditionalStylesheet', $item);
+        $this->assertTrue(property_exists($item, 'conditionalStylesheet'));
         $this->assertFalse($item->conditionalStylesheet);
 
         $string = $this->helper->toString();
@@ -321,7 +321,7 @@ class Zend_View_Helper_HeadLinkTest extends PHPUnit_Framework_TestCase
     {
         $this->helper->setStylesheet('/styles.css', 'screen', 'ie6');
         $item = $this->helper->getValue();
-        $this->assertObjectHasAttribute('conditionalStylesheet', $item);
+        $this->assertTrue(property_exists($item, 'conditionalStylesheet'));
         $this->assertEquals('ie6', $item->conditionalStylesheet);
 
         $string = $this->helper->toString();
@@ -487,7 +487,7 @@ class Zend_View_Helper_HeadLinkTest extends PHPUnit_Framework_TestCase
     {
         $this->helper->setStylesheet('/styles.css', 'screen', '!IE');
         $item = $this->helper->getValue();
-        $this->assertObjectHasAttribute('conditionalStylesheet', $item);
+        $this->assertTrue(property_exists($item, 'conditionalStylesheet'));
         $this->assertEquals('!IE', $item->conditionalStylesheet);
         $string = $this->helper->toString();
         $this->assertContains('/styles.css', $string);
@@ -502,7 +502,7 @@ class Zend_View_Helper_HeadLinkTest extends PHPUnit_Framework_TestCase
     {
         $this->helper->setStylesheet('/styles.css', 'screen', '! IE');
         $item = $this->helper->getValue();
-        $this->assertObjectHasAttribute('conditionalStylesheet', $item);
+        $this->assertTrue(property_exists($item, 'conditionalStylesheet'));
         $this->assertEquals('! IE', $item->conditionalStylesheet);
         $string = $this->helper->toString();
         $this->assertContains('/styles.css', $string);
