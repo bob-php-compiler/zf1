@@ -1783,6 +1783,8 @@ class Zend_Validate_Hostname extends Zend_Validate_Abstract
                         }
                     }
 
+                    $breakWhile = false;
+
                     // Check each hostname part
                     $check = 0;
                     foreach ($domainParts as $domainPart) {
@@ -1806,7 +1808,8 @@ class Zend_Validate_Hostname extends Zend_Validate_Abstract
                             || (strpos($domainPart, '-') === (strlen($domainPart) - 1))) {
                                 $this->_error(self::INVALID_DASH);
                             $status = false;
-                            break 2;
+                            $breakWhile = true;
+                            break;
                         }
 
                         // Check each domain part
@@ -1832,6 +1835,10 @@ class Zend_Validate_Hostname extends Zend_Validate_Abstract
                         if ($checked) {
                             ++$check;
                         }
+                    }
+
+                    if ($breakWhile) {
+                        break;
                     }
 
                     // If one of the labels doesn't match, the hostname is invalid

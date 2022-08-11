@@ -130,7 +130,7 @@ class Zend_UriTest extends PHPUnit_Framework_TestCase
     {
         $uri = Zend_Uri::factory('http://example.com', 'Zend_Uri_ExceptionCausing');
 
-        set_error_handler(array($this, 'handleErrors'), E_USER_WARNING);
+        set_error_handler(array($this, 'handleErrors'));
 
         $text = sprintf('%s', $uri);
 

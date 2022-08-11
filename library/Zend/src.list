@@ -288,3 +288,17 @@ Db/Profiler.php
 Db/Profiler/Exception.php
 Db/Profiler/Query.php
 #Db/Profiler/Firebug.php
+# Uri
+Uri.php
+Uri/Exception.php
+Uri/Http.php
+# Validate
+Validate/Exception.php
+Validate/Interface.php
+Validate/Abstract.php
+Validate/Ip.php
+Validate/Hostname.php
+Validate/Hostname/Biz.php
+Validate/Hostname/Cn.php
+Validate/Hostname/Com.php
+Validate/Hostname/Jp.php
