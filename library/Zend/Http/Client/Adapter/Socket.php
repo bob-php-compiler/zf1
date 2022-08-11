@@ -374,26 +374,25 @@ class Zend_Http_Client_Adapter_Socket implements Zend_Http_Client_Adapter_Interf
                     $chunksize = hexdec($chunksize);
 
                     // Read next chunk
-                    $read_to = ftell($this->socket) + $chunksize;
-
+                    $bytes_to_read = $chunksize;
                     do {
-                        $current_pos = ftell($this->socket);
-                        if ($current_pos >= $read_to) break;
-
-                        if($this->out_stream) {
-                            if(stream_copy_to_stream($this->socket, $this->out_stream, $read_to - $current_pos) == 0) {
-                              $this->_checkSocketReadTimeout();
-                              break;
-                             }
+                        if ($this->out_stream) {
+                            $bytes_copied = @stream_copy_to_stream($this->socket, $this->out_stream, $bytes_to_read);
+                            if ($bytes_copied == 0) {
+                                $this->_checkSocketReadTimeout();
+                                break;
+                            }
+                            $bytes_to_read -= $bytes_copied;
                         } else {
-                            $line = @fread($this->socket, $read_to - $current_pos);
+                            $line = @fread($this->socket, $bytes_to_read);
                             if ($line === false || strlen($line) === 0) {
                                 $this->_checkSocketReadTimeout();
                                 break;
                             }
-                                    $chunk .= $line;
+                            $chunk .= $line;
+                            $bytes_to_read -= strlen($line);
                         }
-                    } while (! feof($this->socket));
+                    } while ($bytes_to_read > 0 && !feof($this->socket));
 
                     $chunk .= @fgets($this->socket);
                     $this->_checkSocketReadTimeout();
@@ -404,7 +403,7 @@ class Zend_Http_Client_Adapter_Socket implements Zend_Http_Client_Adapter_Interf
                 } while ($chunksize > 0);
             } else {
                 $this->close();
-        require_once 'Zend/Http/Client/Adapter/Exception.php';
+                require_once 'Zend/Http/Client/Adapter/Exception.php';
                 throw new Zend_Http_Client_Adapter_Exception('Cannot handle "' .
                     $headers['transfer-encoding'] . '" transfer encoding');
             }
@@ -425,31 +424,25 @@ class Zend_Http_Client_Adapter_Socket implements Zend_Http_Client_Adapter_Interf
                 $contentLength = $headers['content-length'];
             }
 
-            $current_pos = ftell($this->socket);
             $chunk = '';
-
-            for ($read_to = $current_pos + $contentLength;
-                 $read_to > $current_pos;
-                 $current_pos = ftell($this->socket)) {
-
-                 if($this->out_stream) {
-                     if(@stream_copy_to_stream($this->socket, $this->out_stream, $read_to - $current_pos) == 0) {
-                          $this->_checkSocketReadTimeout();
-                          break;
-                     }
-                 } else {
-                    $chunk = @fread($this->socket, $read_to - $current_pos);
+            do {
+                if ($this->out_stream) {
+                    $bytes_copied = @stream_copy_to_stream($this->socket, $this->out_stream, $contentLength);
+                    if ($bytes_copied == 0) {
+                        $this->_checkSocketReadTimeout();
+                        break;
+                    }
+                    $contentLength -= $bytes_copied;
+                } else {
+                    $chunk = @fread($this->socket, $contentLength);
                     if ($chunk === false || strlen($chunk) === 0) {
                         $this->_checkSocketReadTimeout();
                         break;
                     }
-
                     $response .= $chunk;
+                    $contentLength -= strlen($chunk);
                 }
-
-                // Break if the connection ended prematurely
-                if (feof($this->socket)) break;
-            }
+            } while ($contentLength > 0 && !feof($this->socket));
 
         // Fallback: just read the response until EOF
         } else {

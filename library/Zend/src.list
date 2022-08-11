@@ -84,6 +84,8 @@ Controller/Exception.php
 Controller/Request/Abstract.php
 Controller/Response/Abstract.php
 Controller/Response/Exception.php
+Controller/Response/Http.php
+Controller/Response/HttpTestCase.php
 Controller/Dispatcher/Interface.php
 # View
 View.php
@@ -302,3 +304,22 @@ Validate/Hostname/Biz.php
 Validate/Hostname/Cn.php
 Validate/Hostname/Com.php
 Validate/Hostname/Jp.php
+# Http
+Http/Exception.php
+Http/Cookie.php
+Http/CookieJar.php
+Http/Client.php
+Http/Client/Exception.php
+Http/Client/Adapter/Exception.php
+Http/Client/Adapter/Interface.php
+Http/Client/Adapter/Curl.php
+#Http/Client/Adapter/Proxy.php
+Http/Client/Adapter/Socket.php
+Http/Client/Adapter/Stream.php
+Http/Client/Adapter/Test.php
+Http/Header/Exception/InvalidArgumentException.php
+Http/Header/Exception/RuntimeException.php
+Http/Header/HeaderValue.php
+Http/Header/SetCookie.php
+Http/Response.php
+Http/Response/Stream.php

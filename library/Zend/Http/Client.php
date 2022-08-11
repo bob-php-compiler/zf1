@@ -613,7 +613,7 @@ class Zend_Http_Client
         // Else, set up authentication
         } else {
             // Check we got a proper authentication type
-            if (! defined('self::AUTH_' . strtoupper($type))) {
+            if (! defined(__CLASS__ . '::AUTH_' . strtoupper($type))) {
                 /** @see Zend_Http_Client_Exception */
                 require_once 'Zend/Http/Client/Exception.php';
                 throw new Zend_Http_Client_Exception("Invalid or not supported authentication type: '$type'");
@@ -1094,10 +1094,13 @@ class Zend_Http_Client
             }
 
             if($this->config['output_stream']) {
+                /*
                 $streamMetaData = stream_get_meta_data($stream);
                 if ($streamMetaData['seekable']) {
                     rewind($stream);
-                }
+                }*/
+                // always rewind
+                rewind($stream);
                 // cleanup the adapter
                 $this->adapter->setOutputStream(null);
                 $response = Zend_Http_Response_Stream::fromStream($response, $stream);

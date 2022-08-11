@@ -324,21 +324,9 @@ class Zend_Http_Cookie
             $keyValue = explode('=', $part, 2);
             if (count($keyValue) == 2) {
                 list($k, $v) = $keyValue;
-                switch (strtolower($k))    {
+                switch (strtolower($k)) {
                     case 'expires':
-                        if(($expires = strtotime($v)) === false) {
-                            /**
-                             * The expiration is past Tue, 19 Jan 2038 03:14:07 UTC
-                             * the maximum for 32-bit signed integer. Zend_Date
-                             * can get around that limit.
-                             *
-                             * @see Zend_Date
-                             */
-                            require_once 'Zend/Date.php';
-
-                            $expireDate = new Zend_Date($v);
-                            $expires = $expireDate->getTimestamp();
-                        }
+                        $expires = strtotime($v);
                         break;
 
                     case 'path':

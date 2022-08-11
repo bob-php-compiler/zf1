@@ -24,7 +24,7 @@ require_once 'Zend/Http/Client/ClientTest.php';
 require_once 'Zend/Http/Client/StaticTest.php';
 require_once 'Zend/Http/Client/SocketTest.php';
 require_once 'Zend/Http/Client/SocketKeepaliveTest.php';
-require_once 'Zend/Http/Client/SocketPersistentTest.php';
+//require_once 'Zend/Http/Client/SocketPersistentTest.php';
 require_once 'Zend/Http/Client/TestAdapterTest.php';
 //require_once 'Zend/Http/Client/ProxyAdapterTest.php';
 require_once 'Zend/Http/Client/SkipTests.php';
@@ -50,7 +50,7 @@ class Zend_Http_Client_AllTests
         if (defined('TESTS_ZEND_HTTP_CLIENT_BASEURI') && Zend_Uri_Http::check(TESTS_ZEND_HTTP_CLIENT_BASEURI)) {
             $suite->addTestSuite('Zend_Http_Client_SocketTest');
             $suite->addTestSuite('Zend_Http_Client_SocketKeepaliveTest');
-            $suite->addTestSuite('Zend_Http_Client_SocketPersistentTest');
+            //$suite->addTestSuite('Zend_Http_Client_SocketPersistentTest');
         } else {
             $suite->addTestSuite('Zend_Http_Client_Skip_SocketTest');
         }

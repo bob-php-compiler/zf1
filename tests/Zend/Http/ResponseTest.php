@@ -43,7 +43,7 @@ class Zend_Http_ResponseTest extends PHPUnit_Framework_TestCase
 
     public function testGzipResponse ()
     {
-        $response_text = file_get_contents(dirname(__FILE__) . '/_files/response_gzip');
+        $response_text = file_get_contents(TEST_ROOT_DIR . '/Zend/Http/_files/response_gzip');
 
         $res = Zend_Http_Response::fromString($response_text);
 
@@ -54,7 +54,7 @@ class Zend_Http_ResponseTest extends PHPUnit_Framework_TestCase
 
     public function testDeflateResponse ()
     {
-        $response_text = file_get_contents(dirname(__FILE__) . '/_files/response_deflate');
+        $response_text = file_get_contents(TEST_ROOT_DIR . '/Zend/Http/_files/response_deflate');
 
         $res = Zend_Http_Response::fromString($response_text);
 
@@ -74,7 +74,7 @@ class Zend_Http_ResponseTest extends PHPUnit_Framework_TestCase
      */
     public function testNonStandardDeflateResponseZF6040()
     {
-        $response_text = file_get_contents(dirname(__FILE__) . '/_files/response_deflate_iis');
+        $response_text = file_get_contents(TEST_ROOT_DIR . '/Zend/Http/_files/response_deflate_iis');
 
         // Ensure headers are correctly formatted (i.e., separated with "\r\n" sequence)
         //
@@ -95,7 +95,7 @@ class Zend_Http_ResponseTest extends PHPUnit_Framework_TestCase
 
     public function testChunkedResponse ()
     {
-        $response_text = file_get_contents(dirname(__FILE__) . '/_files/response_chunked');
+        $response_text = file_get_contents(TEST_ROOT_DIR . '/Zend/Http/_files/response_chunked');
 
         $res = Zend_Http_Response::fromString($response_text);
 
@@ -106,7 +106,7 @@ class Zend_Http_ResponseTest extends PHPUnit_Framework_TestCase
 
     public function testChunkedResponseCaseInsensitiveZF5438()
     {
-        $response_text = file_get_contents(dirname(__FILE__) . '/_files/response_chunked_case');
+        $response_text = file_get_contents(TEST_ROOT_DIR . '/Zend/Http/_files/response_chunked_case');
 
         $res = Zend_Http_Response::fromString($response_text);
 
@@ -117,13 +117,13 @@ class Zend_Http_ResponseTest extends PHPUnit_Framework_TestCase
 
     public function testExtractMessageCrlf()
     {
-        $response_text = file_get_contents(dirname(__FILE__) . '/_files/response_crlf');
+        $response_text = file_get_contents(TEST_ROOT_DIR . '/Zend/Http/_files/response_crlf');
         $this->assertEquals("OK", Zend_Http_Response::extractMessage($response_text), "Response message is not 'OK' as expected");
     }
 
     public function testExtractMessageLfonly()
     {
-        $response_text = file_get_contents(dirname(__FILE__) . '/_files/response_lfonly');
+        $response_text = file_get_contents(TEST_ROOT_DIR . '/Zend/Http/_files/response_lfonly');
         $this->assertEquals("OK", Zend_Http_Response::extractMessage($response_text), "Response message is not 'OK' as expected");
     }
 
@@ -304,7 +304,7 @@ class Zend_Http_ResponseTest extends PHPUnit_Framework_TestCase
      */
     public function testLeadingWhitespaceBody()
     {
-        $message = file_get_contents(dirname(__FILE__) . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'response_leadingws');
+        $message = file_get_contents(TEST_ROOT_DIR . '/Zend/Http/_files/response_leadingws');
         $body    = Zend_Http_Response::extractBody($message);
         $this->assertEquals($body, "\r\n\t  \n\r\tx", 'Extracted body is not identical to expected body');
     }
@@ -383,9 +383,7 @@ class Zend_Http_ResponseTest extends PHPUnit_Framework_TestCase
      */
     protected function readResponse($response)
     {
-        $message = file_get_contents(
-            dirname(__FILE__) . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . $response
-        );
+        $message = file_get_contents(TEST_ROOT_DIR . "/Zend/Http/_files/$response");
         // Line endings are sometimes an issue inside the canned responses; the
         // following is a negative lookbehind assertion, and replaces any \n
         // not preceded by \r with the sequence \r\n, ensuring that the message

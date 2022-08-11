@@ -1050,7 +1050,7 @@ abstract class Zend_Http_Client_CommonHttpTests extends PHPUnit_Framework_TestCa
 
         $this->client->setUri($this->baseuri. 'testUploads.php');
 
-        $rawdata = file_get_contents(__FILE__);
+        $rawdata = file_get_contents(TEST_ROOT_DIR . '/Zend/Http/Client/CommonHttpTests.php');
         $this->client->setFileUpload('myfile.txt', 'uploadfile', $rawdata, 'text/plain');
         $res = $this->client->request('POST');
 
@@ -1068,13 +1068,15 @@ abstract class Zend_Http_Client_CommonHttpTests extends PHPUnit_Framework_TestCa
             $this->markTestSkipped('File uploads disabled.');
         }
 
+        $file = TEST_ROOT_DIR . '/Zend/Http/Client/CommonHttpTests.php';
+
         $this->client->setUri($this->baseuri. 'testUploads.php');
-        $this->client->setFileUpload(__FILE__, 'uploadfile', null, 'text/x-foo-bar');
+        $this->client->setFileUpload($file, 'uploadfile', null, 'text/x-foo-bar');
         $res = $this->client->request('POST');
 
-        $size = filesize(__FILE__);
+        $size = filesize($file);
 
-        $body = "uploadfile " . basename(__FILE__) . " text/x-foo-bar $size\n";
+        $body = "uploadfile " . basename($file) . " text/x-foo-bar $size\n";
         $this->assertEquals($body, $res->getBody(), 'Response body does not include expected upload parameters');
     }
 
@@ -1090,7 +1092,7 @@ abstract class Zend_Http_Client_CommonHttpTests extends PHPUnit_Framework_TestCa
             if ($f) $detect = 'finfo';
 
         } elseif (function_exists('mime_content_type')) {
-            if (mime_content_type(__FILE__)) {
+            if (mime_content_type(TEST_ROOT_DIR . '/Zend/Http/Client/CommonHttpTests.php')) {
                 $detect = 'mime_magic';
             }
         }
@@ -1099,7 +1101,7 @@ abstract class Zend_Http_Client_CommonHttpTests extends PHPUnit_Framework_TestCa
             $this->markTestSkipped('No MIME type detection capability (fileinfo or mime_magic extensions) is available');
         }
 
-        $file = dirname(realpath(__FILE__)) . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'staticFile.jpg';
+        $file = TEST_ROOT_DIR . '/Zend/Http/Client/_files/staticFile.jpg';
 
         $this->client->setUri($this->baseuri. 'testUploads.php');
         $this->client->setFileUpload($file, 'uploadfile');
@@ -1118,7 +1120,7 @@ abstract class Zend_Http_Client_CommonHttpTests extends PHPUnit_Framework_TestCa
 
         $this->client->setUri($this->baseuri. 'testUploads.php');
 
-        $rawdata = file_get_contents(__FILE__);
+        $rawdata = file_get_contents(TEST_ROOT_DIR . '/Zend/Http/Client/CommonHttpTests.php');
         $this->client->setFileUpload('/some strage/path%/with[!@#$&]/myfile.txt', 'uploadfile', $rawdata, 'text/plain');
         $res = $this->client->request('POST');
 
@@ -1256,7 +1258,7 @@ abstract class Zend_Http_Client_CommonHttpTests extends PHPUnit_Framework_TestCa
               $this->markTestSkipped('Current adapter does not support streaming');
               return;
         }
-        $data = fopen(dirname(realpath(__FILE__)) . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'staticFile.jpg', "r");
+        $data = fopen(TEST_ROOT_DIR . '/Zend/Http/Client/_files/staticFile.jpg', "r");
         $res = $this->client->setRawData($data, 'image/jpeg')->request('PUT');
         $expected = $this->_getTestFileContents('staticFile.jpg');
         $this->assertEquals($expected, $res->getBody(), 'Response body does not contain the expected data');
@@ -1270,7 +1272,7 @@ abstract class Zend_Http_Client_CommonHttpTests extends PHPUnit_Framework_TestCa
     public function testZF9404DoubleContentLengthHeader()
     {
         $this->client->setUri($this->baseuri . 'ZF9404-doubleContentLength.php');
-        $expect = filesize(dirname(realpath(__FILE__)) . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'ZF9404-doubleContentLength.php');
+        $expect = filesize(TEST_ROOT_DIR . '/Zend/Http/Client/_files/ZF9404-doubleContentLength.php');
 
         $response = $this->client->request();
         if (! $response->isSuccessful()) {
@@ -1342,8 +1344,7 @@ abstract class Zend_Http_Client_CommonHttpTests extends PHPUnit_Framework_TestCa
      */
     protected function _getTestFileContents($file)
     {
-        return file_get_contents(dirname(realpath(__FILE__)) . DIRECTORY_SEPARATOR .
-           '_files' . DIRECTORY_SEPARATOR . $file);
+        return file_get_contents(TEST_ROOT_DIR . "/Zend/Http/Client/_files/$file");
     }
 
     /**

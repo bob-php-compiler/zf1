@@ -93,9 +93,7 @@ class Zend_Http_CookieJarTest extends PHPUnit_Framework_TestCase
     public function testAddCookiesFromResponse()
     {
         $jar = new Zend_Http_Cookiejar();
-        $res_str = $this->loadResponse(
-            dirname(realpath(__FILE__)) . '/_files/response_with_cookies'
-        );
+        $res_str = $this->loadResponse(TEST_ROOT_DIR . '/Zend/Http/_files/response_with_cookies');
         $response = Zend_Http_Response::fromString($res_str);
 
         $jar->addCookiesFromResponse($response, 'http://www.example.com');
@@ -460,9 +458,7 @@ class Zend_Http_CookieJarTest extends PHPUnit_Framework_TestCase
      */
     public function testFromResponse()
     {
-        $res_str = $this->loadResponse(
-            dirname(realpath(__FILE__)) . '/_files/response_with_single_cookie'
-        );
+        $res_str = $this->loadResponse(TEST_ROOT_DIR . '/Zend/Http/_files/response_with_single_cookie');
         $response = Zend_Http_Response::fromString($res_str);
 
         $jar = Zend_Http_CookieJar::fromResponse($response, 'http://www.example.com');
@@ -476,9 +472,7 @@ class Zend_Http_CookieJarTest extends PHPUnit_Framework_TestCase
      */
     public function testFromResponseMultiHeader()
     {
-        $res_str = $this->loadResponse(
-            dirname(realpath(__FILE__)) . '/_files/response_with_cookies'
-        );
+        $res_str = $this->loadResponse(TEST_ROOT_DIR . '/Zend/Http/_files/response_with_cookies');
         $response = Zend_Http_Response::fromString($res_str);
 
         $jar = Zend_Http_CookieJar::fromResponse($response, 'http://www.example.com');
