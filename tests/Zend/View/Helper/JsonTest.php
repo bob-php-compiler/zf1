@@ -23,7 +23,6 @@
 require_once 'Zend/View/Helper/Json.php';
 require_once 'Zend/Controller/Front.php';
 require_once 'Zend/Controller/Response/Http.php';
-require_once 'Zend/Json.php';
 require_once 'Zend/Layout.php';
 
 /**
@@ -108,7 +107,7 @@ class Zend_View_Helper_JsonTest extends PHPUnit_Framework_TestCase
     {
         $data = $this->helper->json(array('foobar'));
         $this->assertTrue(is_string($data));
-        $this->assertEquals(array('foobar'), Zend_Json::decode($data));
+        $this->assertEquals(array('foobar'), json_decode($data, true));
     }
 
     public function testJsonHelperDisablesLayoutsByDefault()
@@ -130,6 +129,7 @@ class Zend_View_Helper_JsonTest extends PHPUnit_Framework_TestCase
     /**
      * @group ZF-12397
      */
+/*
     public function testJsonHelperWithKeepLayoutAsArray()
     {
         $layout = Zend_Layout::startMvc();
@@ -146,13 +146,13 @@ class Zend_View_Helper_JsonTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($layout->isEnabled());
         $this->assertSame(array('foobar'), $data);
     }
-
+*/
     /**
      * @group ZF-10977
      */
     public function testJsonHelperWillAcceptPreencodedJson()
     {
-        $data = $this->helper->json(Zend_Json::encode(array('f')), false, false);
+        $data = $this->helper->json(json_encode(array('f')), false, false);
         $this->assertEquals('["f"]', $data);
     }
 
@@ -161,7 +161,7 @@ class Zend_View_Helper_JsonTest extends PHPUnit_Framework_TestCase
      */
     public function testJsonHelperWillSendHeadersWhenProvidedWithPreencodedJson()
     {
-        $data = $this->helper->json(Zend_Json::encode(array('f')), false, false);
+        $data = $this->helper->json(json_encode(array('f')), false, false);
         $this->verifyJsonHeader();
     }
 }

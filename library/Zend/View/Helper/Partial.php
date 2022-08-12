@@ -63,7 +63,7 @@ class Zend_View_Helper_Partial extends Zend_View_Helper_Abstract
      */
     public function partial($name = null, $module = null, $model = null)
     {
-        if (0 == func_num_args()) {
+        if (is_null($name) && is_null($module) && is_null($model)) {
             return $this;
         }
 

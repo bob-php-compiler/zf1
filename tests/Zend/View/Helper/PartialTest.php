@@ -109,7 +109,17 @@ class Zend_View_Helper_PartialTest extends PHPUnit_Framework_TestCase
      */
     public function testPartialRendersScriptInDifferentModuleWhenRequested()
     {
-        Zend_Controller_Front::getInstance()->addModuleDirectory($this->basePath);
+        $front = Zend_Controller_Front::getInstance();
+        $moduleDir = $this->basePath;
+        $modules = array('default', 'foo');
+        $moduleControllerDirectoryName = $front->getModuleControllerDirectoryName();
+        foreach ($modules as $module) {
+            $front->addControllerDirectory(
+                $moduleDir . '/' . $module . '/' . $moduleControllerDirectoryName,
+                $module
+            );
+        }
+
         $view = new Zend_View(array(
             'scriptPath' => $this->basePath . '/default/views/scripts'
         ));
@@ -123,7 +133,17 @@ class Zend_View_Helper_PartialTest extends PHPUnit_Framework_TestCase
      */
     public function testPartialThrowsExceptionWithInvalidModule()
     {
-        Zend_Controller_Front::getInstance()->addModuleDirectory($this->basePath);
+        $front = Zend_Controller_Front::getInstance();
+        $moduleDir = $this->basePath;
+        $modules = array('default', 'foo');
+        $moduleControllerDirectoryName = $front->getModuleControllerDirectoryName();
+        foreach ($modules as $module) {
+            $front->addControllerDirectory(
+                $moduleDir . '/' . $module . '/' . $moduleControllerDirectoryName,
+                $module
+            );
+        }
+
         $view = new Zend_View(array(
             'scriptPath' => $this->basePath . '/default/views/scripts'
         ));

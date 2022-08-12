@@ -25,11 +25,6 @@
 require_once 'Zend/Loader/PluginLoader.php';
 
 /**
- * @see Zend_Json
- */
-require_once 'Zend/Json.php';
-
-/**
  * @category   Zend
  * @package    Zend_Paginator
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
@@ -533,7 +528,7 @@ class Zend_Paginator implements Countable, IteratorAggregate
         if (!$this->_cacheEnabled()) {
             return count($this->getAdapter());
         } else {
-            $cacheId   = md5($this->_getCacheInternalId(). '_itemCount');            
+            $cacheId   = md5($this->_getCacheInternalId(). '_itemCount');
             $itemCount = self::$_cache->load($cacheId);
 
             if ($itemCount === false) {
@@ -541,7 +536,7 @@ class Zend_Paginator implements Countable, IteratorAggregate
 
                 self::$_cache->save($itemCount, $cacheId, array($this->_getCacheInternalId()));
             }
-            
+
             return $itemCount;
         }
     }
@@ -1012,9 +1007,9 @@ class Zend_Paginator implements Countable, IteratorAggregate
         $currentItems = $this->getCurrentItems();
 
         if ($currentItems instanceof Zend_Db_Table_Rowset_Abstract) {
-            return Zend_Json::encode($currentItems->toArray());
+            return json_encode($currentItems->toArray());
         } else {
-            return Zend_Json::encode($currentItems);
+            return json_encode($currentItems);
         }
     }
 
@@ -1058,7 +1053,7 @@ class Zend_Paginator implements Countable, IteratorAggregate
     protected function _getCacheInternalId()
     {
         $adapter = $this->getAdapter();
-        
+
         if (method_exists($adapter, 'getCacheIdentifier')) {
             return md5(serialize(array(
                 $adapter->getCacheIdentifier(), $this->getItemCountPerPage()

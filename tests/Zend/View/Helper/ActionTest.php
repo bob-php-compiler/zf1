@@ -69,8 +69,17 @@ class Zend_View_Helper_ActionTest extends PHPUnit_Framework_TestCase
         $this->response = new Zend_Controller_Response_Http();
         $this->response->headersSentThrowsException = false;
         $front->setRequest($this->request)
-              ->setResponse($this->response)
-              ->addModuleDirectory(dirname(__FILE__) . '/_files/modules');
+              ->setResponse($this->response);
+
+        $moduleDir = dirname(__FILE__) . '/_files/modules';
+        $modules = array('default', 'foo');
+        $moduleControllerDirectoryName = $front->getModuleControllerDirectoryName();
+        foreach ($modules as $module) {
+            $front->addControllerDirectory(
+                $moduleDir . '/' . $module . '/' . $moduleControllerDirectoryName,
+                $module
+            );
+        }
 
         $this->view   = new Zend_View();
         $this->helper = new Zend_View_Helper_Action();
@@ -219,8 +228,18 @@ class Zend_View_Helper_ActionTest extends PHPUnit_Framework_TestCase
 
         $response = new Zend_Controller_Response_Http();
         $response->headersSentThrowsException = false;
-        $front->setResponse($response)
-              ->addModuleDirectory(dirname(__FILE__) . '/_files/modules');
+        $front->setResponse($response);
+
+        $moduleDir = dirname(__FILE__) . '/_files/modules';
+        $modules = array('default', 'foo');
+        $moduleControllerDirectoryName = $front->getModuleControllerDirectoryName();
+        foreach ($modules as $module) {
+            $front->addControllerDirectory(
+                $moduleDir . '/' . $module . '/' . $moduleControllerDirectoryName,
+                $module
+            );
+        }
+
         try {
             $helper = new Zend_View_Helper_Action();
             $this->fail('No request in front controller should cause action helper to throw exception');
@@ -237,8 +256,18 @@ class Zend_View_Helper_ActionTest extends PHPUnit_Framework_TestCase
         $front->resetInstance();
 
         $request = new Zend_Controller_Request_Http('http://framework.zend.com/foo');
-        $front->setRequest($this->request)
-              ->addModuleDirectory(dirname(__FILE__) . '/_files/modules');
+        $front->setRequest($this->request);
+
+        $moduleDir = dirname(__FILE__) . '/_files/modules';
+        $modules = array('default', 'foo');
+        $moduleControllerDirectoryName = $front->getModuleControllerDirectoryName();
+        foreach ($modules as $module) {
+            $front->addControllerDirectory(
+                $moduleDir . '/' . $module . '/' . $moduleControllerDirectoryName,
+                $module
+            );
+        }
+
         try {
             $helper = new Zend_View_Helper_Action();
             $this->fail('No response in front controller should cause action helper to throw exception');
