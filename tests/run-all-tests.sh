@@ -36,7 +36,8 @@ then
                Zend/Http/AllTests.php
                Zend/UriTest.php
                Zend/Uri/AllTests.php
-               Zend/Controller/AllTests.php"
+               Zend/Controller/AllTests.php
+               Zend/Layout/AllTests.php"
 else
     TEST_LIST=$1
 fi

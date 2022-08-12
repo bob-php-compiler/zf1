@@ -20,10 +20,6 @@
  * @version    $Id$
  */
 
-if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Zend_Layout_AllTests::main');
-}
-
 require_once 'Zend/Layout/LayoutTest.php';
 require_once 'Zend/Layout/HelperTest.php';
 require_once 'Zend/Layout/PluginTest.php';
@@ -39,11 +35,6 @@ require_once 'Zend/Layout/FunctionalTest.php';
  */
 class Zend_Layout_AllTests
 {
-    public static function main()
-    {
-        PHPUnit_TextUI_TestRunner::run(self::suite());
-    }
-
     public static function suite()
     {
         $suite = new PHPUnit_Framework_TestSuite('Zend Framework - Zend_Layout');
@@ -55,8 +46,4 @@ class Zend_Layout_AllTests
 
         return $suite;
     }
-}
-
-if (PHPUnit_MAIN_METHOD == 'Zend_Layout_AllTests::main') {
-    Zend_Layout_AllTests::main();
 }
