@@ -20,11 +20,6 @@
  * @version    $Id$
  */
 
-// Call Zend_Controller_Dispatcher_StandardTest::main() if this source file is executed directly.
-if (!defined("PHPUnit_MAIN_METHOD")) {
-    define("PHPUnit_MAIN_METHOD", "Zend_Controller_Dispatcher_StandardTest::main");
-}
-
 require_once 'Zend/Controller/Dispatcher/Standard.php';
 require_once 'Zend/Controller/Action/HelperBroker.php';
 require_once 'Zend/Controller/Front.php';
@@ -44,18 +39,6 @@ require_once 'Zend/Controller/Response/Cli.php';
 class Zend_Controller_Dispatcher_StandardTest extends PHPUnit_Framework_TestCase
 {
     protected $_dispatcher;
-
-    /**
-     * Runs the test methods of this class.
-     *
-     * @access public
-     * @static
-     */
-    public static function main()
-    {
-        $suite  = new PHPUnit_Framework_TestSuite("Zend_Controller_Dispatcher_StandardTest");
-        $result = PHPUnit_TextUI_TestRunner::run($suite);
-    }
 
     public function setUp()
     {
@@ -424,20 +407,20 @@ class Zend_Controller_Dispatcher_StandardTest extends PHPUnit_Framework_TestCase
     public function testDisableOutputBuffering()
     {
         if (!defined('TESTS_ZEND_CONTROLLER_DISPATCHER_OB') || !TESTS_ZEND_CONTROLLER_DISPATCHER_OB) {
-            $this->markTestSkipped('Skipping output buffer disabling in Zend_Controller_Dispatcher_Standard');
+            //$this->markTestSkipped('Skipping output buffer disabling in Zend_Controller_Dispatcher_Standard');
+        } else {
+            $request = new Zend_Controller_Request_Http();
+            $request->setControllerName('ob');
+            $request->setActionName('index');
+            $this->_dispatcher->setParam('disableOutputBuffering', true);
+
+            $this->assertTrue($this->_dispatcher->isDispatchable($request), var_export($this->_dispatcher->getControllerDirectory(), 1));
+
+            $response = new Zend_Controller_Response_Cli();
+            $this->_dispatcher->dispatch($request, $response);
+            $body = $this->_dispatcher->getResponse()->getBody();
+            $this->assertEquals('', $body, $body);
         }
-
-        $request = new Zend_Controller_Request_Http();
-        $request->setControllerName('ob');
-        $request->setActionName('index');
-        $this->_dispatcher->setParam('disableOutputBuffering', true);
-
-        $this->assertTrue($this->_dispatcher->isDispatchable($request), var_export($this->_dispatcher->getControllerDirectory(), 1));
-
-        $response = new Zend_Controller_Response_Cli();
-        $this->_dispatcher->dispatch($request, $response);
-        $body = $this->_dispatcher->getResponse()->getBody();
-        $this->assertEquals('', $body, $body);
     }
 
     public function testModuleSubdirControllerFound()
@@ -702,9 +685,4 @@ class Zend_Controller_Dispatcher_StandardTest extends PHPUnit_Framework_TestCase
             $this->assertContains('No default module', $e->getMessage());
         }
     }
-}
-
-// Call Zend_Controller_Dispatcher_StandardTest::main() if this source file is executed directly.
-if (PHPUnit_MAIN_METHOD == "Zend_Controller_Dispatcher_StandardTest::main") {
-    Zend_Controller_Dispatcher_StandardTest::main();
 }

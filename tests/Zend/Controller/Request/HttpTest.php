@@ -20,11 +20,6 @@
  * @version    $Id$
  */
 
-// Call Zend_Controller_Request_HttpTest::main() if this source file is executed directly.
-if (!defined("PHPUnit_MAIN_METHOD")) {
-    define("PHPUnit_MAIN_METHOD", "Zend_Controller_Request_HttpTest::main");
-}
-
 require_once 'Zend/Controller/Request/Http.php';
 
 /**
@@ -48,18 +43,6 @@ class Zend_Controller_Request_HttpTest extends PHPUnit_Framework_TestCase
      * @var array
      */
     protected $_origServer;
-
-    /**
-     * Runs the test methods of this class.
-     *
-     * @access public
-     * @static
-     */
-    public static function main()
-    {
-        $suite  = new PHPUnit_Framework_TestSuite("Zend_Controller_Request_HttpTest");
-        $result = PHPUnit_TextUI_TestRunner::run($suite);
-    }
 
     public function setUp()
     {
@@ -439,7 +422,7 @@ class Zend_Controller_Request_HttpTest extends PHPUnit_Framework_TestCase
      * Dataprovider for testing prefix paths in the base url
      * @group ZF-10040
      */
-    public function prefixProvider()
+    public function dataProviderTestBaseUrlSetsProperLocation()
     {
         return array (
             array (null),
@@ -449,7 +432,6 @@ class Zend_Controller_Request_HttpTest extends PHPUnit_Framework_TestCase
         );
     }
     /**
-     * @dataProvider prefixProvider
      * @group ZF-10040
      */
 	public function testBaseUrlSetsProperLocation($prefix)
@@ -682,7 +664,7 @@ class Zend_Controller_Request_HttpTest extends PHPUnit_Framework_TestCase
             // Suppressing warning
             $header = @$this->_request->getHeader();
             $this->fail('getHeader() should fail with no arguments)');
-        } catch (Exception $e) {
+        } catch (ArgumentCountError $e) {
             // success
         }
     }
@@ -979,7 +961,7 @@ class Zend_Controller_Request_HttpTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals( '/module/controller/action', $pathInfo, $pathInfo);
     }
-    
+
     /**
      * @group ZF-3527
      * @group ZF-10964
@@ -990,7 +972,7 @@ class Zend_Controller_Request_HttpTest extends PHPUnit_Framework_TestCase
         $request = new Zend_Controller_Request_Http();
         $_SERVER['REQUEST_URI'] = '/module/controller/action/param/escaped%2Fstring';
         $pathInfo = $request->getPathInfo();
-    
+
         $this->assertEquals( '/module/controller/action/param/escaped%2Fstring', $pathInfo, $pathInfo);
     }
 
@@ -1003,9 +985,4 @@ class Zend_Controller_Request_HttpTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('', $request->getHttpHost(), 'HttpHost should be :');
     }
 
-}
-
-// Call Zend_Controller_Request_HttpTest::main() if this source file is executed directly.
-if (PHPUnit_MAIN_METHOD == "Zend_Controller_Request_HttpTest::main") {
-    Zend_Controller_Request_HttpTest::main();
 }

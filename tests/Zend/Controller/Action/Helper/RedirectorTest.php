@@ -20,11 +20,6 @@
  * @version    $Id$
  */
 
-// Call Zend_Controller_Action_Helper_RedirectorTest::main() if this source file is executed directly.
-if (!defined("PHPUnit_MAIN_METHOD")) {
-    define("PHPUnit_MAIN_METHOD", "Zend_Controller_Action_Helper_RedirectorTest::main");
-}
-
 require_once 'Zend/Controller/Front.php';
 require_once 'Zend/Controller/Action.php';
 require_once 'Zend/Controller/Action/HelperBroker.php';
@@ -65,16 +60,6 @@ class Zend_Controller_Action_Helper_RedirectorTest extends PHPUnit_Framework_Tes
      * @var Zend_Controller_Action
      */
     public $controller;
-
-    /**
-     * Runs the test methods of this class.
-     */
-    public static function main()
-    {
-
-        $suite  = new PHPUnit_Framework_TestSuite("Zend_Controller_Action_Helper_RedirectorTest");
-        $result = PHPUnit_TextUI_TestRunner::run($suite);
-    }
 
     /**
      * Set up redirector
@@ -326,14 +311,14 @@ class Zend_Controller_Action_Helper_RedirectorTest extends PHPUnit_Framework_Tes
         $this->redirector->goto('error');
         $this->assertEquals('/blog/list/error', $this->redirector->getRedirectUrl());
     }
-
+/*
     public function testGotoAndExit()
     {
         $this->markTestSkipped(
           "Testing Zend_Controller_Action_Helper_Redirector::gotoAndExit() would break the test suite"
         );
     }
-
+*/
     /**
      * gotoRoute() is an alias for setGotoRoute()
      */
@@ -354,14 +339,14 @@ class Zend_Controller_Action_Helper_RedirectorTest extends PHPUnit_Framework_Tes
 
         $this->assertEquals('/blog/archive/281', $this->redirector->getRedirectUrl());
     }
-
+/*
     public function testGotoRouteAndExit()
     {
         $this->markTestSkipped(
           "Testing Zend_Controller_Action_Helper_Redirector::gotoRouteAndExit() would break the test suite"
         );
     }
-
+*/
     /**
      * gotoUrl() is an alias for setGotoUrl()
      */
@@ -370,7 +355,7 @@ class Zend_Controller_Action_Helper_RedirectorTest extends PHPUnit_Framework_Tes
         $this->redirector->gotoUrl('/foo/bar');
         $this->assertEquals('/foo/bar', $this->redirector->getRedirectUrl());
     }
-
+/*
     public function testGotoUrlAndExit()
     {
         $this->markTestSkipped(
@@ -384,7 +369,7 @@ class Zend_Controller_Action_Helper_RedirectorTest extends PHPUnit_Framework_Tes
           "Testing Zend_Controller_Action_Helper_Redirector::redirectAndExit() would break the test suite"
         );
     }
-
+*/
     /**
      * direct() is an alias for goto(), which is an alias for setGoto()
      */
@@ -575,11 +560,3 @@ class Zend_Controller_Action_Helper_RedirectorTest extends PHPUnit_Framework_Tes
 class Zend_Controller_Action_Helper_Redirector_TestController extends Zend_Controller_Action
 {
 }
-
-// Call Zend_Controller_Action_Helper_RedirectorTest::main() if this source file is executed directly.
-if (PHPUnit_MAIN_METHOD == "Zend_Controller_Action_Helper_RedirectorTest::main") {
-    Zend_Controller_Action_Helper_RedirectorTest::main();
-}
-
-
-

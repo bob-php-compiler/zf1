@@ -20,16 +20,12 @@
  * @version    $Id $
  */
 
-if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Zend_Controller_Action_Helper_AllTests::main');
-}
-
 require_once 'Zend/Controller/Action/Helper/ActionStackTest.php';
 require_once 'Zend/Controller/Action/Helper/AjaxContextTest.php';
 require_once 'Zend/Controller/Action/Helper/AutoCompleteTest.php';
 require_once 'Zend/Controller/Action/Helper/CacheTest.php';
 require_once 'Zend/Controller/Action/Helper/ContextSwitchTest.php';
-require_once 'Zend/Controller/Action/Helper/FlashMessengerTest.php';
+//require_once 'Zend/Controller/Action/Helper/FlashMessengerTest.php';
 require_once 'Zend/Controller/Action/Helper/JsonTest.php';
 require_once 'Zend/Controller/Action/Helper/RedirectorTest.php';
 require_once 'Zend/Controller/Action/Helper/UrlTest.php';
@@ -47,11 +43,6 @@ require_once 'Zend/Controller/Action/Helper/ViewRendererTest.php';
  */
 class Zend_Controller_Action_Helper_AllTests
 {
-    public static function main()
-    {
-        PHPUnit_TextUI_TestRunner::run(self::suite());
-    }
-
     public static function suite()
     {
         $suite = new PHPUnit_Framework_TestSuite('Zend Framework - Zend_Controller_Action_Helper');
@@ -61,21 +52,17 @@ class Zend_Controller_Action_Helper_AllTests
         $suite->addTestSuite('Zend_Controller_Action_Helper_CacheTest');
         $suite->addTestSuite('Zend_Controller_Action_Helper_ContextSwitchTest');
         $suite->addTestSuite('Zend_Controller_Action_Helper_AjaxContextTest');
-        $suite->addTestSuite('Zend_Controller_Action_Helper_FlashMessengerTest');
+        //$suite->addTestSuite('Zend_Controller_Action_Helper_FlashMessengerTest');
         $suite->addTestSuite('Zend_Controller_Action_Helper_JsonTest');
         $suite->addTestSuite('Zend_Controller_Action_Helper_RedirectorTest');
         $suite->addTestSuite('Zend_Controller_Action_Helper_UrlTest');
         $suite->addTestSuite('Zend_Controller_Action_Helper_ViewRendererTest');
-
+/*
         if (version_compare(PHP_VERSION, '5.3', '>=')) {
             require_once 'Zend/Controller/Action/Helper/NamespaceTest.php';
             $suite->addTestSuite('Zend_Controller_Action_Helper_NamespaceTest');
         }
-
+*/
         return $suite;
     }
-}
-
-if (PHPUnit_MAIN_METHOD == 'Zend_Controller_Action_Helper_AllTests::main') {
-    Zend_Controller_Action_Helper_AllTests::main();
 }
