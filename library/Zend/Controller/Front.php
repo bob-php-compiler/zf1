@@ -166,29 +166,20 @@ class Zend_Controller_Front
      */
     public function resetInstance()
     {
-        $reflection = new ReflectionObject($this);
-        foreach ($reflection->getProperties() as $property) {
-            $name = $property->getName();
-            switch ($name) {
-                case '_instance':
-                    break;
-                case '_controllerDir':
-                case '_invokeParams':
-                    $this->{$name} = array();
-                    break;
-                case '_plugins':
-                    $this->{$name} = new Zend_Controller_Plugin_Broker();
-                    break;
-                case '_throwExceptions':
-                case '_returnResponse':
-                    $this->{$name} = false;
-                    break;
-                case '_moduleControllerDirectoryName':
-                    $this->{$name} = 'controllers';
-                    break;
-                default:
-                    $this->{$name} = null;
-                    break;
+        $vars = get_object_vars($this);
+        foreach ($vars as $name => $value) {
+            if ($name == '_instance') {
+                // not reset
+            } elseif ($name == '_controllerDir' || $name == '_invokeParams') {
+                $this->$name = array();
+            } elseif ($name == '_plugins') {
+                $this->_plugins = new Zend_Controller_Plugin_Broker();
+            } elseif ($name == '_throwExceptions' || $name == '_returnResponse') {
+                $this->$name = false;
+            } elseif ($name == '_moduleControllerDirectoryName') {
+                $this->_moduleControllerDirectoryName = 'controllers';
+            } else {
+                $this->$name = null;
             }
         }
         Zend_Controller_Action_HelperBroker::resetHelpers();
@@ -271,43 +262,6 @@ class Zend_Controller_Front
     public function removeControllerDirectory($module)
     {
         return $this->getDispatcher()->removeControllerDirectory($module);
-    }
-
-    /**
-     * Specify a directory as containing modules
-     *
-     * Iterates through the directory, adding any subdirectories as modules;
-     * the subdirectory within each module named after {@link $_moduleControllerDirectoryName}
-     * will be used as the controller directory path.
-     *
-     * @param  string $path
-     * @return Zend_Controller_Front
-     */
-    public function addModuleDirectory($path)
-    {
-        try{
-            $dir = new DirectoryIterator($path);
-        } catch(Exception $e) {
-            require_once 'Zend/Controller/Exception.php';
-            throw new Zend_Controller_Exception("Directory $path not readable", 0, $e);
-        }
-        foreach ($dir as $file) {
-            if ($file->isDot() || !$file->isDir()) {
-                continue;
-            }
-
-            $module    = $file->getFilename();
-
-            // Don't use SCCS directories as modules
-            if (preg_match('/^[^a-z]/i', $module) || ('CVS' == $module)) {
-                continue;
-            }
-
-            $moduleDir = $file->getPathname() . DIRECTORY_SEPARATOR . $this->getModuleControllerDirectoryName();
-            $this->addControllerDirectory($moduleDir, $module);
-        }
-
-        return $this;
     }
 
     /**

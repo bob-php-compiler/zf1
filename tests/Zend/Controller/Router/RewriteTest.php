@@ -317,7 +317,7 @@ class Zend_Controller_Router_RewriteTest extends PHPUnit_Framework_TestCase
     public function testAddConfig()
     {
         require_once 'Zend/Config/Ini.php';
-        $file = dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'routes.ini';
+        $file = TEST_ROOT_DIR . '/Zend/Controller/_files/routes.ini';
         $config = new Zend_Config_Ini($file, 'testing');
 
         $this->_router->addConfig($config, 'routes');
@@ -336,7 +336,7 @@ class Zend_Controller_Router_RewriteTest extends PHPUnit_Framework_TestCase
     public function testAddConfigWithoutSection()
     {
         require_once 'Zend/Config/Ini.php';
-        $file = dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'routes.ini';
+        $file = TEST_ROOT_DIR . '/Zend/Controller/_files/routes.ini';
         $config = new Zend_Config_Ini($file, 'testing');
 
         $this->_router->addConfig($config->routes);
@@ -348,7 +348,7 @@ class Zend_Controller_Router_RewriteTest extends PHPUnit_Framework_TestCase
     public function testAddConfigWithRootNode()
     {
         require_once 'Zend/Config/Ini.php';
-        $file = dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'routes-root.ini';
+        $file = TEST_ROOT_DIR . '/Zend/Controller/_files/routes-root.ini';
         $config = new Zend_Config_Ini($file, 'routes');
 
         $this->_router->addConfig($config);

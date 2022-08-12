@@ -82,13 +82,23 @@ class Zend_Controller_Action_Helper_ViewRendererTest extends PHPUnit_Framework_T
      */
     protected function setUp()
     {
-        $this->basePath = realpath(dirname(__FILE__) . str_repeat(DIRECTORY_SEPARATOR . '..', 2));
+        $this->basePath = dirname(__FILE__) . str_repeat(DIRECTORY_SEPARATOR . '..', 2);
         $this->request  = new Zend_Controller_Request_Http();
         $this->response = new Zend_Controller_Response_Http();
         $this->front    = Zend_Controller_Front::getInstance();
         $this->front->resetInstance();
-        $this->front->addModuleDirectory($this->basePath . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'modules')
-                    ->setRequest($this->request)
+
+        $moduleDir = $this->basePath . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'modules';
+        $modules = array('bar', 'baz-bat', 'default', 'foo');
+        $moduleControllerDirectoryName = $this->front->getModuleControllerDirectoryName();
+        foreach ($modules as $module) {
+            $this->front->addControllerDirectory(
+                $moduleDir . '/' . $module . '/' . $moduleControllerDirectoryName,
+                $module
+            );
+        }
+
+        $this->front->setRequest($this->request)
                     ->setResponse($this->response);
 
         $this->helper   = new Zend_Controller_Action_Helper_ViewRenderer();

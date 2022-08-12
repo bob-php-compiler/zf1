@@ -20,9 +20,6 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-/** Zend_Json */
-require_once 'Zend/Json.php';
-
 /** Zend_Controller_Front */
 require_once 'Zend/Controller/Front.php';
 
@@ -47,33 +44,13 @@ class Zend_View_Helper_Json extends Zend_View_Helper_Abstract
      *
      * @param  mixed $data
      * @param  bool $keepLayouts
-     * NOTE:   if boolean, establish $keepLayouts to true|false
-     *         if array, admit params for Zend_Json::encode as enableJsonExprFinder=>true|false
-     *         this array can contains a 'keepLayout'=>true|false and/or 'encodeData'=>true|false
-     *         that will not be passed to Zend_Json::encode method but will be used here
      * @param  bool $encodeData
      * @return string|void
      */
     public function json($data, $keepLayouts = false, $encodeData = true)
     {
-        $options = array();
-        if (is_array($keepLayouts)) {
-            $options = $keepLayouts;
-
-            $keepLayouts = false;
-            if (array_key_exists('keepLayouts', $options)) {
-                $keepLayouts = $options['keepLayouts'];
-                unset($options['keepLayouts']);
-            }
-
-            if (array_key_exists('encodeData', $options)) {
-                $encodeData = $options['encodeData'];
-                unset($options['encodeData']);
-            }
-        }
-
         if ($encodeData) {
-            $data = Zend_Json::encode($data, null, $options);
+            $data = json_encode($data);
         }
         if (!$keepLayouts) {
             require_once 'Zend/Layout.php';

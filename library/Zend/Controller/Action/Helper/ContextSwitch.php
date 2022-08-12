@@ -1113,12 +1113,8 @@ class Zend_Controller_Action_Helper_ContextSwitch extends Zend_Controller_Action
         $viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer');
         $view = $viewRenderer->view;
         if ($view instanceof Zend_View_Interface) {
-            /**
-             * @see Zend_Json
-             */
             if(method_exists($view, 'getVars')) {
-                require_once 'Zend/Json.php';
-                $vars = Zend_Json::encode($view->getVars());
+                $vars = json_encode($view->getVars());
                 $this->getResponse()->setBody($vars);
             } else {
                 require_once 'Zend/Controller/Action/Exception.php';
@@ -1391,4 +1387,3 @@ class Zend_Controller_Action_Helper_ContextSwitch extends Zend_Controller_Action
         return $this->_viewRenderer;
     }
 }
-

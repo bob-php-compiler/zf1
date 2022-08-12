@@ -26,7 +26,6 @@ require_once 'Zend/Controller/Action/HelperBroker.php';
 require_once 'Zend/Controller/Action/Helper/ViewRenderer.php';
 require_once 'Zend/Controller/Front.php';
 require_once 'Zend/Controller/Response/Http.php';
-require_once 'Zend/Json.php';
 require_once 'Zend/Layout.php';
 
 /**
@@ -102,7 +101,7 @@ class Zend_Controller_Action_Helper_JsonTest extends PHPUnit_Framework_TestCase
     {
         $data = $this->helper->encodeJson(array('foobar'));
         $this->assertTrue(is_string($data));
-        $this->assertEquals(array('foobar'), Zend_Json::decode($data));
+        $this->assertEquals(array('foobar'), Json_decode($data, true));
     }
 
     public function testJsonHelperDisablesLayoutsAndViewRendererByDefault()
@@ -130,7 +129,7 @@ class Zend_Controller_Action_Helper_JsonTest extends PHPUnit_Framework_TestCase
         $this->helper->sendJson(array('foobar'));
         $this->verifyJsonHeader();
         $response = $this->response->getBody();
-        $this->assertSame(array('foobar'), Zend_Json::decode($response));
+        $this->assertSame(array('foobar'), json_decode($response, true));
     }
 
     public function testDirectProxiesToSendJsonByDefault()
@@ -138,13 +137,13 @@ class Zend_Controller_Action_Helper_JsonTest extends PHPUnit_Framework_TestCase
         $this->helper->direct(array('foobar'));
         $this->verifyJsonHeader();
         $response = $this->response->getBody();
-        $this->assertSame(array('foobar'), Zend_Json::decode($response));
+        $this->assertSame(array('foobar'), json_decode($response, true));
     }
 
     public function testCanPreventDirectSendingResponse()
     {
         $data = $this->helper->direct(array('foobar'), false);
-        $this->assertSame(array('foobar'), Zend_Json::decode($data));
+        $this->assertSame(array('foobar'), json_decode($data, true));
         $this->verifyJsonHeader();
         $response = $this->response->getBody();
         $this->assertTrue(empty($response));
@@ -163,7 +162,7 @@ class Zend_Controller_Action_Helper_JsonTest extends PHPUnit_Framework_TestCase
      */
     public function testEncodeJsonWillAcceptPreencodedJson()
     {
-        $data = $this->helper->encodeJson(Zend_Json::encode(array('f')), false, false);
+        $data = $this->helper->encodeJson(json_encode(array('f')), false, false);
         $this->assertEquals('["f"]', $data);
     }
 
@@ -172,7 +171,7 @@ class Zend_Controller_Action_Helper_JsonTest extends PHPUnit_Framework_TestCase
      */
     public function testSendJsonWillAcceptPreencodedJson()
     {
-        $data = $this->helper->sendJson(Zend_Json::encode(array('f')), false, false);
+        $data = $this->helper->sendJson(json_encode(array('f')), false, false);
         $this->assertEquals('["f"]', $data);
     }
 
@@ -181,7 +180,7 @@ class Zend_Controller_Action_Helper_JsonTest extends PHPUnit_Framework_TestCase
      */
     public function testDirectWillAcceptPreencodedJson()
     {
-        $data = $this->helper->direct(Zend_Json::encode(array('f')), false, false, false);
+        $data = $this->helper->direct(json_encode(array('f')), false, false, false);
         $this->assertEquals('["f"]', $data);
     }
 
@@ -190,7 +189,7 @@ class Zend_Controller_Action_Helper_JsonTest extends PHPUnit_Framework_TestCase
      */
     public function testSendingPreencodedJsonViaDirectWillStillSendHeaders()
     {
-        $data = $this->helper->direct(Zend_Json::encode(array('f')), false, false, false);
+        $data = $this->helper->direct(json_encode(array('f')), false, false, false);
         $this->verifyJsonHeader();
     }
 
@@ -199,7 +198,7 @@ class Zend_Controller_Action_Helper_JsonTest extends PHPUnit_Framework_TestCase
      */
     public function testSendingPreencodedJsonViaSendJsonWillStillSendHeaders()
     {
-        $data = $this->helper->sendJson(Zend_Json::encode(array('f')), false, false);
+        $data = $this->helper->sendJson(json_encode(array('f')), false, false);
         $this->verifyJsonHeader();
     }
 
@@ -208,7 +207,7 @@ class Zend_Controller_Action_Helper_JsonTest extends PHPUnit_Framework_TestCase
      */
     public function testSendingPreencodedJsonViaEncodeJsonWillStillSendHeaders()
     {
-        $data = $this->helper->encodeJson(Zend_Json::encode(array('f')), false, false);
+        $data = $this->helper->encodeJson(json_encode(array('f')), false, false);
         $this->verifyJsonHeader();
     }
 }

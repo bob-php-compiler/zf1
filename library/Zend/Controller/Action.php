@@ -178,9 +178,13 @@ abstract class Zend_Controller_Action implements Zend_Controller_Action_Interfac
             $module = $this->getFrontController()->getDispatcher()->getDefaultModule();
         }
         $baseDir = dirname($dirs[$module]) . DIRECTORY_SEPARATOR . 'views';
-        if (!file_exists($baseDir) || !is_dir($baseDir)) {
-            require_once 'Zend/Controller/Exception.php';
-            throw new Zend_Controller_Exception('Missing base view directory ("' . $baseDir . '")');
+        if (defined('__BPC__')) {
+            // do nothing
+        } else {
+            if (!file_exists($baseDir) || !is_dir($baseDir)) {
+                require_once 'Zend/Controller/Exception.php';
+                throw new Zend_Controller_Exception('Missing base view directory ("' . $baseDir . '")');
+            }
         }
 
         require_once 'Zend/View.php';

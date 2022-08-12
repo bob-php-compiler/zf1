@@ -514,9 +514,19 @@ class Zend_Controller_Dispatcher_StandardTest extends PHPUnit_Framework_TestCase
 
     public function testLoadClassLoadsControllerInSpecifiedModuleWithModulePrefix()
     {
-        Zend_Controller_Front::getInstance()
-            ->setDispatcher($this->_dispatcher)
-            ->addModuleDirectory(dirname(__FILE__) . '/../_files/modules');
+        $front = Zend_Controller_Front::getInstance();
+        $front->setDispatcher($this->_dispatcher);
+
+        $moduleDir = dirname(__FILE__) . '/../_files/modules';
+        $modules = array('bar', 'baz-bat', 'default', 'foo');
+        $moduleControllerDirectoryName = $front->getModuleControllerDirectoryName();
+        foreach ($modules as $module) {
+            $front->addControllerDirectory(
+                $moduleDir . '/' . $module . '/' . $moduleControllerDirectoryName,
+                $module
+            );
+        }
+
         $request = new Zend_Controller_Request_Simple();
         $request->setControllerName('index')
                 ->setModuleName('bar');
@@ -533,7 +543,17 @@ class Zend_Controller_Dispatcher_StandardTest extends PHPUnit_Framework_TestCase
     public function testLoadClassLoadsControllerInSpecifiedModuleWithHyphenatedModuleName()
     {
         $front = Zend_Controller_Front::getInstance();
-        $front->addModuleDirectory(dirname(__FILE__) . '/../_files/modules');
+
+        $moduleDir = dirname(__FILE__) . '/../_files/modules';
+        $modules = array('bar', 'baz-bat', 'default', 'foo');
+        $moduleControllerDirectoryName = $front->getModuleControllerDirectoryName();
+        foreach ($modules as $module) {
+            $front->addControllerDirectory(
+                $moduleDir . '/' . $module . '/' . $moduleControllerDirectoryName,
+                $module
+            );
+        }
+
         $dispatcher = $front->getDispatcher();
 
         $request = new Zend_Controller_Request_Simple();
@@ -552,7 +572,17 @@ class Zend_Controller_Dispatcher_StandardTest extends PHPUnit_Framework_TestCase
     public function testDispatcherCanDispatchControllersFromModuleWithHyphenatedName()
     {
         $front = Zend_Controller_Front::getInstance();
-        $front->addModuleDirectory(dirname(__FILE__) . '/../_files/modules');
+
+        $moduleDir = dirname(__FILE__) . '/../_files/modules';
+        $modules = array('bar', 'baz-bat', 'default', 'foo');
+        $moduleControllerDirectoryName = $front->getModuleControllerDirectoryName();
+        foreach ($modules as $module) {
+            $front->addControllerDirectory(
+                $moduleDir . '/' . $module . '/' . $moduleControllerDirectoryName,
+                $module
+            );
+        }
+
         $dispatcher = $front->getDispatcher();
 
         $request = new Zend_Controller_Request_Simple();
@@ -565,9 +595,19 @@ class Zend_Controller_Dispatcher_StandardTest extends PHPUnit_Framework_TestCase
 
     public function testLoadClassLoadsControllerInDefaultModuleWithModulePrefixWhenRequested()
     {
-        Zend_Controller_Front::getInstance()
-            ->setDispatcher($this->_dispatcher)
-            ->addModuleDirectory(dirname(__FILE__) . '/../_files/modules');
+        $front = Zend_Controller_Front::getInstance();
+        $front->setDispatcher($this->_dispatcher);
+
+        $moduleDir = dirname(__FILE__) . '/../_files/modules';
+        $modules = array('bar', 'baz-bat', 'default', 'foo');
+        $moduleControllerDirectoryName = $front->getModuleControllerDirectoryName();
+        foreach ($modules as $module) {
+            $front->addControllerDirectory(
+                $moduleDir . '/' . $module . '/' . $moduleControllerDirectoryName,
+                $module
+            );
+        }
+
         $this->_dispatcher->setDefaultModule('foo')
                           ->setParam('prefixDefaultModule', true);
         $request = new Zend_Controller_Request_Simple();
@@ -584,9 +624,19 @@ class Zend_Controller_Dispatcher_StandardTest extends PHPUnit_Framework_TestCase
      */
     public function testCanRemoveControllerDirectory()
     {
-        Zend_Controller_Front::getInstance()
-            ->setDispatcher($this->_dispatcher)
-            ->addModuleDirectory(dirname(__FILE__) . '/../_files/modules');
+        $front = Zend_Controller_Front::getInstance();
+        $front->setDispatcher($this->_dispatcher);
+
+        $moduleDir = dirname(__FILE__) . '/../_files/modules';
+        $modules = array('bar', 'baz-bat', 'default', 'foo');
+        $moduleControllerDirectoryName = $front->getModuleControllerDirectoryName();
+        foreach ($modules as $module) {
+            $front->addControllerDirectory(
+                $moduleDir . '/' . $module . '/' . $moduleControllerDirectoryName,
+                $module
+            );
+        }
+
         $dirs = $this->_dispatcher->getControllerDirectory();
         $this->_dispatcher->removeControllerDirectory('foo');
         $test = $this->_dispatcher->getControllerDirectory();

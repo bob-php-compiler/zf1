@@ -523,7 +523,14 @@ class Zend_Controller_FrontTest extends PHPUnit_Framework_TestCase
     public function testAddModuleDirectory()
     {
         $moduleDir = dirname(__FILE__) . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'modules';
-        $this->_controller->addModuleDirectory($moduleDir);
+        $modules = array('bar', 'baz-bat', 'default', 'foo');
+        $moduleControllerDirectoryName = $this->_controller->getModuleControllerDirectoryName();
+        foreach ($modules as $module) {
+            $this->_controller->addControllerDirectory(
+                $moduleDir . '/' . $module . '/' . $moduleControllerDirectoryName,
+                $module
+            );
+        }
         $controllerDirs = $this->_controller->getControllerDirectory();
         $this->assertTrue(isset($controllerDirs['foo']));
         $this->assertTrue(isset($controllerDirs['bar']));
@@ -570,7 +577,14 @@ class Zend_Controller_FrontTest extends PHPUnit_Framework_TestCase
     public function testCanRemoveIndividualModuleDirectory()
     {
         $moduleDir = dirname(__FILE__) . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'modules';
-        $this->_controller->addModuleDirectory($moduleDir);
+        $modules = array('bar', 'baz-bat', 'default', 'foo');
+        $moduleControllerDirectoryName = $this->_controller->getModuleControllerDirectoryName();
+        foreach ($modules as $module) {
+            $this->_controller->addControllerDirectory(
+                $moduleDir . '/' . $module . '/' . $moduleControllerDirectoryName,
+                $module
+            );
+        }
         $controllerDirs = $this->_controller->getControllerDirectory();
         $this->_controller->removeControllerDirectory('foo');
         $test = $this->_controller->getControllerDirectory();
@@ -578,24 +592,17 @@ class Zend_Controller_FrontTest extends PHPUnit_Framework_TestCase
         $this->assertFalse(array_key_exists('foo', $test));
     }
 
-    public function testAddModuleDirectoryThrowsExceptionForInvalidDirectory()
-    {
-        $moduleDir = 'doesntexist';
-        try {
-            $this->_controller->addModuleDirectory($moduleDir);
-            $this->fail('Exception expected but not thrown');
-        } catch (Exception $e) {
-            $this->assertTrue($e instanceof Zend_Exception);
-            $this->assertRegExp(
-                '/Directory \w+ not readable/', $e->getMessage()
-            );
-        }
-    }
-
     public function testGetControllerDirectoryByModuleName()
     {
         $moduleDir = dirname(__FILE__) . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'modules';
-        $this->_controller->addModuleDirectory($moduleDir);
+        $modules = array('bar', 'baz-bat', 'default', 'foo');
+        $moduleControllerDirectoryName = $this->_controller->getModuleControllerDirectoryName();
+        foreach ($modules as $module) {
+            $this->_controller->addControllerDirectory(
+                $moduleDir . '/' . $module . '/' . $moduleControllerDirectoryName,
+                $module
+            );
+        }
         $barDir = $this->_controller->getControllerDirectory('bar');
         $this->assertNotNull($barDir);
         $this->assertContains('modules' . DIRECTORY_SEPARATOR . 'bar', $barDir);
@@ -604,7 +611,14 @@ class Zend_Controller_FrontTest extends PHPUnit_Framework_TestCase
     public function testGetControllerDirectoryByModuleNameReturnsNullOnBadModule()
     {
         $moduleDir = dirname(__FILE__) . DIRECTORY_SEPARATOR . '_files' . DIRECTORY_SEPARATOR . 'modules';
-        $this->_controller->addModuleDirectory($moduleDir);
+        $modules = array('bar', 'baz-bat', 'default', 'foo');
+        $moduleControllerDirectoryName = $this->_controller->getModuleControllerDirectoryName();
+        foreach ($modules as $module) {
+            $this->_controller->addControllerDirectory(
+                $moduleDir . '/' . $module . '/' . $moduleControllerDirectoryName,
+                $module
+            );
+        }
         $dir = $this->_controller->getControllerDirectory('_bazbat');
         $this->assertNull($dir);
     }

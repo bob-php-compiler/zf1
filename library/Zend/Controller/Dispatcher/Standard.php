@@ -219,7 +219,11 @@ class Zend_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_Abs
         $fileSpec    = $this->classToFilename($className);
         $dispatchDir = $this->getDispatchDirectory();
         $test        = $dispatchDir . DIRECTORY_SEPARATOR . $fileSpec;
-        return Zend_Loader::isReadable($test);
+        if (defined('__BPC__')) {
+            return include_file_exists($test);
+        } else {
+            return Zend_Loader::isReadable($test);
+        }
     }
 
     /**
@@ -353,11 +357,18 @@ class Zend_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_Abs
         $dispatchDir = $this->getDispatchDirectory();
         $loadFile    = $dispatchDir . DIRECTORY_SEPARATOR . $this->classToFilename($className);
 
-        if (Zend_Loader::isReadable($loadFile)) {
-            include_once $loadFile;
+        if (defined('__BPC__')) {
+            if (include_once_silent($loadFile) === false) {
+                require_once 'Zend/Controller/Dispatcher/Exception.php';
+                throw new Zend_Controller_Dispatcher_Exception('Cannot load controller class "' . $className . '" from file "' . $loadFile . "'");
+            }
         } else {
-            require_once 'Zend/Controller/Dispatcher/Exception.php';
-            throw new Zend_Controller_Dispatcher_Exception('Cannot load controller class "' . $className . '" from file "' . $loadFile . "'");
+            if (Zend_Loader::isReadable($loadFile)) {
+                include_once $loadFile;
+            } else {
+                require_once 'Zend/Controller/Dispatcher/Exception.php';
+                throw new Zend_Controller_Dispatcher_Exception('Cannot load controller class "' . $className . '" from file "' . $loadFile . "'");
+            }
         }
 
         if (!class_exists($finalClass, false)) {
@@ -461,9 +472,16 @@ class Zend_Controller_Dispatcher_Standard extends Zend_Controller_Dispatcher_Abs
             } else {
                 $moduleDir = $controllerDirs[$module];
                 $fileSpec  = $moduleDir . DIRECTORY_SEPARATOR . $this->classToFilename($default);
-                if (Zend_Loader::isReadable($fileSpec)) {
-                    $found = true;
-                    $this->_curDirectory = $moduleDir;
+                if (defined('__BPC__')) {
+                    if (include_file_exists($fileSpec)) {
+                        $found = true;
+                        $this->_curDirectory = $moduleDir;
+                    }
+                } else {
+                    if (Zend_Loader::isReadable($fileSpec)) {
+                        $found = true;
+                        $this->_curDirectory = $moduleDir;
+                    }
                 }
             }
             if ($found) {

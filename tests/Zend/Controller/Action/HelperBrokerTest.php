@@ -303,7 +303,7 @@ class Zend_Controller_Action_HelperBrokerTest extends PHPUnit_Framework_TestCase
         $paths  = $loader->getPaths('Zend_Controller_Action_Helper');
         $this->assertFalse(empty($paths));
     }
-
+/*
     public function testCanLoadNamespacedHelper()
     {
         if (version_compare(PHP_VERSION, '5.3.0') === -1) {
@@ -320,7 +320,7 @@ class Zend_Controller_Action_HelperBrokerTest extends PHPUnit_Framework_TestCase
         $response = $this->front->dispatch($request);
         $this->assertEquals('MyApp\Controller\Action\Helper\NamespacedHelper', $response->getBody());
     }
-
+*/
     /**
      * @group ZF-4704
      */

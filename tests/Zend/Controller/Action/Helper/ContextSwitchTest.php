@@ -28,7 +28,6 @@ require_once 'Zend/Controller/Action/HelperBroker.php';
 require_once 'Zend/Controller/Front.php';
 require_once 'Zend/Controller/Request/Http.php';
 require_once 'Zend/Controller/Response/Cli.php';
-require_once 'Zend/Json.php';
 require_once 'Zend/Layout.php';
 require_once 'Zend/View.php';
 require_once 'Zend/View/Interface.php';
@@ -61,7 +60,16 @@ class Zend_Controller_Action_Helper_ContextSwitchTest extends PHPUnit_Framework_
 
         $this->front = Zend_Controller_Front::getInstance();
         $this->front->resetInstance();
-        $this->front->addModuleDirectory(dirname(__FILE__) . '/../../_files/modules');
+
+        $moduleDir = dirname(__FILE__) . '/../../_files/modules';
+        $modules = array('bar', 'baz-bat', 'default', 'foo');
+        $moduleControllerDirectoryName = $this->front->getModuleControllerDirectoryName();
+        foreach ($modules as $module) {
+            $this->front->addControllerDirectory(
+                $moduleDir . '/' . $module . '/' . $moduleControllerDirectoryName,
+                $module
+            );
+        }
 
         $this->layout = Zend_Layout::startMvc();
 
@@ -654,7 +662,7 @@ class Zend_Controller_Action_Helper_ContextSwitchTest extends PHPUnit_Framework_
         $this->assertTrue($found, 'JSON content type header not found');
 
         $body = $this->response->getBody();
-        $result = Zend_Json::decode($body);
+        $result = json_decode($body, true);
         $this->assertTrue(is_array($result), var_export($body, 1));
         $this->assertTrue(isset($result['foo']));
         $this->assertTrue(isset($result['bar']));

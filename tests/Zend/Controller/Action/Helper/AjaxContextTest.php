@@ -63,7 +63,16 @@ class Zend_Controller_Action_Helper_AjaxContextTest extends PHPUnit_Framework_Te
 
         $this->front = Zend_Controller_Front::getInstance();
         $this->front->resetInstance();
-        $this->front->addModuleDirectory(dirname(__FILE__) . '/../../_files/modules');
+
+        $moduleDir = dirname(__FILE__) . '/../../_files/modules';
+        $modules = array('bar', 'baz-bat', 'default', 'foo');
+        $moduleControllerDirectoryName = $this->front->getModuleControllerDirectoryName();
+        foreach ($modules as $module) {
+            $this->front->addControllerDirectory(
+                $moduleDir . '/' . $module . '/' . $moduleControllerDirectoryName,
+                $module
+            );
+        }
 
         $this->layout = Zend_Layout::startMvc();
 
