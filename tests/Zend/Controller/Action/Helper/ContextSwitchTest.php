@@ -57,6 +57,7 @@ class Zend_Controller_Action_Helper_ContextSwitchTest extends PHPUnit_Framework_
     {
         Zend_Controller_Action_Helper_ContextSwitchTest_LayoutOverride::resetMvcInstance();
         Zend_Controller_Action_HelperBroker::resetHelpers();
+        Zend_Controller_Action_HelperBroker::setPluginLoader(null);
 
         $this->front = Zend_Controller_Front::getInstance();
         $this->front->resetInstance();
