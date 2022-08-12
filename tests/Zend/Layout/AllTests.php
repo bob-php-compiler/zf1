@@ -23,7 +23,7 @@
 require_once 'Zend/Layout/LayoutTest.php';
 require_once 'Zend/Layout/HelperTest.php';
 require_once 'Zend/Layout/PluginTest.php';
-require_once 'Zend/Layout/FunctionalTest.php';
+//require_once 'Zend/Layout/FunctionalTest.php';
 
 /**
  * @category   Zend
@@ -42,7 +42,7 @@ class Zend_Layout_AllTests
         $suite->addTestSuite('Zend_Layout_LayoutTest');
         $suite->addTestSuite('Zend_Layout_HelperTest');
         $suite->addTestSuite('Zend_Layout_PluginTest');
-        $suite->addTestSuite('Zend_Layout_FunctionalTest');
+        //$suite->addTestSuite('Zend_Layout_FunctionalTest');
 
         return $suite;
     }
