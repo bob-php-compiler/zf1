@@ -414,3 +414,23 @@ Crypt/Rsa/Exception.php
 Crypt/Rsa/Key.php
 Crypt/Rsa/Key/Private.php
 Crypt/Rsa/Key/Public.php
+# Oauth
+Oauth.php
+Oauth/Exception.php
+Oauth/Config.php
+Oauth/Config/ConfigInterface.php
+Oauth/Client.php
+Oauth/Consumer.php
+Oauth/Http.php
+Oauth/Http/RequestToken.php
+Oauth/Http/Utility.php
+Oauth/Http/AccessToken.php
+Oauth/Http/UserAuthorization.php
+Oauth/Token.php
+Oauth/Token/Access.php
+Oauth/Token/Request.php
+Oauth/Token/AuthorizedRequest.php
+Oauth/Signature/Rsa.php
+Oauth/Signature/Hmac.php
+Oauth/Signature/SignatureAbstract.php
+Oauth/Signature/Plaintext.php
