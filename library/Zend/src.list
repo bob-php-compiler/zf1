@@ -434,3 +434,33 @@ Oauth/Signature/Rsa.php
 Oauth/Signature/Hmac.php
 Oauth/Signature/SignatureAbstract.php
 Oauth/Signature/Plaintext.php
+# Session
+Session.php
+Session/Exception.php
+Session/Abstract.php
+Session/Namespace.php
+Session/Validator/Exception.php
+Session/Validator/Interface.php
+Session/Validator/Abstract.php
+Session/Validator/HttpUserAgent.php
+Session/SaveHandler/Exception.php
+Session/SaveHandler/Interface.php
+Session/SaveHandler/DbTable.php
+# Auth
+Auth.php
+Auth/Exception.php
+Auth/Result.php
+Auth/Adapter/Exception.php
+Auth/Adapter/Interface.php
+Auth/Adapter/DbTable.php
+Auth/Adapter/Digest.php
+Auth/Adapter/Http.php
+#Auth/Adapter/Ldap.php
+#Auth/Adapter/OpenId.php
+Auth/Adapter/Http/Resolver/Exception.php
+Auth/Adapter/Http/Resolver/Interface.php
+Auth/Adapter/Http/Resolver/File.php
+Auth/Storage/Exception.php
+Auth/Storage/Interface.php
+Auth/Storage/Session.php
+Auth/Storage/NonPersistent.php

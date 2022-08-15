@@ -469,14 +469,12 @@ class Zend_Session extends Zend_Session_Abstract
          * @see http://framework.zend.com/issues/browse/ZF-1325
          */
 
-        $errorLevel = (is_int(self::$_throwStartupExceptions)) ? self::$_throwStartupExceptions : E_ALL;
-
         /** @see Zend_Session_Exception */
         if (!self::$_unitTestEnabled) {
 
             if (self::$_throwStartupExceptions) {
                 require_once 'Zend/Session/Exception.php';
-                set_error_handler(array('Zend_Session_Exception', 'handleSessionStartError'), $errorLevel);
+                set_error_handler(array('Zend_Session_Exception', 'handleSessionStartError'));
             }
 
             $startedCleanly = session_start();
@@ -487,7 +485,7 @@ class Zend_Session extends Zend_Session_Abstract
 
             if (!$startedCleanly || Zend_Session_Exception::$sessionStartError != null) {
                 if (self::$_throwStartupExceptions) {
-                    set_error_handler(array('Zend_Session_Exception', 'handleSilentWriteClose'), $errorLevel);
+                    set_error_handler(array('Zend_Session_Exception', 'handleSilentWriteClose'));
                 }
                 session_write_close();
                 if (self::$_throwStartupExceptions) {
@@ -605,7 +603,7 @@ class Zend_Session extends Zend_Session_Abstract
                         unset($_SESSION['__ZF'][$namespace]['ENVGH']);
                     }
                 }
-                
+
                 if (isset($namespace) && empty($_SESSION['__ZF'][$namespace])) {
                     unset($_SESSION['__ZF'][$namespace]);
                 }

@@ -137,7 +137,7 @@ abstract class Zend_Session_Abstract
      * @param  string $name
      * @return mixed
      */
-    protected static function & _namespaceGet($namespace, $name = null)
+    protected static function _namespaceGet($namespace, $name = null)
     {
         if (self::$_readable === false) {
             /**

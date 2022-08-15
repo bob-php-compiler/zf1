@@ -50,11 +50,6 @@ require_once 'Zend/Controller/Request/Http.php';
 require_once 'Zend/Controller/Response/Http.php';
 
 /**
- * @see Zend_Debug
- */
-require_once 'Zend/Debug.php';
-
-/**
  * @category   Zend
  * @package    Zend_Auth
  * @subpackage UnitTests
@@ -113,7 +108,7 @@ class Zend_Auth_Adapter_Http_ObjectTest extends PHPUnit_Framework_TestCase
      */
     public function __construct()
     {
-        $this->_filesPath      = dirname(__FILE__) . '/_files';
+        $this->_filesPath      = TEST_ROOT_DIR . '/Zend/Auth/Adapter/Http/_files';
         $this->_basicResolver  = new Zend_Auth_Adapter_Http_Resolver_File("$this->_filesPath/htbasic.1");
         $this->_digestResolver = new Zend_Auth_Adapter_Http_Resolver_File("$this->_filesPath/htdigest.3");
         $this->_basicConfig    = array(
@@ -238,7 +233,7 @@ class Zend_Auth_Adapter_Http_ObjectTest extends PHPUnit_Framework_TestCase
             $a->setRequest($request)
               ->setResponse($response);
             $result = $a->authenticate();
-            $this->fail("Tried Basic authentication without a resolver.\n" . Zend_Debug::dump($result->getMessages(),null,false));
+            $this->fail("Tried Basic authentication without a resolver.\n" . var_export($result->getMessages(), true));
         } catch (Zend_Auth_Adapter_Exception $e) {
             // Good, it threw an exception
             unset($a);
@@ -256,7 +251,7 @@ class Zend_Auth_Adapter_Http_ObjectTest extends PHPUnit_Framework_TestCase
             $a->setRequest($request)
               ->setResponse($response);
             $result = $a->authenticate();
-            $this->fail("Tried Digest authentication without a resolver.\n" . Zend_Debug::dump($result->getMessages(),null,false));
+            $this->fail("Tried Digest authentication without a resolver.\n" . var_export($result->getMessages(),true));
         } catch (Zend_Auth_Adapter_Exception $e) {
             // Good, it threw an exception
             unset($a);

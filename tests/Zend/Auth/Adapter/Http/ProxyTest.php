@@ -103,7 +103,7 @@ class Zend_Auth_Adapter_Http_ProxyTest extends PHPUnit_Framework_TestCase
      */
     public function __construct()
     {
-        $this->_filesPath      = dirname(__FILE__) . '/_files';
+        $this->_filesPath      = TEST_ROOT_DIR . '/Zend/Auth/Adapter/Http/_files';
         $this->_basicResolver  = new Zend_Auth_Adapter_Http_Resolver_File("{$this->_filesPath}/htbasic.1");
         $this->_digestResolver = new Zend_Auth_Adapter_Http_Resolver_File("{$this->_filesPath}/htdigest.3");
         $this->_basicConfig    = array(
