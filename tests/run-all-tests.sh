@@ -38,7 +38,8 @@ then
                Zend/Uri/AllTests.php
                Zend/Controller/AllTests.php
                Zend/Layout/AllTests.php
-               Zend/Oauth/AllTests.php"
+               Zend/Oauth/AllTests.php
+               Zend/Crypt/AllTests.php"
 else
     TEST_LIST=$1
 fi

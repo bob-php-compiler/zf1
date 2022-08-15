@@ -43,7 +43,7 @@ class Zend_Crypt_RsaTest extends PHPUnit_Framework_TestCase
         if (!extension_loaded('openssl')) {
             $this->markTestSkipped('Zend_Crypt_Rsa requires openssl extension to be loaded.');
         }
-        
+
         $this->_testPemString = <<<RSAKEY
 -----BEGIN RSA PRIVATE KEY-----
 MIIBOgIBAAJBANDiE2+Xi/WnO+s120NiiJhNyIButVu6zxqlVzz0wy2j4kQVUC4Z
@@ -125,15 +125,6 @@ CERT;
     {
         $rsa = new Zend_Crypt_Rsa(array('certificatePath'=>$this->_testCertificatePath));
         $this->assertEquals($this->_testCertificateString, $rsa->getCertificateString());
-    }
-
-    public function testConstructorSetsHashOption()
-    {
-        if (!defined('OPENSSL_ALGO_MD2')) {
-            $this->markTestSkipped('The OPENSSL_ALGO_MD2 constant is not defined in this PHP instance.');
-        }
-        $rsa = new Zend_Crypt_Rsa(array('hashAlgorithm'=>'md2'));
-        $this->assertEquals(OPENSSL_ALGO_MD2, $rsa->getHashAlgorithm());
     }
 
     public function testSetPemStringParsesPemForPrivateKey()
@@ -335,7 +326,7 @@ CERT;
         if (!$test) {
             $this->markTestSkipped('Cannot generate a private key with openssl_pkey_new()');
         }
-        
+
         $config = array(
             'privateKeyBits' => 512,
             'passPhrase' => '0987654321'

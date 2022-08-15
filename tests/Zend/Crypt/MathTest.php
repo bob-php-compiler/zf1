@@ -37,25 +37,25 @@ class Zend_Crypt_MathTest extends PHPUnit_Framework_TestCase
     public function testRand()
     {
         if (!extension_loaded('bcmath')) {
-            $this->markTestSkipped('Extension bcmath not loaded');
-        }
-
-        try {
-            $math = new Zend_Crypt_Math_BigInteger();
-        } catch (Zend_Crypt_Math_BigInteger_Exception $e) {
-            if (strpos($e->getMessage(), 'big integer precision math support not detected') !== false) {
-                $this->markTestSkipped($e->getMessage());
-            } else {
-                throw $e;
+            //$this->markTestSkipped('Extension bcmath not loaded');
+        } else {
+            try {
+                $math = new Zend_Crypt_Math_BigInteger();
+            } catch (Zend_Crypt_Math_BigInteger_Exception $e) {
+                if (strpos($e->getMessage(), 'big integer precision math support not detected') !== false) {
+                    $this->markTestSkipped($e->getMessage());
+                } else {
+                    throw $e;
+                }
             }
-        }
 
-        $math   = new Zend_Crypt_Math();
-        $higher = '155172898181473697471232257763715539915724801966915404479707795314057629378541917580651227423698188993727816152646631438561595825688188889951272158842675419950341258706556549803580104870537681476726513255747040765857479291291572334510643245094715007229621094194349783925984760375594985848253359305585439638443';
-        $lower  = '155172898181473697471232257763715539915724801966915404479707795314057629378541917580651227423698188993727816152646631438561595825688188889951272158842675419950341258706556549803580104870537681476726513255747040765857479291291572334510643245094715007229621094194349783925984760375594985848253359305585439638442';
-        $result = $math->rand($lower, $higher);
-        $this->assertTrue(bccomp($result, $higher) !== '1');
-        $this->assertTrue(bccomp($result, $lower) !== '-1');
+            $math   = new Zend_Crypt_Math();
+            $higher = '155172898181473697471232257763715539915724801966915404479707795314057629378541917580651227423698188993727816152646631438561595825688188889951272158842675419950341258706556549803580104870537681476726513255747040765857479291291572334510643245094715007229621094194349783925984760375594985848253359305585439638443';
+            $lower  = '155172898181473697471232257763715539915724801966915404479707795314057629378541917580651227423698188993727816152646631438561595825688188889951272158842675419950341258706556549803580104870537681476726513255747040765857479291291572334510643245094715007229621094194349783925984760375594985848253359305585439638442';
+            $result = $math->rand($lower, $higher);
+            $this->assertTrue(bccomp($result, $higher) !== '1');
+            $this->assertTrue(bccomp($result, $lower) !== '-1');
+        }
     }
 
     public function testRandBytes()
@@ -78,7 +78,7 @@ class Zend_Crypt_MathTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public static function provideRandInt()
+    public static function dataProviderTestMontecarloRandInteger()
     {
         return array(
             array(2, 1, 10000, 100, 0.9, 1.1, false),
@@ -90,8 +90,6 @@ class Zend_Crypt_MathTest extends PHPUnit_Framework_TestCase
      * A Monte Carlo test that generates $cycles numbers from 0 to $tot
      * and test if the numbers are above or below the line y=x with a
      * frequency range of [$min, $max]
-     *
-     * @dataProvider provideRandInt
      */
     public function testMontecarloRandInteger($num, $valid, $cycles, $tot, $min, $max, $strong)
     {
