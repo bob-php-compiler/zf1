@@ -86,9 +86,9 @@ l9Nwj3KnPKFdqzJchujP2TLNwSYoQnxgyoMxdho=
 
 CERT;
 
-        $this->_testPemPath = dirname(__FILE__) . '/_files/test.pem';
+        $this->_testPemPath = TEST_ROOT_DIR . '/Zend/Crypt/Rsa/_files/test.pem';
 
-        $this->_testCertificatePath = dirname(__FILE__) . '/_files/test.cert';
+        $this->_testCertificatePath = TEST_ROOT_DIR . '/Zend/Crypt/Rsa/_files/test.cert';
     }
 
     public function testConstructorSetsPemString()

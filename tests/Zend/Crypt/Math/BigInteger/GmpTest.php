@@ -22,9 +22,6 @@
 
 require_once 'Zend/Crypt/Math/BigInteger/Gmp.php';
 
-require_once 'Zend/Crypt/Math/BigInteger/Bcmath.php';
-
-
 /**
  * @category   Zend
  * @package    Zend_Crypt

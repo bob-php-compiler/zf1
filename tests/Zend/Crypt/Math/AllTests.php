@@ -21,7 +21,7 @@
  */
 
 //require_once 'BigInteger/BcmathTest.php';
-require_once 'BigInteger/GmpTest.php';
+//require_once 'BigInteger/GmpTest.php';
 
 /**
  * @category   Zend
@@ -38,7 +38,7 @@ class Zend_Crypt_Math_AllTests
         $suite = new PHPUnit_Framework_TestSuite('Zend Framework - Zend_Crypt_Math');
 
         //$suite->addTestSuite('Zend_Crypt_Math_BigInteger_BcmathTest');
-        $suite->addTestSuite('Zend_Crypt_Math_BigInteger_GmpTest');
+        //$suite->addTestSuite('Zend_Crypt_Math_BigInteger_GmpTest');
 
         return $suite;
     }

@@ -395,3 +395,22 @@ Paginator/ScrollingStyle/All.php
 Paginator/ScrollingStyle/Elastic.php
 Paginator/ScrollingStyle/Jumping.php
 Paginator/ScrollingStyle/Sliding.php
+# Crypt
+Crypt.php
+Crypt/Exception.php
+Crypt/DiffieHellman.php
+Crypt/DiffieHellman/Exception.php
+Crypt/Hmac.php
+Crypt/Hmac/Exception.php
+Crypt/Math.php
+Crypt/Math/Exception.php
+#Crypt/Math/BigInteger/Bcmath.php
+Crypt/Math/BigInteger/Exception.php
+Crypt/Math/BigInteger/Gmp.php
+Crypt/Math/BigInteger/Interface.php
+Crypt/Math/BigInteger.php
+Crypt/Rsa.php
+Crypt/Rsa/Exception.php
+Crypt/Rsa/Key.php
+Crypt/Rsa/Key/Private.php
+Crypt/Rsa/Key/Public.php

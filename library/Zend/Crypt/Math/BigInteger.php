@@ -107,8 +107,9 @@ class Zend_Crypt_Math_BigInteger
         //    require_once 'Zend/Crypt_Math/BigInteger/Bigint.php';
         //    $this->_math = new Zend_Crypt_Math_BigInteger_Bigint();
         } elseif ($extension == 'bcmath' && extension_loaded('bcmath')) {
-            require_once 'Zend/Crypt/Math/BigInteger/Bcmath.php';
-            $this->_math = new Zend_Crypt_Math_BigInteger_Bcmath();
+            //require_once 'Zend/Crypt/Math/BigInteger/Bcmath.php';
+            //$this->_math = new Zend_Crypt_Math_BigInteger_Bcmath();
+            throw new Exception('TODO support bcmath');
         } else {
             require_once 'Zend/Crypt/Math/BigInteger/Exception.php';
             throw new Zend_Crypt_Math_BigInteger_Exception($extension . ' big integer precision math support not detected');
