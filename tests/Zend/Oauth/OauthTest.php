@@ -67,7 +67,6 @@ class Zend_OauthTest extends PHPUnit_Framework_TestCase
 
     /**
      * @group ZF-10182
-     * @dataProvider providerOauthClientOauthOptions
      */
     public function testOauthClientOauthOptionsInConstructor($oauthOptions)
     {
@@ -79,7 +78,6 @@ class Zend_OauthTest extends PHPUnit_Framework_TestCase
 
     /**
      * @group ZF-10182
-     * @dataProvider providerOauthClientConfigHttpClient
      */
     public function testOauthClientConfigHttpClientInConstructor($configHttpClient, $expected)
     {
@@ -91,7 +89,7 @@ class Zend_OauthTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected['timeout'], $config['timeout']);
     }
 
-    public function providerOauthClientOauthOptions()
+    public function dataProviderTestOauthClientOauthOptionsInConstructor()
     {
         $options = array(
             'requestMethod' => 'GET',
@@ -105,7 +103,7 @@ class Zend_OauthTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function providerOauthClientConfigHttpClient()
+    public function dataProviderTestOauthClientConfigHttpClientInConstructor()
     {
         return array(
             array(
@@ -183,7 +181,7 @@ class Zend_OauthTest extends PHPUnit_Framework_TestCase
         $this->assertNotContains('realm=""',$client->getHeader('Authorization'));
         $this->assertContains('realm="someRealm"',$client->getHeader('Authorization'));
     }
-    
+
     /**
      * @group ZF-11663
      */
@@ -191,34 +189,34 @@ class Zend_OauthTest extends PHPUnit_Framework_TestCase
     {
         require_once "Zend/Oauth/Token/Access.php";
         $token = new Zend_Oauth_Token_Access();
-        
+
         $options = array(
             'requestMethod' => 'GET',
             'requestScheme' => Zend_Oauth::REQUEST_SCHEME_QUERYSTRING,
             'realm'			=> 'someRealm'
         );
-        
+
         require_once 'Zend/Oauth/Client.php';
         $client = new Zend_Oauth_Client($options);
         $client->setToken($token);
         $client->setUri('http://www.example.com/?test=FooBar');
         $queryString = $client->getUri()->getQuery();
-        
+
         // Check that query string was set properly
-        $this->assertSame('test=FooBar', $queryString);        
-        
+        $this->assertSame('test=FooBar', $queryString);
+
         // Change the GET parameters
         $client->setParameterGet('test', 'FooBaz');
         $client->setParameterGet('second', 'TestTest');
-        
+
         // Prepare the OAuth request
-        $client->prepareOauth();        
+        $client->prepareOauth();
         $queryString = $client->getUri()->getQuery();
-        
+
         // Ensure that parameter 'test' is unchanged, as URI parameters
         // should take precedence over ones set with setParameterGet
         $this->assertContains('test=FooBar', $queryString);
-        
+
         // Ensure that new parameter was added
         $this->assertContains('second=TestTest', $queryString);
     }

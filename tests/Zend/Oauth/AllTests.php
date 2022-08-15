@@ -20,10 +20,6 @@
  * @version    $Id$
  */
 
-if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Zend_Oauth_AllTests::main');
-}
-
 require_once 'OauthTest.php';
 require_once 'ClientTest.php';
 require_once 'ConfigTest.php';
@@ -31,7 +27,7 @@ require_once 'Oauth/ConsumerTest.php';
 require_once 'Oauth/Signature/AbstractTest.php';
 require_once 'Oauth/Signature/PlaintextTest.php';
 require_once 'Oauth/Signature/HmacTest.php';
-require_once 'Oauth/Signature/RsaTest.php';
+//require_once 'Oauth/Signature/RsaTest.php';
 require_once 'Oauth/Http/RequestTokenTest.php';
 require_once 'Oauth/Http/UserAuthorizationTest.php';
 require_once 'Oauth/Http/AccessTokenTest.php';
@@ -50,11 +46,6 @@ require_once 'Oauth/Token/AccessTest.php';
  */
 class Zend_Oauth_AllTests
 {
-    public static function main()
-    {
-        PHPUnit_TextUI_TestRunner::run(self::suite());
-    }
-
     public static function suite()
     {
         $suite = new PHPUnit_Framework_TestSuite('Zend Framework - Zend_Oauth');
@@ -66,7 +57,7 @@ class Zend_Oauth_AllTests
         $suite->addTestSuite('Zend_Oauth_Signature_AbstractTest');
         $suite->addTestSuite('Zend_Oauth_Signature_PlaintextTest');
         $suite->addTestSuite('Zend_Oauth_Signature_HmacTest');
-        $suite->addTestSuite('Zend_Oauth_Signature_RsaTest');
+        //$suite->addTestSuite('Zend_Oauth_Signature_RsaTest');
         $suite->addTestSuite('Zend_Oauth_Http_RequestTokenTest');
         $suite->addTestSuite('Zend_Oauth_Http_UserAuthorizationTest');
         $suite->addTestSuite('Zend_Oauth_Http_AccessTokenTest');
@@ -77,8 +68,4 @@ class Zend_Oauth_AllTests
 
         return $suite;
     }
-}
-
-if (PHPUnit_MAIN_METHOD == 'Zend_Oauth_AllTests::main') {
-    Zend_Oauth_AllTests::main();
 }
