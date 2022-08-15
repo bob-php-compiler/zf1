@@ -8,6 +8,8 @@ define('TESTS_ZEND_DB_ADAPTER_MYSQL_PORT',          3307);
 
 define('TESTS_ZEND_DB_ADAPTER_PDO_SQLITE_ENABLED', true);
 
+define('TESTS_ZEND_AUTH_ADAPTER_DBTABLE_PDO_SQLITE_ENABLED', true);
+
 if (   file_exists('/var/www/zend-http-client-files')
     || symlink(TEST_ROOT_DIR . '/Zend/Http/Client/_files', '/var/www/zend-http-client-files')
 ) {

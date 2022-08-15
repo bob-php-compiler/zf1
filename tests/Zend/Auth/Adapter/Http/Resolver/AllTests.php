@@ -20,10 +20,6 @@
  * @version    $Id$
  */
 
-if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Zend_Auth_Adapter_Http_Resolver_AllTests::main');
-}
-
 require_once 'Zend/Auth/Adapter/Http/Resolver/FileTest.php';
 
 /**
@@ -37,16 +33,6 @@ require_once 'Zend/Auth/Adapter/Http/Resolver/FileTest.php';
 class Zend_Auth_Adapter_Http_Resolver_AllTests
 {
     /**
-     * Runs this test suite
-     *
-     * @return void
-     */
-    public static function main()
-    {
-        PHPUnit_TextUI_TestRunner::run(self::suite());
-    }
-
-    /**
      * Creates and returns this test suite
      *
      * @return PHPUnit_Framework_TestSuite
@@ -59,8 +45,4 @@ class Zend_Auth_Adapter_Http_Resolver_AllTests
 
         return $suite;
     }
-}
-
-if (PHPUnit_MAIN_METHOD == 'Zend_Auth_Adapter_Http_Resolver_AllTests::main') {
-    Zend_Auth_Adapter_Http_Resolver_AllTests::main();
 }

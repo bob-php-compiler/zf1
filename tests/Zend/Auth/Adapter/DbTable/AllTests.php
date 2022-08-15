@@ -20,10 +20,6 @@
  * @version    $Id$
  */
 
-if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Zend_Auth_Adapter_DbTable_AllTests::main');
-}
-
 require_once 'Zend/Auth/Adapter/DbTable/BasicSqliteTest.php';
 require_once 'Zend/Auth/Adapter/DbTable/BasicSqliteTest/SkipTests.php';
 
@@ -37,16 +33,6 @@ require_once 'Zend/Auth/Adapter/DbTable/BasicSqliteTest/SkipTests.php';
  */
 class Zend_Auth_Adapter_DbTable_AllTests
 {
-    /**
-     * Runs this test suite
-     *
-     * @return void
-     */
-    public static function main()
-    {
-        PHPUnit_TextUI_TestRunner::run(self::suite());
-    }
-
     /**
      * Creates and returns this test suite
      *
@@ -75,9 +61,4 @@ class Zend_Auth_Adapter_DbTable_AllTests
 
         return $suite;
     }
-}
-
-
-if (PHPUnit_MAIN_METHOD == 'Zend_Auth_Adapter_DbTable_AllTests::main') {
-    Zend_Auth_Adapter_DbTable_AllTests::main();
 }
