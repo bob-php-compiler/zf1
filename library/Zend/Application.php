@@ -403,11 +403,11 @@ class Zend_Application
             case 'ini':
                 $config = new Zend_Config_Ini($file, $environment);
                 break;
-
+/*
             case 'xml':
                 $config = new Zend_Config_Xml($file, $environment);
                 break;
-
+*/
             case 'json':
                 $config = new Zend_Config_Json($file, $environment);
                 break;

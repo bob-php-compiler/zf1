@@ -20,10 +20,6 @@
  * @version    $Id$
  */
 
-if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Zend_Application_Resource_CacheManagerTest::main');
-}
-
 /**
  * Zend_Loader_Autoloader
  */
@@ -59,12 +55,6 @@ require_once 'Zend/Cache/Core.php';
  */
 class Zend_Application_Resource_CacheManagerTest extends PHPUnit_Framework_TestCase
 {
-    public static function main()
-    {
-        $suite  = new PHPUnit_Framework_TestSuite(__CLASS__);
-        $result = PHPUnit_TextUI_TestRunner::run($suite);
-    }
-
     public function setUp()
     {
         // Store original autoloaders
@@ -189,34 +179,6 @@ class Zend_Application_Resource_CacheManagerTest extends PHPUnit_Framework_TestC
     }
 
     /**
-     * @group ZF-9738
-     */
-    public function testZendServer()
-    {
-        if (!function_exists('zend_disk_cache_store')) {
-            $this->markTestSkipped('ZendServer is required for this test');
-        }
-
-        $options = array(
-            'foo' => array(
-                'frontend' => array(
-                    'name' => 'Core',
-                    'options' => array(
-                        'lifetime' => 7200,
-                    ),
-                ),
-                'backend' => array(
-                    'name' => 'ZendServer_Disk',
-                ),
-            ),
-        );
-        $resource = new Zend_Application_Resource_Cachemanager($options);
-        $manager = $resource->init();
-        $cache = $manager->getCache('foo')->getBackend();
-        $this->assertTrue($cache instanceof Zend_Cache_Backend_ZendServer_Disk);
-    }
-
-    /**
      * @group ZF-9737
      */
     public function testCustomFrontendBackendNaming()
@@ -278,8 +240,4 @@ class Zend_Cache_Backend_Custom_Naming extends Zend_Cache_Backend
 
 class Zend_Cache_Frontend_CustomNaming extends Zend_Cache_Core
 {
-}
-
-if (PHPUnit_MAIN_METHOD == 'Zend_Application_Resource_CacheManagerTest::main') {
-    Zend_Application_Resource_CacheManagerTest::main();
 }

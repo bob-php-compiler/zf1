@@ -20,10 +20,6 @@
  * @version    $Id$
  */
 
-if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Zend_Application_Bootstrap_BootstrapAbstractTest::main');
-}
-
 /**
  * Zend_Loader_Autoloader
  */
@@ -64,12 +60,6 @@ require_once 'Zend/Application/Bootstrap/Bootstrap.php';
  */
 class Zend_Application_Bootstrap_BootstrapAbstractTest extends PHPUnit_Framework_TestCase
 {
-    public static function main()
-    {
-        $suite  = new PHPUnit_Framework_TestSuite(__CLASS__);
-        $result = PHPUnit_TextUI_TestRunner::run($suite);
-    }
-
     public function setUp()
     {
         // Store original autoloaders
@@ -136,11 +126,10 @@ class Zend_Application_Bootstrap_BootstrapAbstractTest extends PHPUnit_Framework
         $this->assertSame($bootstrap1, $bootstrap2->getApplication());
     }
 
-    /**
-     * @expectedException Zend_Application_Bootstrap_Exception
-     */
     public function testConstructorShouldRaiseExceptionForInvalidApplicationArgument()
     {
+        $this->expectException('Zend_Application_Bootstrap_Exception');
+
         require_once dirname(__FILE__) . '/../_files/ZfAppBootstrap.php';
         $bootstrap = new ZfAppBootstrap(new stdClass);
     }
@@ -258,11 +247,10 @@ class Zend_Application_Bootstrap_BootstrapAbstractTest extends PHPUnit_Framework
         $this->assertEquals($resources, $test);
     }
 
-    /**
-     * @expectedException Zend_Application_Bootstrap_Exception
-     */
     public function testRegisterPluginResourceShouldThrowExceptionForInvalidResourceType()
     {
+        $this->expectException('Zend_Application_Bootstrap_Exception');
+
         require_once dirname(__FILE__) . '/../_files/ZfAppBootstrap.php';
         $bootstrap = new ZfAppBootstrap($this->application);
         $bootstrap->registerPluginResource(array());
@@ -309,11 +297,10 @@ class Zend_Application_Bootstrap_BootstrapAbstractTest extends PHPUnit_Framework
         $this->assertFalse($bootstrap->hasPluginResource('view'));
     }
 
-    /**
-     * @expectedException Zend_Application_Bootstrap_Exception
-     */
     public function testAttemptingToUnregisterPluginResourcesUsingInvalidResourceTypeShouldThrowException()
     {
+        $this->expectException('Zend_Application_Bootstrap_Exception');
+
         require_once dirname(__FILE__) . '/../_files/ZfAppBootstrap.php';
         $bootstrap = new ZfAppBootstrap($this->application);
         $bootstrap->registerPluginResource('view');
@@ -434,21 +421,19 @@ class Zend_Application_Bootstrap_BootstrapAbstractTest extends PHPUnit_Framework
         $this->assertTrue($bootstrap->executedFoobarResource);
     }
 
-    /**
-     * @expectedException Zend_Application_Bootstrap_Exception
-     */
     public function testPassingInvalidResourceArgumentToBootstrapShouldThrowException()
     {
+        $this->expectException('Zend_Application_Bootstrap_Exception');
+
         require_once dirname(__FILE__) . '/../_files/ZfAppBootstrap.php';
         $bootstrap = new ZfAppBootstrap($this->application);
         $bootstrap->bootstrap(new stdClass);
     }
 
-    /**
-     * @expectedException Zend_Application_Bootstrap_Exception
-     */
     public function testPassingUnknownResourceToBootstrapShouldThrowException()
     {
+        $this->expectException('Zend_Application_Bootstrap_Exception');
+
         require_once dirname(__FILE__) . '/../_files/ZfAppBootstrap.php';
         $bootstrap = new ZfAppBootstrap($this->application);
         $bootstrap->bootstrap('bazbat');
@@ -462,21 +447,19 @@ class Zend_Application_Bootstrap_BootstrapAbstractTest extends PHPUnit_Framework
         $this->assertEquals(1, $bootstrap->fooExecuted);
     }
 
-    /**
-     * @expectedException Zend_Application_Bootstrap_Exception
-     */
     public function testCallShouldThrowExceptionForInvalidMethodCall()
     {
+        $this->expectException('Zend_Application_Bootstrap_Exception');
+
         require_once dirname(__FILE__) . '/../_files/ZfAppBootstrap.php';
         $bootstrap = new ZfAppBootstrap($this->application);
         $bootstrap->initFoo();
     }
 
-    /**
-     * @expectedException Zend_Application_Bootstrap_Exception
-     */
     public function testDependencyTrackingShouldDetectCircularDependencies()
     {
+        $this->expectException('Zend_Application_Bootstrap_Exception');
+
         require_once dirname(__FILE__) . '/../_files/BootstrapBaseCircularDependency.php';
         $bootstrap = new BootstrapBaseCircularDependency($this->application);
         $bootstrap->bootstrap();
@@ -717,10 +700,11 @@ class Zend_Application_Bootstrap_BootstrapAbstractTest extends PHPUnit_Framework
 
     /**
      * @group ZF-9110
-     * @expectedException Zend_Application_Bootstrap_Exception
      */
     public function testPassingSameBootstrapAsApplicationShouldNotCauseRecursion()
     {
+        $this->expectException('Zend_Application_Bootstrap_Exception');
+
         $bootstrap = new Zend_Application_Bootstrap_Bootstrap($this->application);
         $bootstrap->setApplication($bootstrap);
     }
@@ -810,25 +794,6 @@ class Zend_Application_Bootstrap_BootstrapAbstractTest_Layout
     }
 }
 
-class Zend_Application_Bootstrap_BootstrapAbstractTest_Foo
-    extends Zend_Application_Resource_ResourceAbstract
-{
-    public $bootstrapSetInConstructor = false;
-
-    public function __construct($options = null)
-    {
-        parent::__construct($options);
-        if (null !== $this->getBootstrap()) {
-            $this->bootstrapSetInConstructor = true;
-        }
-    }
-
-    public function init()
-    {
-        return $this;
-    }
-}
-
 class Zend_Application_Bootstrap_BootstrapAbstractTest_OptionKeys
     extends Zend_Application_Bootstrap_Bootstrap
 {
@@ -836,8 +801,4 @@ class Zend_Application_Bootstrap_BootstrapAbstractTest_OptionKeys
     {
         return $this->_optionKeys;
     }
-}
-
-if (PHPUnit_MAIN_METHOD == 'Zend_Application_Bootstrap_BootstrapAbstractTest::main') {
-    Zend_Application_Bootstrap_BootstrapAbstractTest::main();
 }

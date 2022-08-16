@@ -69,13 +69,7 @@ class Zend_Application_Resource_Frontcontroller extends Zend_Application_Resourc
                     break;
 
                 case 'moduledirectory':
-                    if (is_string($value)) {
-                        $front->addModuleDirectory($value);
-                    } elseif (is_array($value)) {
-                        foreach ($value as $moduleDir) {
-                            $front->addModuleDirectory($moduleDir);
-                        }
-                    }
+                    throw new Exception('use controllerdirectory instead');
                     break;
 
                 case 'defaultcontrollername':
@@ -143,7 +137,7 @@ class Zend_Application_Resource_Frontcontroller extends Zend_Application_Resourc
                     if (!isset($value['params'])) {
                         $value['params'] = array();
                     }
-                    
+
                     $dispatchClass = $value['class'];
                     if (!class_exists($dispatchClass)) {
                         require_once 'Zend/Application/Exception.php';

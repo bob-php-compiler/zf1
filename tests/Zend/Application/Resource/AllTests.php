@@ -20,14 +20,10 @@
  * @version    $Id$
  */
 
-if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Zend_Application_Resource_AllTests::main');
-}
-
 require_once 'Zend/Application/Resource/ResourceAbstractTest.php';
 require_once 'Zend/Application/Resource/CacheManagerTest.php';
 require_once 'Zend/Application/Resource/DbTest.php';
-require_once 'Zend/Application/Resource/DojoTest.php';
+//require_once 'Zend/Application/Resource/DojoTest.php';
 require_once 'Zend/Application/Resource/FrontcontrollerTest.php';
 require_once 'Zend/Application/Resource/LayoutTest.php';
 require_once 'Zend/Application/Resource/LocaleTest.php';
@@ -35,11 +31,11 @@ require_once 'Zend/Application/Resource/LogTest.php';
 require_once 'Zend/Application/Resource/MailTest.php';
 require_once 'Zend/Application/Resource/ModulesTest.php';
 require_once 'Zend/Application/Resource/MultidbTest.php';
-require_once 'Zend/Application/Resource/NavigationTest.php';
+//require_once 'Zend/Application/Resource/NavigationTest.php';
 require_once 'Zend/Application/Resource/RouterTest.php';
 require_once 'Zend/Application/Resource/SessionTest.php';
 require_once 'Zend/Application/Resource/TranslateTest.php';
-require_once 'Zend/Application/Resource/UseragentTest.php';
+//require_once 'Zend/Application/Resource/UseragentTest.php';
 require_once 'Zend/Application/Resource/ViewTest.php';
 
 /**
@@ -53,11 +49,6 @@ require_once 'Zend/Application/Resource/ViewTest.php';
  */
 class Zend_Application_Resource_AllTests
 {
-    public static function main()
-    {
-        PHPUnit_TextUI_TestRunner::run(self::suite());
-    }
-
     public static function suite()
     {
         $suite = new PHPUnit_Framework_TestSuite('Zend Framework - Zend_Application_Resource');
@@ -65,7 +56,7 @@ class Zend_Application_Resource_AllTests
         $suite->addTestSuite('Zend_Application_Resource_ResourceAbstractTest');
         $suite->addTestSuite('Zend_Application_Resource_CacheManagerTest');
         $suite->addTestSuite('Zend_Application_Resource_DbTest');
-        $suite->addTestSuite('Zend_Application_Resource_DojoTest');
+        //$suite->addTestSuite('Zend_Application_Resource_DojoTest');
         $suite->addTestSuite('Zend_Application_Resource_FrontcontrollerTest');
         $suite->addTestSuite('Zend_Application_Resource_LayoutTest');
         $suite->addTestSuite('Zend_Application_Resource_LocaleTest');
@@ -73,17 +64,13 @@ class Zend_Application_Resource_AllTests
         $suite->addTestSuite('Zend_Application_Resource_MailTest');
         $suite->addTestSuite('Zend_Application_Resource_ModulesTest');
         $suite->addTestSuite('Zend_Application_Resource_MultidbTest');
-        $suite->addTestSuite('Zend_Application_Resource_NavigationTest');
+        //$suite->addTestSuite('Zend_Application_Resource_NavigationTest');
         $suite->addTestSuite('Zend_Application_Resource_RouterTest');
         $suite->addTestSuite('Zend_Application_Resource_SessionTest');
         $suite->addTestSuite('Zend_Application_Resource_TranslateTest');
-        $suite->addTestSuite('Zend_Application_Resource_UseragentTest');
+        //$suite->addTestSuite('Zend_Application_Resource_UseragentTest');
         $suite->addTestSuite('Zend_Application_Resource_ViewTest');
 
         return $suite;
     }
-}
-
-if (PHPUnit_MAIN_METHOD == 'Zend_Application_Resource_AllTests::main') {
-    Zend_Application_Resource_AllTests::main();
 }

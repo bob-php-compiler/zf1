@@ -20,10 +20,6 @@
  * @version    $Id$
  */
 
-if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Zend_Application_Resource_TranslateTest::main');
-}
-
 /**
  * Zend_Loader_Autoloader
  */
@@ -64,12 +60,6 @@ class Zend_Application_Resource_TranslateTest extends PHPUnit_Framework_TestCase
      * @var Zend_Application_Bootstrap_Bootstrap
      */
     protected $bootstrap;
-
-    public static function main()
-    {
-        $suite  = new PHPUnit_Framework_TestSuite(__CLASS__);
-        $result = PHPUnit_TextUI_TestRunner::run($suite);
-    }
 
     public function setUp()
     {
@@ -218,10 +208,11 @@ class Zend_Application_Resource_TranslateTest extends PHPUnit_Framework_TestCase
 
     /**
      * @group ZF-10352
-     * @expectedException Zend_Application_Resource_Exception
      */
     public function testToUseTheTwoKeysContentAndDataShouldThrowsException()
     {
+        $this->expectException('Zend_Application_Resource_Exception');
+
         $options = array(
             'adapter' => 'array',
             'content' => array(
@@ -262,8 +253,4 @@ class Zend_Application_Resource_TranslateTest extends PHPUnit_Framework_TestCase
             $event['message']
         );
     }
-}
-
-if (PHPUnit_MAIN_METHOD == 'Zend_Application_Resource_TranslateTest::main') {
-    Zend_Application_Resource_TranslateTest::main();
 }
