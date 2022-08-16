@@ -34,10 +34,7 @@ require_once 'Zend/Paginator/AdapterAggregate.php';
  * @see PHPUnit_Framework_TestCase
  */
 
-/**
- * @see Zend_Config_Xml
- */
-require_once 'Zend/Config/Xml.php';
+require_once 'Zend/Config/Ini.php';
 
 /**
  * @see Zend_Db_Adapter_Pdo_Sqlite
@@ -128,7 +125,7 @@ class Zend_PaginatorTest extends PHPUnit_Framework_TestCase
         }
 
         $this->_adapter = new Zend_Db_Adapter_Pdo_Sqlite(array(
-            'dbname' => dirname(__FILE__) . '/Paginator/_files/test.sqlite'
+            'dbname' => TEST_ROOT_DIR . '/Zend/Paginator/_files/test.sqlite'
         ));
 
         $this->_query = $this->_adapter->select()->from('test');
@@ -136,7 +133,7 @@ class Zend_PaginatorTest extends PHPUnit_Framework_TestCase
         $this->_testCollection = range(1, 101);
         $this->_paginator = Zend_Paginator::factory($this->_testCollection);
 
-        $this->_config = new Zend_Config_Xml(dirname(__FILE__) . '/Paginator/_files/config.xml');
+        $this->_config = new Zend_Config_Ini(TEST_ROOT_DIR . '/Zend/Paginator/_files/config.ini');
         // get a fresh new copy of ViewRenderer in each tests
         Zend_Controller_Action_HelperBroker::resetHelpers();
 
@@ -777,7 +774,10 @@ class Zend_PaginatorTest extends PHPUnit_Framework_TestCase
 
         $items = $paginator->getCurrentItems();
 
-        $this->assertEquals('item2', $items[0]);
+        // bpc: Indirect modification of overloaded element of XXX has no effect
+        // method-invoke arguments get-location
+        $item = $items[0];
+        $this->assertEquals('item2', $item);
     }
 
     /**
@@ -1004,7 +1004,10 @@ class Zend_PaginatorTest extends PHPUnit_Framework_TestCase
         $items = $paginator->getAdapter()
                            ->getItems(0, 10);
 
-        $this->assertEquals('foo', $items[1]);
+        // bpc: Indirect modification of overloaded element of XXX has no effect
+        // method-invoke arguments get-location
+        $item = $items[1];
+        $this->assertEquals('foo', $item);
         $this->assertEquals(0, $items->key());
         $this->assertFalse(isset($items[2]));
         $this->assertTrue(isset($items[1]));

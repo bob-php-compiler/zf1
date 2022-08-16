@@ -29,7 +29,6 @@ require_once 'Zend/Paginator/Adapter/DbSelect.php';
  * @see Zend_Db_Adapter_Pdo_Sqlite
  */
 require_once 'Zend/Db/Adapter/Pdo/Sqlite.php';
-require_once 'Zend/Debug.php';
 require_once 'Zend/Db/Adapter/Abstract.php';
 
 /**
@@ -80,7 +79,7 @@ class Zend_Paginator_Adapter_DbSelectTest extends PHPUnit_Framework_TestCase
         parent::setUp();
 
         $this->_db = new Zend_Db_Adapter_Pdo_Sqlite(array(
-            'dbname' => dirname(__FILE__) . '/../_files/test.sqlite'
+            'dbname' => TEST_ROOT_DIR . '/Zend/Paginator/_files/test.sqlite'
         ));
 
         $this->_table = new TestTable($this->_db);
@@ -114,7 +113,7 @@ class Zend_Paginator_Adapter_DbSelectTest extends PHPUnit_Framework_TestCase
         $this->assertSame(md5($select->assemble()), $paginatorAdapter->getCacheIdentifier(),
                           'Cache identifier incorrect!');
     }
-    
+
     public function testGetsItemsAtOffsetZero()
     {
         $actual = $this->_adapter->getItems(0, 10);
@@ -227,7 +226,7 @@ class Zend_Paginator_Adapter_DbSelectTest extends PHPUnit_Framework_TestCase
     public function testGroupByQueryOnEmptyTableReturnsRowCountZero()
     {
         $db = new Zend_Db_Adapter_Pdo_Sqlite(array(
-            'dbname' => dirname(__FILE__) . '/../_files/testempty.sqlite'
+            'dbname' => TEST_ROOT_DIR . '/Zend/Paginator/_files/testempty.sqlite'
         ));
 
         $query = $db->select()->from('test')
