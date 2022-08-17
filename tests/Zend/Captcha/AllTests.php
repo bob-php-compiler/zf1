@@ -20,10 +20,6 @@
  * @version    $Id$
  */
 
-if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Zend_Captcha_AllTests::main');
-}
-
 require_once 'Zend/Captcha/DumbTest.php';
 require_once 'Zend/Captcha/FigletTest.php';
 require_once 'Zend/Captcha/ImageTest.php';
@@ -39,11 +35,6 @@ require_once 'Zend/Captcha/ReCaptchaTest.php';
  */
 class Zend_Captcha_AllTests
 {
-    public static function main()
-    {
-        PHPUnit_TextUI_TestRunner::run(self::suite());
-    }
-
     public static function suite()
     {
         $suite = new PHPUnit_Framework_TestSuite('Zend Framework - Zend_Captcha');
@@ -55,8 +46,4 @@ class Zend_Captcha_AllTests
 
         return $suite;
     }
-}
-
-if (PHPUnit_MAIN_METHOD == 'Zend_Captcha_AllTests::main') {
-    Zend_Captcha_AllTests::main();
 }
