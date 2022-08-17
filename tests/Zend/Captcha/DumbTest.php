@@ -22,6 +22,7 @@
 
 require_once 'Zend/Form/Element/Captcha.php';
 require_once 'Zend/View.php';
+require_once 'Zend/Captcha/Dumb.php';
 
 /**
  * @category   Zend
@@ -48,10 +49,9 @@ class Zend_Captcha_DumbTest extends PHPUnit_Framework_TestCase
         $this->element = new Zend_Form_Element_Captcha(
             'captchaD',
             array(
-                'captcha' => array(
-                    'Dumb',
-                    'sessionClass' => 'Zend_Captcha_DumbTest_SessionContainer'
-                )
+                'captcha' => new Zend_Captcha_Dumb(array(
+                                'sessionClass' => 'Zend_Captcha_DumbTest_SessionContainer'
+                             ))
             )
         );
         $this->captcha =  $this->element->getCaptcha();

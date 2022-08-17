@@ -42,7 +42,8 @@ then
                Zend/Crypt/AllTests.php
                Zend/AuthTest.php
                Zend/Auth/AllTests.php
-               Zend/Application/AllTests.php"
+               Zend/Application/AllTests.php
+               Zend/Captcha/AllTests.php"
 else
     TEST_LIST=$1
 fi

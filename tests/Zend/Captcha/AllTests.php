@@ -21,9 +21,9 @@
  */
 
 require_once 'Zend/Captcha/DumbTest.php';
-require_once 'Zend/Captcha/FigletTest.php';
+//require_once 'Zend/Captcha/FigletTest.php';
 require_once 'Zend/Captcha/ImageTest.php';
-require_once 'Zend/Captcha/ReCaptchaTest.php';
+//require_once 'Zend/Captcha/ReCaptchaTest.php';
 
 /**
  * @category   Zend
@@ -40,9 +40,9 @@ class Zend_Captcha_AllTests
         $suite = new PHPUnit_Framework_TestSuite('Zend Framework - Zend_Captcha');
 
         $suite->addTestSuite('Zend_Captcha_DumbTest');
-        $suite->addTestSuite('Zend_Captcha_FigletTest');
+        //$suite->addTestSuite('Zend_Captcha_FigletTest');
         $suite->addTestSuite('Zend_Captcha_ImageTest');
-        $suite->addTestSuite('Zend_Captcha_ReCaptchaTest');
+        //$suite->addTestSuite('Zend_Captcha_ReCaptchaTest');
 
         return $suite;
     }

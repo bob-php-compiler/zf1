@@ -23,3 +23,4 @@
 - [x] Crypt
 - [x] Auth
 - [x] Application
+- [x] Captcha

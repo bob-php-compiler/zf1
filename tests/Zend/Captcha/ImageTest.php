@@ -22,6 +22,7 @@
 
 require_once 'Zend/Form/Element/Captcha.php';
 require_once 'Zend/Captcha/Adapter.php';
+require_once 'Zend/Captcha/Image.php';
 
 /**
  * @category   Zend
@@ -62,10 +63,11 @@ class Zend_Captcha_ImageTest extends PHPUnit_Framework_TestCase
             @mkdir($this->testDir);
         }
         $this->element = new Zend_Form_Element_Captcha('captchaI',
-                    array('captcha' => array('Image',
+                    array('captcha' => new Zend_Captcha_Image(array(
                                              'sessionClass' => 'Zend_Captcha_ImageTest_SessionContainer',
                                              'imgDir' => $this->testDir,
-                                             'font' => dirname(__FILE__). '/../Pdf/_fonts/Vera.ttf')
+                                             'font' => TEST_ROOT_DIR. '/Zend/Pdf/_fonts/Vera.ttf'
+                                       ))
                          ));
         $this->captcha =  $this->element->getCaptcha();
     }
@@ -91,7 +93,7 @@ class Zend_Captcha_ImageTest extends PHPUnit_Framework_TestCase
      * Determine system TMP directory
      *
      * @return string
-     * @throws Zend_File_Transfer_Exception if unable to determine directory
+     * @throws Zend_Exception if unable to determine directory
      */
     protected function _getTmpDir()
     {
@@ -111,8 +113,7 @@ class Zend_Captcha_ImageTest extends PHPUnit_Framework_TestCase
                     $tmpdir = realpath(dirname($tempFile));
                     unlink($tempFile);
                 } else {
-                    require_once 'Zend/File/Transfer/Exception.php';
-                    throw new Zend_File_Transfer_Exception('Could not determine temp directory');
+                    throw new Zend_Exception('Could not determine temp directory');
                 }
             }
             $this->_tmpDir = rtrim($tmpdir, "/\\");

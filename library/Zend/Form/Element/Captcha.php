@@ -92,11 +92,15 @@ class Zend_Form_Element_Captcha extends Zend_Form_Element_Xhtml
             if (empty($options)) {
                 $instance = new $name;
             } else {
-                $r = new ReflectionClass($name);
-                if ($r->hasMethod('__construct')) {
-                    $instance = $r->newInstanceArgs(array($options));
+                if (defined('__BPC__')) {
+                    throw new Exception('TODO BPC');
                 } else {
-                    $instance = $r->newInstance();
+                    $r = new ReflectionClass($name);
+                    if ($r->hasMethod('__construct')) {
+                        $instance = $r->newInstanceArgs(array($options));
+                    } else {
+                        $instance = $r->newInstance();
+                    }
                 }
             }
         }

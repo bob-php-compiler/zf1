@@ -492,3 +492,31 @@ Application/Resource/Session.php
 Application/Resource/Translate.php
 #Application/Resource/Useragent.php
 Application/Resource/View.php
+# Form
+Form/Exception.php
+Form.php
+Form/Exception.php
+Form/Element.php
+Form/SubForm.php
+Form/DisplayGroup.php
+Form/Decorator/Exception.php
+Form/Decorator/Interface.php
+Form/Decorator/Abstract.php
+Form/Decorator/Captcha.php
+Form/Decorator/Captcha/Word.php
+Form/Decorator/Description.php
+Form/Decorator/HtmlTag.php
+Form/Decorator/Label.php
+Form/Decorator/Errors.php
+Form/Element/Exception.php
+Form/Element/Xhtml.php
+Form/Element/Captcha.php
+# Captcha
+Captcha/Exception.php
+Captcha/Adapter.php
+Captcha/Base.php
+Captcha/Dumb.php
+#Captcha/Figlet.php
+Captcha/Image.php
+#Captcha/ReCaptcha.php
+Captcha/Word.php
