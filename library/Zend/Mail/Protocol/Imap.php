@@ -315,9 +315,10 @@ class Zend_Mail_Protocol_Imap
     public function readResponse($tag, $dontParse = false)
     {
         $lines = array();
-        while (!$this->readLine($tokens, $tag, $dontParse)) {
+        do {
+            $tagFound = $this->readLine($tokens, $tag, $dontParse);
             $lines[] = $tokens;
-        }
+        } while (!$tagFound);
 
         if ($dontParse) {
             // last to chars are still needed for response code
@@ -325,7 +326,7 @@ class Zend_Mail_Protocol_Imap
         }
         // last line has response code
         if ($tokens[0] == 'OK') {
-            return $lines ? $lines : true;
+            return $lines;
         } else if ($tokens[0] == 'NO'){
             return false;
         }
