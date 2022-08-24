@@ -90,17 +90,25 @@ class Zend_Mail_Protocol_Pop3
      */
     public function connect($host, $port = null, $ssl = false)
     {
-        if ($ssl == 'SSL') {
-            $host = 'ssl://' . $host;
-        }
-
         if ($port === null) {
             $port = $ssl == 'SSL' ? 995 : 110;
         }
 
-        $errno  =  0;
-        $errstr = '';
-        $this->_socket = @fsockopen($host, $port, $errno, $errstr, self::TIMEOUT_CONNECTION);
+        // 如果使用ssl,则不验证证书
+        $context = stream_context_create(array(
+            'ssl' => array(
+                'verify_peer'      => false,
+                'verify_peer_name' => false
+            )
+        ));
+        $this->_socket = stream_socket_client(
+            ($ssl === 'SSL' ? 'ssl' : 'tcp') . "://$host:$port",
+            $errno,
+            $errstr,
+            self::TIMEOUT_CONNECTION,
+            STREAM_CLIENT_CONNECT,
+            $context
+        );
         if (!$this->_socket) {
             /**
              * @see Zend_Mail_Protocol_Exception
