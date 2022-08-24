@@ -263,8 +263,8 @@ class Zend_Loader_Autoloader_ResourceTest extends PHPUnit_Framework_TestCase
         $this->loader->addResourceTypes(array(
             'model' => array('path' => 'models', 'namespace' => 'Model'),
         ));
-        $object = $this->loader->load('ZendLoaderAutoloaderResourceTest', 'model');
-        $this->assertTrue($object instanceof FooBar_Model_ZendLoaderAutoloaderResourceTest);
+        $object = $this->loader->load('ZendLoaderAutoloaderResourceTestX', 'model');
+        $this->assertTrue($object instanceof FooBar_Model_ZendLoaderAutoloaderResourceTestX);
     }
 
     public function testSuccessiveCallsToLoadSameResourceShouldReturnSameObject()
@@ -272,9 +272,9 @@ class Zend_Loader_Autoloader_ResourceTest extends PHPUnit_Framework_TestCase
         $this->loader->addResourceTypes(array(
             'form' => array('path' => 'forms', 'namespace' => 'Form'),
         ));
-        $object = $this->loader->load('ZendLoaderAutoloaderResourceTest', 'form');
-        $this->assertTrue($object instanceof FooBar_Form_ZendLoaderAutoloaderResourceTest);
-        $test   = $this->loader->load('ZendLoaderAutoloaderResourceTest', 'form');
+        $object = $this->loader->load('ZendLoaderAutoloaderResourceTestX', 'form');
+        $this->assertTrue($object instanceof FooBar_Form_ZendLoaderAutoloaderResourceTestX);
+        $test   = $this->loader->load('ZendLoaderAutoloaderResourceTestX', 'form');
         $this->assertSame($object, $test);
     }
 
@@ -287,8 +287,8 @@ class Zend_Loader_Autoloader_ResourceTest extends PHPUnit_Framework_TestCase
         $loader->addResourceTypes(array(
             'service' => array('path' => 'services', 'namespace' => 'Service'),
         ));
-        $test = $loader->load('ZendLoaderAutoloaderResourceTest', 'service');
-        $this->assertTrue($test instanceof Service_ZendLoaderAutoloaderResourceTest);
+        $test = $loader->load('ZendLoaderAutoloaderResourceTestX', 'service');
+        $this->assertTrue($test instanceof Service_ZendLoaderAutoloaderResourceTestX);
     }
 
     public function testPassingClassOfDifferentNamespaceToAutoloadShouldReturnFalse()
