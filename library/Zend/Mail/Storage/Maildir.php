@@ -345,6 +345,10 @@ class Zend_Mail_Storage_Maildir extends Zend_Mail_Storage_Abstract
             require_once 'Zend/Mail/Storage/Exception.php';
             throw new Zend_Mail_Storage_Exception('cannot read recent mails in maildir');
         }
+        // keep files order by name
+        usort($this->_files, function ($a,  $b) {
+            return $a['filename'] > $b['filename'] ? 1: -1;
+        });
     }
 
     /**

@@ -26,6 +26,8 @@ define('TESTS_ZEND_MAIL_IMAP_ENABLED',  true);
 define('TESTS_ZEND_MAIL_IMAP_USER',     'mbox@zf.test');
 define('TESTS_ZEND_MAIL_IMAP_PASSWORD', '123456');
 
+define('TESTS_ZEND_MAIL_MAILDIR_ENABLED', true);
+
 // run create-mysql-3307-test-database.sh
 define('TESTS_ZEND_DB_ADAPTER_PDO_MYSQL_ENABLED',   true);
 define('TESTS_ZEND_DB_ADAPTER_MYSQL_USERNAME',      'root');

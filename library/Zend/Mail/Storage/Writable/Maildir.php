@@ -980,7 +980,7 @@ class Zend_Mail_Storage_Writable_Maildir extends    Zend_Mail_Storage_Folder_Mai
             $messages   = $result['count'];
             $quota      = $result['quota'];
         } else {
-            $maildirsize = explode("\n", $maildirsize);
+            $maildirsize = explode("\n", trim($maildirsize));
             if (is_array($this->_quota)) {
                 $quota = $this->_quota;
             } else {
