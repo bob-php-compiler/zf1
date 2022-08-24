@@ -127,7 +127,6 @@ class Zend_Session extends Zend_Session_Abstract
      */
     private static $_localOptions = array(
         'strict'                => '_strict',
-        'remember_me_seconds'   => '_rememberMeSeconds',
         'throw_startup_exceptions' => '_throwStartupExceptions'
     );
 
@@ -158,13 +157,6 @@ class Zend_Session extends Zend_Session_Abstract
      * @var bool
      */
     private static $_strict = false;
-
-    /**
-     * Default number of seconds the session will be remembered for when asked to be remembered
-     *
-     * @var int
-     */
-    private static $_rememberMeSeconds = 1209600; // 2 weeks
 
     /**
      * Whether the default options listed in Zend_Session::$_localOptions have been set
@@ -322,64 +314,6 @@ class Zend_Session extends Zend_Session_Abstract
             self::$_regenerateIdState = 1;
         }
     }
-
-
-    /**
-     * rememberMe() - Write a persistent cookie that expires after a number of seconds in the future. If no number of
-     * seconds is specified, then this defaults to self::$_rememberMeSeconds.  Due to clock errors on end users' systems,
-     * large values are recommended to avoid undesirable expiration of session cookies.
-     *
-     * @param int $seconds OPTIONAL specifies TTL for cookie in seconds from present time
-     * @return void
-     */
-    public static function rememberMe($seconds = null)
-    {
-        $seconds = (int) $seconds;
-        $seconds = ($seconds > 0) ? $seconds : self::$_rememberMeSeconds;
-
-        self::rememberUntil($seconds);
-    }
-
-
-    /**
-     * forgetMe() - Write a volatile session cookie, removing any persistent cookie that may have existed. The session
-     * would end upon, for example, termination of a web browser program.
-     *
-     * @return void
-     */
-    public static function forgetMe()
-    {
-        self::rememberUntil(0);
-    }
-
-
-    /**
-     * rememberUntil() - This method does the work of changing the state of the session cookie and making
-     * sure that it gets resent to the browser via regenerateId()
-     *
-     * @param int $seconds
-     * @return void
-     */
-    public static function rememberUntil($seconds = 0)
-    {
-        if (self::$_unitTestEnabled) {
-            self::regenerateId();
-            return;
-        }
-
-        $cookieParams = session_get_cookie_params();
-
-        session_set_cookie_params(
-            $seconds,
-            $cookieParams['path'],
-            $cookieParams['domain'],
-            $cookieParams['secure']
-            );
-
-        // normally "rememberMe()" represents a security context change, so should use new session id
-        self::regenerateId();
-    }
-
 
     /**
      * sessionExists() - whether or not a session exists for the current request
