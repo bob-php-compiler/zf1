@@ -94,20 +94,24 @@ class Zend_Mail_Protocol_Pop3
             $port = $ssl == 'SSL' ? 995 : 110;
         }
 
-        // 如果使用ssl,则不验证证书
-        $context = stream_context_create(array(
-            'ssl' => array(
+        // 不验证证书
+        if (defined('__BPC__')) {
+            $sslOptions = array(
+                'tls_validation_flags' => G_TLS_CERTIFICATE_VALIDATE_ALL & ~(G_TLS_CERTIFICATE_UNKNOWN_CA | G_TLS_CERTIFICATE_BAD_IDENTITY)
+            );
+        } else {
+            $sslOptions = array(
                 'verify_peer'      => false,
                 'verify_peer_name' => false
-            )
-        ));
+            );
+        }
         $this->_socket = stream_socket_client(
             ($ssl === 'SSL' ? 'ssl' : 'tcp') . "://$host:$port",
             $errno,
             $errstr,
             self::TIMEOUT_CONNECTION,
             STREAM_CLIENT_CONNECT,
-            $context
+            stream_context_create(array('ssl' => $sslOptions))
         );
         if (!$this->_socket) {
             /**
@@ -118,7 +122,15 @@ class Zend_Mail_Protocol_Pop3
                                                    ' (errno = ' . $errno . ' )');
         }
 
-        $welcome = $this->readResponse();
+        try {
+            $welcome = $this->readResponse();
+        } catch (Zend_Mail_Protocol_Exception $e) {
+            // close connection
+            fclose($this->_socket);
+            $this->_socket = null;
+
+            throw $e;
+        }
 
         strtok($welcome, '<');
         $this->_timestamp = strtok('>');
@@ -130,8 +142,16 @@ class Zend_Mail_Protocol_Pop3
 
         if ($ssl === 'TLS') {
             $this->request('STLS');
-            $result = stream_socket_enable_crypto($this->_socket, true, STREAM_CRYPTO_METHOD_TLS_CLIENT);
+            if (defined('__BPC__')) {
+                $result = stream_socket_enable_crypto($this->_socket, true, STREAM_CRYPTO_METHOD_TLS_CLIENT, $sslOptions);
+            } else {
+                $result = stream_socket_enable_crypto($this->_socket, true, STREAM_CRYPTO_METHOD_TLS_CLIENT);
+            }
             if (!$result) {
+                // close connection
+                fclose($this->_socket);
+                $this->_socket = null;
+
                 /**
                  * @see Zend_Mail_Protocol_Exception
                  */

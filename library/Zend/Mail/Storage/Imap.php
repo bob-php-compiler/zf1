@@ -282,6 +282,8 @@ class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract
         $this->_protocol = new Zend_Mail_Protocol_Imap();
         $this->_protocol->connect($host, $port, $ssl);
         if (!$this->_protocol->login($params->user, $password)) {
+            // close connection
+            $this->_protocol->logout();
             /**
              * @see Zend_Mail_Storage_Exception
              */
@@ -651,4 +653,3 @@ class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract
         }
     }
 }
-

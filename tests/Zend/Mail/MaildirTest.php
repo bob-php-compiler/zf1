@@ -46,7 +46,7 @@ class Zend_Mail_MaildirTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->_originalMaildir = dirname(__FILE__) . '/_files/test.maildir/';
+        $this->_originalMaildir = TEST_ROOT_DIR . '/Zend/Mail/_files/test.maildir/';
         if (!is_dir($this->_originalMaildir . '/cur/')) {
             $this->markTestSkipped('You have to unpack maildir.tar in Zend/Mail/_files/test.maildir/ '
                                  . 'directory before enabling the maildir tests');
@@ -57,7 +57,7 @@ class Zend_Mail_MaildirTest extends PHPUnit_Framework_TestCase
             if (TESTS_ZEND_MAIL_TEMPDIR != null) {
                 $this->_tmpdir = TESTS_ZEND_MAIL_TEMPDIR;
             } else {
-                $this->_tmpdir = dirname(__FILE__) . '/_files/test.tmp/';
+                $this->_tmpdir = TEST_ROOT_DIR . '/Zend/Mail/_files/test.tmp/';
             }
             if (!file_exists($this->_tmpdir)) {
                 mkdir($this->_tmpdir);
@@ -138,7 +138,7 @@ class Zend_Mail_MaildirTest extends PHPUnit_Framework_TestCase
     public function testLoadInvalid()
     {
         try {
-            $mail = new Zend_Mail_Storage_Maildir(array('dirname' => dirname(__FILE__)));
+            $mail = new Zend_Mail_Storage_Maildir(array('dirname' => TEST_ROOT_DIR . '/Zend/Mail'));
         } catch (Exception $e) {
             return; // test ok
         }
