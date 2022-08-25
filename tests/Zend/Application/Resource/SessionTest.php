@@ -74,19 +74,16 @@ class Zend_Application_Resource_SessionTest extends PHPUnit_Framework_TestCase
     public function testSetOptions()
     {
         Zend_Session::setOptions(array(
-            'use_only_cookies' => false,
-            'remember_me_seconds' => 3600,
+            'use_only_cookies' => false
         ));
 
         $this->resource->setOptions(array(
-             'use_only_cookies' => true,
-             'remember_me_seconds' => 7200,
+             'use_only_cookies' => true
         ));
 
         $this->resource->init();
 
         $this->assertEquals(1, Zend_Session::getOptions('use_only_cookies'));
-        $this->assertEquals(7200, Zend_Session::getOptions('remember_me_seconds'));
     }
 
     public function testInitSetsSaveHandler()
