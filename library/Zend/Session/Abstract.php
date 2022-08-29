@@ -153,7 +153,8 @@ abstract class Zend_Session_Abstract
             } elseif (isset(self::$_expiringData[$namespace])) { // check expiring data for data reqeusted
                 return self::$_expiringData[$namespace];
             } else {
-                return $_SESSION[$namespace]; // satisfy return by reference
+                $_SESSION[$namespace] = NULL;
+                return NULL; // satisfy return by reference
             }
         } else {
             if (isset($_SESSION[$namespace][$name])) { // check session first
@@ -161,7 +162,8 @@ abstract class Zend_Session_Abstract
             } elseif (isset(self::$_expiringData[$namespace][$name])) { // check expiring data
                 return self::$_expiringData[$namespace][$name];
             } else {
-                return $_SESSION[$namespace][$name]; // satisfy return by reference
+                $_SESSION[$namespace][$name] = NULL;
+                return NULL; // satisfy return by reference
             }
         }
     }
