@@ -274,21 +274,39 @@ class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract
             throw new Zend_Mail_Storage_Exception('need at least user in params');
         }
 
+        if (isset($params->password)) {
+            $password = $params->password;
+        } else {
+            if (   !isset($params->authenticate)
+                || !isset($params->authenticateProgram)
+                || $params->authenticate == ''
+                || $params->authenticateProgram == ''
+            ) {
+                require_once 'Zend/Mail/Storage/Exception.php';
+                throw new Zend_Mail_Storage_Exception('need authenticate and authenticateProgram when password not provided');
+            }
+            $password = false;
+        }
+
         $host     = isset($params->host)     ? $params->host     : 'localhost';
-        $password = isset($params->password) ? $params->password : '';
         $port     = isset($params->port)     ? $params->port     : null;
         $ssl      = isset($params->ssl)      ? $params->ssl      : false;
 
         $this->_protocol = new Zend_Mail_Protocol_Imap();
         $this->_protocol->connect($host, $port, $ssl);
-        if (!$this->_protocol->login($params->user, $password)) {
+        if ($password) {
+            $loggedin = $this->_protocol->login($params->user, $password);
+        } else {
+            $loggedin = $this->_protocol->authenticate($params->authenticate, shell_exec($params->authenticateProgram));
+        }
+        if (!$loggedin) {
             // close connection
             $this->_protocol->logout();
             /**
              * @see Zend_Mail_Storage_Exception
              */
             require_once 'Zend/Mail/Storage/Exception.php';
-            throw new Zend_Mail_Storage_Exception('cannot login, user or password wrong');
+            throw new Zend_Mail_Storage_Exception($password ? 'cannot login, user or password wrong' : 'authenticate failed');
         }
         $this->selectFolder(isset($params->folder) ? $params->folder : 'INBOX');
     }

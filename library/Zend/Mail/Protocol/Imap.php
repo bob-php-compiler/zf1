@@ -489,6 +489,11 @@ class Zend_Mail_Protocol_Imap
         return $this->requestAndResponse('LOGIN', $this->escapeString($user, $password), true);
     }
 
+    public function authenticate($mechanism, $argument)
+    {
+        return $this->requestAndResponse('AUTHENTICATE', array($mechanism, $argument), true);
+    }
+
     /**
      * logout of imap server
      *
