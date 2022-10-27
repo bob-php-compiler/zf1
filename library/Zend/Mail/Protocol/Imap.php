@@ -494,6 +494,11 @@ class Zend_Mail_Protocol_Imap
         return $this->requestAndResponse('AUTHENTICATE', array($mechanism, $argument), true);
     }
 
+    public function id($clientsInfoList)
+    {
+        return $this->requestAndResponse('ID', array($clientsInfoList), true);
+    }
+
     /**
      * logout of imap server
      *

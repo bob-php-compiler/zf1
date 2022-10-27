@@ -294,6 +294,15 @@ class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract
 
         $this->_protocol = new Zend_Mail_Protocol_Imap();
         $this->_protocol->connect($host, $port, $ssl);
+
+        // ID
+        if (isset($params->IMAP_ID) && !$this->_protocol->id($params->IMAP_ID)) {
+            // close connection
+            $this->_protocol->logout();
+            require_once 'Zend/Mail/Storage/Exception.php';
+            throw new Zend_Mail_Storage_Exception('command ID failed');
+        }
+
         if ($password) {
             $loggedin = $this->_protocol->login($params->user, $password);
         } else {
@@ -308,6 +317,7 @@ class Zend_Mail_Storage_Imap extends Zend_Mail_Storage_Abstract
             require_once 'Zend/Mail/Storage/Exception.php';
             throw new Zend_Mail_Storage_Exception($password ? 'cannot login, user or password wrong' : 'authenticate failed');
         }
+
         $this->selectFolder(isset($params->folder) ? $params->folder : 'INBOX');
     }
 
