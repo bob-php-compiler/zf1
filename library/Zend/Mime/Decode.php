@@ -162,6 +162,7 @@ class Zend_Mime_Decode
             }
         }
 
+        $headers = self::unfoldingHeaders($headers, $EOL);
         $headers = iconv_mime_decode_headers(
             $headers, ICONV_MIME_DECODE_CONTINUE_ON_ERROR
         );
@@ -191,6 +192,70 @@ class Zend_Mime_Decode
                 $header
             );
         }
+    }
+
+    /**
+     * https://www.ietf.org/rfc/rfc2822.txt section-2.2.3
+     * Each header field is logically a single line of characters comprising the field name, the colon, and the field body.
+     */
+    public static function unfoldingHeaders($string, $EOL = Zend_Mime::LINEEND)
+    {
+        $headers     = array();
+        $currentLine = '';
+        $emptyLine   = 0;
+
+        // iterate the header lines, some might be continuations
+        $string = str_replace(array("\r", "\n"), array('', $EOL), $string);
+        $lines  = explode($EOL, $string);
+
+        $total = count($lines);
+        for ($i = 0; $i < $total; $i += 1) {
+            $line = $lines[$i];
+
+            // Empty line indicates end of headers
+            // EXCEPT if there are more lines, in which case, there's a possible error condition
+            if (preg_match('/^\s*$/', $line)) {
+                $emptyLine += 1;
+                if ($emptyLine > 2) {
+                    require_once 'Zend/Mime/Exception.php';
+                    throw new Zend_Mime_Exception('Malformed header detected');
+                }
+                continue;
+            }
+
+            if ($emptyLine > 0) {
+                require_once 'Zend/Mime/Exception.php';
+                throw new Zend_Mime_Exception('Malformed header detected');
+            }
+
+            // check if a header name is present
+            if (preg_match('/^[\x21-\x39\x3B-\x7E]+:.*$/', $line)) {
+                if ($currentLine) {
+                    // a header name was present, then store the current complete line
+                    $headers[] = $currentLine;
+                }
+                $currentLine = trim($line);
+                continue;
+            }
+
+            // continuation: append to current line
+            // recover the whitespace that break the line (unfolding, rfc2822#section-2.2.3)
+            if (preg_match('/^\s+.*$/', $line)) {
+                $currentLine .= ' ' . trim($line);
+                continue;
+            }
+
+            // Line does not match header format!
+            require_once 'Zend/Mime/Exception.php';
+            throw new Zend_Mime_Exception(sprintf(
+                'Line "%s"does not match header format!',
+                $line
+            ));
+        }
+        if ($currentLine) {
+            $headers[] = $currentLine;
+        }
+        return implode($EOL, $headers);
     }
 
     /**
