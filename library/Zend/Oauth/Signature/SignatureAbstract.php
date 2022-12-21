@@ -136,8 +136,13 @@ abstract class Zend_Oauth_Signature_SignatureAbstract
     {
         $encodedParams = array();
         foreach ($params as $key => $value) {
-            $encodedParams[Zend_Oauth_Http_Utility::urlEncode($key)] =
-                Zend_Oauth_Http_Utility::urlEncode($value);
+            if (is_array($value)) {
+                foreach ($value as $idx => $v) {
+                    $encodedParams[Zend_Oauth_Http_Utility::urlEncode($key . '[' . $idx . ']')] = Zend_Oauth_Http_Utility::urlEncode($v);
+                }
+            } else {
+                $encodedParams[Zend_Oauth_Http_Utility::urlEncode($key)] = Zend_Oauth_Http_Utility::urlEncode($value);
+            }
         }
         $baseStrings = array();
         if (isset($method)) {
@@ -167,10 +172,10 @@ abstract class Zend_Oauth_Signature_SignatureAbstract
     protected function _toByteValueOrderedQueryString(array $params)
     {
         $return = array();
-        uksort($params, 'strnatcmp');
+        ksort($params, SORT_STRING);
         foreach ($params as $key => $value) {
             if (is_array($value)) {
-                natsort($value);
+                sort($value, SORT_STRING);
                 foreach ($value as $keyduplicate) {
                     $return[] = $key . '=' . $keyduplicate;
                 }
