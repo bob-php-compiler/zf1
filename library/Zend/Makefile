@@ -1,5 +1,6 @@
 libzend_u-4.4a.so:
 	bpc -v \
+		-c zend.bpc.conf \
 		-l zend \
 		--copt -Wno-trigraphs \
 		--input-file src.list \
