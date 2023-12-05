@@ -1851,10 +1851,10 @@ class Zend_Locale
      * @param string $tag Tag to clear when the default tag name is not used
      * @return void
      */
-    public static function clearCache($tag = null)
+    public static function clearCache()
     {
         require_once 'Zend/Locale/Data.php';
-        Zend_Locale_Data::clearCache($tag);
+        Zend_Locale_Data::clearCache();
     }
 
     /**

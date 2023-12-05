@@ -69,7 +69,7 @@ class Zend_Captcha_DumbTest extends PHPUnit_Framework_TestCase
 
     public function testRendersWordInReverse()
     {
-        $id   = $this->captcha->generate('test');
+        $id   = $this->captcha->generate();
         $word = $this->captcha->getWord();
         $html = $this->captcha->render(new Zend_View);
         $this->assertContains(strrev($word), $html);
@@ -100,7 +100,7 @@ class Zend_Captcha_DumbTest extends PHPUnit_Framework_TestCase
     {
         $this->captcha->setLabel('Testing 123');
 
-        $id   = $this->captcha->generate('test');
+        $id   = $this->captcha->generate();
         $html = $this->captcha->render(new Zend_View);
         $this->assertContains('Testing 123', $html);
     }

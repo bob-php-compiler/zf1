@@ -231,7 +231,7 @@ class Zend_Cache_Backend_BlackHole
             'automatic_cleaning' => true,
             'tags'               => true,
             'expired_read'       => true,
-            'priority'           => true,
+            'priority'           => false,
             'infinite_lifetime'  => true,
             'get_list'           => true,
         );

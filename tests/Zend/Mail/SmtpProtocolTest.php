@@ -62,7 +62,7 @@ class Zend_Mail_SmtpProtocolTest extends PHPUnit_Framework_TestCase
     }
 
     public static $dependsTestHeloIsOnlyAllowedOncePerSession = array('testEhlo');
-    public function testHeloIsOnlyAllowedOncePerSession()
+    public function testHeloIsOnlyAllowedOncePerSession($arg)
     {
         $this->expectException('Zend_Mail_Protocol_Exception');
         $this->_connectAndEhlo(); // do it once
@@ -70,7 +70,7 @@ class Zend_Mail_SmtpProtocolTest extends PHPUnit_Framework_TestCase
     }
 
     public static $dependsTestEhloFallsBackToHelo = array('testEhlo');
-    public function testEhloFallsBackToHelo()
+    public function testEhloFallsBackToHelo($arg)
     {
         $this->_protocol->responseBuffer = array(
             '220 example.com ESMTP welcome',
@@ -91,7 +91,7 @@ class Zend_Mail_SmtpProtocolTest extends PHPUnit_Framework_TestCase
     }
 
     public static $dependsTestMail = array('testEhlo');
-    public function testMail()
+    public function testMail($arg)
     {
         $p = $this->_protocol;
         $expectedDialog = $this->_connectAndEhlo();
@@ -104,7 +104,7 @@ class Zend_Mail_SmtpProtocolTest extends PHPUnit_Framework_TestCase
     }
 
     public static $dependsTestRcptExpects250 = array('testMail');
-    public function testRcptExpects250()
+    public function testRcptExpects250($arg)
     {
         $p = $this->_protocol;
         $expectedDialog = $this->_connectAndEhlo();
@@ -121,7 +121,7 @@ class Zend_Mail_SmtpProtocolTest extends PHPUnit_Framework_TestCase
     }
 
     public static $dependsTestRcptExpects251 = array('testMail');
-    public function testRcptExpects251()
+    public function testRcptExpects251($arg)
     {
         $p = $this->_protocol;
         $expectedDialog = $this->_connectAndEhlo();
@@ -138,7 +138,7 @@ class Zend_Mail_SmtpProtocolTest extends PHPUnit_Framework_TestCase
     }
 
     public static $dependsTestData = array('testRcptExpects250');
-    public function testData()
+    public function testData($arg)
     {
         $p = $this->_protocol;
         $expectedDialog = $this->_connectAndEhlo();
@@ -162,7 +162,7 @@ class Zend_Mail_SmtpProtocolTest extends PHPUnit_Framework_TestCase
     }
 
     public static $dependsTestRset = array('testEhlo');
-    public function testRset()
+    public function testRset($arg)
     {
         $expectedDialog = $this->_connectAndEhlo();
 
@@ -179,7 +179,7 @@ class Zend_Mail_SmtpProtocolTest extends PHPUnit_Framework_TestCase
     /**
      * @group ZF-1377
      */
-    public function testRsetExpects220()
+    public function testRsetExpects220($arg)
     {
         $expectedDialog = $this->_connectAndEhlo();
 
@@ -194,7 +194,7 @@ class Zend_Mail_SmtpProtocolTest extends PHPUnit_Framework_TestCase
     }
 
     public static $dependsTestQuit = array('testEhlo');
-    public function testQuit()
+    public function testQuit($arg)
     {
         $p = $this->_protocol;
         $expectedDialog = $this->_connectAndEhlo();
@@ -211,7 +211,7 @@ class Zend_Mail_SmtpProtocolTest extends PHPUnit_Framework_TestCase
     /**
      * @group ZF-8511
      */
-    public function testMultilineResponsesAreNotTruncated()
+    public function testMultilineResponsesAreNotTruncated($arg)
     {
         $this->_connectAndEhlo();
 
@@ -230,7 +230,7 @@ class Zend_Mail_SmtpProtocolTest extends PHPUnit_Framework_TestCase
     /**
      * @group ZF-10249
      */
-    public function testExceptionCodeIsSmtpStatusCode()
+    public function testExceptionCodeIsSmtpStatusCode($arg)
     {
         $p = $this->_protocol;
         $this->_connectAndEhlo();
@@ -246,7 +246,7 @@ class Zend_Mail_SmtpProtocolTest extends PHPUnit_Framework_TestCase
     }
 
     public static $dependsTestRcptThrowsExceptionOnUnexpectedResponse = array('testMail');
-    public function testRcptThrowsExceptionOnUnexpectedResponse()
+    public function testRcptThrowsExceptionOnUnexpectedResponse($arg)
     {
         $this->expectException('Zend_Mail_Protocol_Exception');
 
@@ -274,7 +274,7 @@ class Zend_Mail_SmtpProtocolTest extends PHPUnit_Framework_TestCase
     }
 
     public static $dependsTestRcptBeforeMailThrowsException = array('testEhlo');
-    public function testRcptBeforeMailThrowsException()
+    public function testRcptBeforeMailThrowsException($arg)
     {
         $this->_connectAndEhlo();
 
@@ -287,7 +287,7 @@ class Zend_Mail_SmtpProtocolTest extends PHPUnit_Framework_TestCase
     }
 
     public static $dependsTestDataBeforeRcptThrowsException = array('testEhlo');
-    public function testDataBeforeRcptThrowsException()
+    public function testDataBeforeRcptThrowsException($arg)
     {
         $this->expectException('Zend_Mail_Protocol_Exception');
 

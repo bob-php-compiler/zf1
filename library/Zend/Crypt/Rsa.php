@@ -203,9 +203,9 @@ class Zend_Crypt_Rsa
 
     /**
      * @param  array $configargs
-     * 
+     *
      * @throws Zend_Crypt_Rsa_Exception
-     * 
+     *
      * @return ArrayObject
      */
     public function generateKeys(array $configargs = null)
@@ -262,7 +262,7 @@ class Zend_Crypt_Rsa
     public function setCertificateString($value)
     {
         $this->_certificateString = $value;
-        $this->_publicKey = new Zend_Crypt_Rsa_Key_Public($this->_certificateString, $this->_passPhrase);
+        $this->_publicKey = new Zend_Crypt_Rsa_Key_Public($this->_certificateString);
     }
 
     public function setCertificatePath($value)

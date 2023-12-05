@@ -318,7 +318,7 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
         } else {
             $qp->bindParams($this->_bindParam);
         }
-        $qp->start($this->_queryId);
+        $qp->start();
 
         $retval = $this->_execute($params);
 

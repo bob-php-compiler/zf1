@@ -256,7 +256,7 @@ ECS;
         ));
 
         $writer = new Zend_Config_Writer_Ini;
-        $iniString = $writer->setConfig($config)->render($config);
+        $iniString = $writer->setConfig($config)->render();
 
         $expected = <<<ECS
 one = "element"

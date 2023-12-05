@@ -31,7 +31,7 @@ require_once 'Zend/Config.php';
  */
 interface Zend_Controller_Router_Route_Interface
 {
-    public function match($path);
+    public function match($path, $partial = null);
 
     public function assemble($data = array(), $reset = false, $encode = false);
 

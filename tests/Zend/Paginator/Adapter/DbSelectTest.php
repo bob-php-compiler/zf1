@@ -154,7 +154,7 @@ class Zend_Paginator_Adapter_DbSelectTest extends PHPUnit_Framework_TestCase
         try {
             $wrongcolumn = $this->_db->quoteIdentifier('wrongcolumn');
             $expr = new Zend_Db_Expr("COUNT(*) AS $wrongcolumn");
-            $query = $this->_db->select($expr)->from('test');
+            $query = $this->_db->select()->from('test', $expr);
 
             $this->_adapter->setRowCount($query);
         } catch (Exception $e) {

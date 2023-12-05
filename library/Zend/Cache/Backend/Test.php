@@ -391,7 +391,7 @@ class Zend_Cache_Backend_Test extends Zend_Cache_Backend implements Zend_Cache_B
             'automatic_cleaning' => true,
             'tags'               => true,
             'expired_read'       => false,
-            'priority'           => true,
+            'priority'           => false,
             'infinite_lifetime'  => true,
             'get_list'           => true
         );

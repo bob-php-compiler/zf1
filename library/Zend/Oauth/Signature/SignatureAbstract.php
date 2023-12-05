@@ -104,7 +104,7 @@ abstract class Zend_Oauth_Signature_SignatureAbstract
         $uri->setQuery('');
         $uri->setFragment('');
         $uri->setHost(strtolower($uri->getHost()));
-        return $uri->getUri(true);
+        return $uri->getUri();
     }
 
     /**

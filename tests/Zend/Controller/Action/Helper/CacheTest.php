@@ -242,7 +242,7 @@ class Mock_Zend_Cache_Page_4 extends Zend_Cache_Core
 {
     public $res;
     public $ranStart;
-    public function start($id, array $tags = array())
+    public function start($id, array $tags = array(), $extension = null)
     {
         $this->ranStart = 'verified';
         if ($id == '/foo') {
@@ -254,7 +254,7 @@ class Mock_Zend_Cache_Page_6 extends Zend_Cache_Core
 {
     public $res;
     public $ranStart;
-    public function start($id, array $tags = array())
+    public function start($id, array $tags = array(), $extension = null)
     {
         $this->ranStart = 'verified';
         if ($id == '/foo' && $tags == array('tag1','tag2')) {
@@ -267,7 +267,7 @@ class Mock_Zend_Cache_Page_TestingEncodedCacheId extends Zend_Cache_Core
 {
     public $items;
 
-    public function start($id, array $tags = array())
+    public function start($id, array $tags = array(), $extension = null)
     {
         $this->items[$id] = $tags;
     }

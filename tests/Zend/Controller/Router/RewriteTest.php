@@ -814,7 +814,7 @@ class Zend_Controller_Router_RewriteTest_Request_Incorrect extends Zend_Controll
  */
 class Zend_Controller_RouterTest_RouteV2_Stub extends Zend_Controller_Router_Route_Abstract
 {
-    public function match($request) {
+    public function match($request, $partial = null) {
         return array('path', $request->getParam('path'));
     }
 

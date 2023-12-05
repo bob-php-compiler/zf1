@@ -194,7 +194,7 @@ class Zend_Controller_Router_Route_Hostname extends Zend_Controller_Router_Route
      * @param Zend_Controller_Request_Http $request Request to get the host from
      * @return array|false An array of assigned values or a false on a mismatch
      */
-    public function match($request)
+    public function match($request, $partial = null)
     {
         // Check the scheme if required
         if ($this->_scheme !== null) {

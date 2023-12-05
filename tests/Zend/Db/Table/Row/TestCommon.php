@@ -486,7 +486,7 @@ abstract class Zend_Db_Table_Row_TestCommon extends Zend_Db_Table_TestSetup
         $row = $this->_testTableRow();
 
         try {
-            $row->setTableColsToFail($table);
+            $row->setTableColsToFail();
             $row->setTable($table);
             $this->fail('Expected to catch Zend_Db_Table_Row_Exception for incorrect parent table');
         } catch (Zend_Exception $e) {
@@ -498,7 +498,7 @@ abstract class Zend_Db_Table_Row_TestCommon extends Zend_Db_Table_TestSetup
         $row = $this->_testTableRow();
 
         try {
-            $row->setPrimaryKeyToFail1($table);
+            $row->setPrimaryKeyToFail1();
             $row->setTable($table);
             $this->fail('Expected to catch Zend_Db_Table_Row_Exception for incorrect parent table');
         } catch (Zend_Exception $e) {

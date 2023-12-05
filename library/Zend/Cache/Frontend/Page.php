@@ -306,7 +306,7 @@ class Zend_Cache_Frontend_Page extends Zend_Cache_Core
      * @param  string $data Buffered output
      * @return string Data to send to browser
      */
-    public function _flush($data)
+    public function _flush($data, $phase)
     {
         if ($this->_cancel) {
             return $data;

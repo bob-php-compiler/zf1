@@ -952,7 +952,7 @@ class Zend_Acl_AclTest extends PHPUnit_Framework_TestCase
         $this->_acl->add(new Zend_Acl_Resource('newsletter'))
                    ->add(new Zend_Acl_Resource('pending'), 'newsletter')
                    ->add(new Zend_Acl_Resource('gallery'))
-                   ->add(new Zend_Acl_Resource('profiles', 'gallery'))
+                   ->add(new Zend_Acl_Resource('profiles'), 'gallery')
                    ->add(new Zend_Acl_Resource('config'))
                    ->add(new Zend_Acl_Resource('hosts'), 'config');
         $this->assertTrue($this->_acl->isAllowed('guest', 'pending', 'view'));
@@ -1252,7 +1252,7 @@ class Zend_Acl_AclTest extends PHPUnit_Framework_TestCase
         $acl->addRole('role');
         $acl->addResource('resource');
         $acl->allow('role',null,null,$assertion);
-        $allowed = $acl->isAllowed('role','resource','privilege',$assertion);
+        $allowed = $acl->isAllowed('role','resource','privilege');
 
         $this->assertTrue($allowed);
     }
