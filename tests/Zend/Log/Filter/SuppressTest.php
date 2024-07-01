@@ -36,6 +36,8 @@ require_once 'Zend/Log/Filter/Suppress.php';
  */
 class Zend_Log_Filter_SuppressTest extends PHPUnit_Framework_TestCase
 {
+    protected $filter;
+
     public function setUp()
     {
         $this->filter = new Zend_Log_Filter_Suppress();

@@ -36,6 +36,9 @@ require_once 'Zend/Log/Writer/Stream.php';
  */
 class Zend_Log_Filter_ChainingTest extends PHPUnit_Framework_TestCase
 {
+    protected $log;
+    protected $logger;
+
     public function setUp()
     {
         $this->log = fopen('php://memory', 'w');

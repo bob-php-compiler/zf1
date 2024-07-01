@@ -42,9 +42,14 @@ class Zend_Log_Writer_StreamTest extends PHPUnit_Framework_TestCase
         try {
             new Zend_Log_Writer_Stream($resource);
             $this->fail();
-        } catch (Exception $e) {
-            $this->assertTrue($e instanceof Zend_Log_Exception);
-            $this->assertRegExp('/not a stream/i', $e->getMessage());
+        } catch (Exception|Error $e) {
+            if (PHP_MAJOR_VERSION < 8) {
+                $this->assertTrue($e instanceof Zend_Log_Exception);
+                $this->assertRegExp('/not a stream/i', $e->getMessage());
+            } else {
+                $this->assertTrue($e instanceof TypeError);
+                $this->assertEquals('fopen(): Argument #1 ($filename) must be of type string, finfo given', $e->getMessage());
+            }
         }
         finfo_close($resource);
     }
@@ -77,9 +82,14 @@ class Zend_Log_Writer_StreamTest extends PHPUnit_Framework_TestCase
         try {
             new Zend_Log_Writer_Stream('');
             $this->fail();
-        } catch (Exception $e) {
-            $this->assertTrue($e instanceof Zend_Log_Exception);
-            $this->assertRegExp('/cannot be opened/i', $e->getMessage());
+        } catch (Exception|Error $e) {
+            if (PHP_MAJOR_VERSION < 8) {
+                $this->assertTrue($e instanceof Zend_Log_Exception);
+                $this->assertRegExp('/cannot be opened/i', $e->getMessage());
+            } else {
+                $this->assertTrue($e instanceof ValueError);
+                $this->assertEquals('Path cannot be empty', $e->getMessage());
+            }
         }
     }
 
@@ -107,9 +117,14 @@ class Zend_Log_Writer_StreamTest extends PHPUnit_Framework_TestCase
         try {
             $writer->write(array('message' => 'foo'));
             $this->fail();
-        } catch (Exception $e) {
-            $this->assertTrue($e instanceof Zend_Log_Exception);
-            $this->assertRegExp('/unable to write/i', $e->getMessage());
+        } catch (Exception|Error $e) {
+            if (PHP_MAJOR_VERSION < 8) {
+                $this->assertTrue($e instanceof Zend_Log_Exception);
+                $this->assertRegExp('/unable to write/i', $e->getMessage());
+            } else {
+                $this->assertTrue($e instanceof TypeError);
+                $this->assertEquals('fwrite(): supplied resource is not a valid stream resource', $e->getMessage());
+            }
         }
     }
 
@@ -123,9 +138,14 @@ class Zend_Log_Writer_StreamTest extends PHPUnit_Framework_TestCase
         try {
             $writer->write(array('message' => 'this write should fail'));
             $this->fail();
-        } catch (Exception $e) {
-            $this->assertTrue($e instanceof Zend_Log_Exception);
-            $this->assertRegExp('/unable to write/i', $e->getMessage());
+        } catch (Exception|Error $e) {
+            if (PHP_MAJOR_VERSION < 8) {
+                $this->assertTrue($e instanceof Zend_Log_Exception);
+                $this->assertRegExp('/unable to write/i', $e->getMessage());
+            } else {
+                $this->assertTrue($e instanceof TypeError);
+                $this->assertEquals('fwrite(): supplied resource is not a valid stream resource', $e->getMessage());
+            }
         }
     }
 

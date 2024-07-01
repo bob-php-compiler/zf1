@@ -85,8 +85,18 @@ class Zend_Log_Formatter_SimpleTest extends PHPUnit_Framework_TestCase
         $this->assertContains('1', $line);
 
         $fields['message'] = fopen('php://stdout', 'w');
-        $line = $f->format($fields);
-        $this->assertContains('Resource id ', $line);
+        if (PHP_MAJOR_VERSION < 8) {
+            $line = $f->format($fields);
+            $this->assertContains('Resource id ', $line);
+        } else {
+            try {
+                $line = $f->format($fields);
+                $this->fail();
+            } catch (Error $e) {
+                $this->assertTrue($e instanceof TypeError);
+                $this->assertEquals('str_replace(): Argument #2 ($replace) must be of type array|string, resource given', $e->getMessage());
+            }
+        }
         fclose($fields['message']);
 
         $fields['message'] = range(1,10);

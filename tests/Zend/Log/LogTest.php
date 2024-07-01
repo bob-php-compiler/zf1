@@ -42,6 +42,11 @@ require_once 'Zend/Log/FactoryInterface.php';
  */
 class Zend_Log_LogTest extends PHPUnit_Framework_TestCase
 {
+    protected $log;
+    protected $writer;
+    protected $errWriter;
+    protected $expectingLogging;
+
     public function setUp()
     {
         $this->log = fopen('php://memory', 'w+');

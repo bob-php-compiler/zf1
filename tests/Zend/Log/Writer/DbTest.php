@@ -33,6 +33,10 @@ require_once 'Zend/Log/Writer/Db.php';
  */
 class Zend_Log_Writer_DbTest extends PHPUnit_Framework_TestCase
 {
+    protected $tableName;
+    protected $db;
+    protected $writer;
+
     public function setUp()
     {
         $this->tableName = 'db-table-name';
