@@ -289,7 +289,14 @@ class Zend_Config_Yaml extends Zend_Config
     {
         $config   = array();
         $inIndent = false;
-        while (list($n, $line) = each($lines)) {
+        while (true) {
+            $n = key($lines);
+            if ($n === null) {
+                break;
+            }
+            $line = current($lines);
+            next($lines);
+
             $lineno = $n + 1;
 
             $line = rtrim(preg_replace("/#.*$/", "", $line));

@@ -35,6 +35,21 @@ require_once 'Zend/Config/Yaml.php';
  */
 class Zend_Config_YamlTest extends PHPUnit_Framework_TestCase
 {
+    protected $_iniFileConfig;
+    protected $_iniFileAllSectionsConfig;
+    protected $_iniFileCircularConfig;
+    protected $_nonReadableConfig;
+    protected $_iniFileInvalid;
+    protected $_iniFileSameNameKeysConfig;
+    protected $_badIndentationConfig;
+    protected $_booleansConfig;
+    protected $_constantsConfig;
+    protected $_yamlInlineCommentsConfig;
+    protected $_yamlIndentedCommentsConfig;
+    protected $_yamlListConstantsConfig;
+    protected $_listBooleansConfig;
+    protected $_yamlSingleQuotedString;
+
     public function setUp()
     {
         $this->_iniFileConfig             = TEST_ROOT_DIR . '/Zend/Config/_files/config.yaml';

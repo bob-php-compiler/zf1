@@ -38,6 +38,12 @@ class Zend_ConfigTest extends PHPUnit_Framework_TestCase
     protected $_iniFileConfig;
     protected $_iniFileNested;
 
+    protected $_all;
+    protected $_numericData;
+    protected $_menuData1;
+    protected $_leadingdot;
+    protected $_invalidkey;
+
     public function setUp()
     {
         // Arrays representing common config configurations

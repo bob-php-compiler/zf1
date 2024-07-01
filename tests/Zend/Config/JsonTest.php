@@ -37,6 +37,10 @@ class Zend_Config_JsonTest extends PHPUnit_Framework_TestCase
     protected $_iniFileConfig;
     protected $_iniFileAllSectionsConfig;
     protected $_iniFileCircularConfig;
+    protected $_iniFileMultipleInheritanceConfig;
+    protected $_nonReadableConfig;
+    protected $_iniFileNoSectionsConfig;
+    protected $_iniFileInvalid;
 
     public function setUp()
     {
