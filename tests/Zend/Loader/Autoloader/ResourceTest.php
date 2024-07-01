@@ -48,6 +48,12 @@ require_once 'Zend/Config.php';
  */
 class Zend_Loader_Autoloader_ResourceTest extends PHPUnit_Framework_TestCase
 {
+    protected $loaders;
+    protected $includePath;
+    protected $autoloader;
+    protected $error;
+    protected $loader;
+
     public function setUp()
     {
         // Store original autoloaders

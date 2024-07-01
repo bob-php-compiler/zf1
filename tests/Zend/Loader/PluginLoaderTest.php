@@ -34,6 +34,9 @@ require_once 'Zend/Loader/PluginLoader.php';
  */
 class Zend_Loader_PluginLoaderTest extends PHPUnit_Framework_TestCase
 {
+    protected $libPath;
+    protected $key;
+
     /**
      * Sets up the fixture, for example, open a network connection.
      * This method is called before a test is executed.

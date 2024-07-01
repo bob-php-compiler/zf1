@@ -40,6 +40,9 @@ require_once 'Zend/Loader/Autoloader.php';
  */
 class Zend_LoaderTest extends PHPUnit_Framework_TestCase
 {
+    protected $loaders;
+    protected $includePath;
+
     public function setUp()
     {
         // Store original autoloaders
@@ -84,7 +87,7 @@ class Zend_LoaderTest extends PHPUnit_Framework_TestCase
      */
     public function testLoaderClassValid()
     {
-        $dir = implode(array(dirname(__FILE__), '_files', '_testDir1'), DIRECTORY_SEPARATOR);
+        $dir = implode(DIRECTORY_SEPARATOR, array(dirname(__FILE__), '_files', '_testDir1'));
 
         Zend_Loader::loadClass('Class1', $dir);
     }
@@ -114,7 +117,7 @@ class Zend_LoaderTest extends PHPUnit_Framework_TestCase
      */
     public function testLoaderClassNonexistent()
     {
-        $dir = implode(array(dirname(__FILE__), '_files', '_testDir1'), DIRECTORY_SEPARATOR);
+        $dir = implode(DIRECTORY_SEPARATOR, array(dirname(__FILE__), '_files', '_testDir1'));
 
         try {
             Zend_Loader::loadClass('ClassNonexistent', $dir);
@@ -145,7 +148,7 @@ class Zend_LoaderTest extends PHPUnit_Framework_TestCase
     {
         $dirs = array();
         foreach (array('_testDir1', '_testDir2') as $dir) {
-            $dirs[] = implode(array(dirname(__FILE__), '_files', $dir), DIRECTORY_SEPARATOR);
+            $dirs[] = implode(DIRECTORY_SEPARATOR, array(dirname(__FILE__), '_files', $dir));
         }
 
         // throws exception on failure
@@ -160,7 +163,7 @@ class Zend_LoaderTest extends PHPUnit_Framework_TestCase
     {
         $dirs = array();
         foreach (array('_testDir1', '_testDir2') as $dir) {
-            $dirs[] = implode(array(dirname(__FILE__), '_files', $dir), DIRECTORY_SEPARATOR);
+            $dirs[] = implode(DIRECTORY_SEPARATOR, array(dirname(__FILE__), '_files', $dir));
         }
 
         // throws exception on failure
@@ -186,7 +189,7 @@ class Zend_LoaderTest extends PHPUnit_Framework_TestCase
     public function testLoaderFileIncludePathEmptyDirs()
     {
         $saveIncludePath = get_include_path();
-        set_include_path(implode(array($saveIncludePath, implode(array(dirname(__FILE__), '_files', '_testDir1'), DIRECTORY_SEPARATOR)), PATH_SEPARATOR));
+        set_include_path(implode(PATH_SEPARATOR, array($saveIncludePath, implode(DIRECTORY_SEPARATOR, array(dirname(__FILE__), '_files', '_testDir1')))));
 
         $this->assertTrue(Zend_Loader::loadFile('Class3.php', null));
 
@@ -200,7 +203,7 @@ class Zend_LoaderTest extends PHPUnit_Framework_TestCase
     public function testLoaderFileIncludePathNonEmptyDirs()
     {
         $saveIncludePath = get_include_path();
-        set_include_path(implode(array($saveIncludePath, implode(array(dirname(__FILE__), '_files', '_testDir1'), DIRECTORY_SEPARATOR)), PATH_SEPARATOR));
+        set_include_path(implode(PATH_SEPARATOR, array($saveIncludePath, implode(DIRECTORY_SEPARATOR, array(dirname(__FILE__), '_files', '_testDir1')))));
 
         $this->assertTrue(Zend_Loader::loadFile('Class4.php', implode(PATH_SEPARATOR, array('foo', 'bar'))));
 

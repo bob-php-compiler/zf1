@@ -32,6 +32,10 @@ require_once 'Zend/Loader/ClassMapAutoloader.php';
  */
 class Zend_Loader_ClassMapAutoloaderTest extends PHPUnit_Framework_TestCase
 {
+    protected $loaders;
+    protected $includePath;
+    protected $loader;
+
     public function setUp()
     {
         // Store original autoloaders

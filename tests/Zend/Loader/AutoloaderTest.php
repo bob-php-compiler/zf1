@@ -40,6 +40,11 @@ require_once 'Zend/Loader/Autoloader/Interface.php';
  */
 class Zend_Loader_AutoloaderTest extends PHPUnit_Framework_TestCase
 {
+    protected $loaders;
+    protected $includePath;
+    protected $autoloader;
+    protected $error;
+
     public function setUp()
     {
         // Store original autoloaders

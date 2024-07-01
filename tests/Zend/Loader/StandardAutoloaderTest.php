@@ -33,6 +33,9 @@ require_once 'Zend/Loader/TestAsset/StandardAutoloader.php';
  */
 class Zend_Loader_StandardAutoloaderTest extends PHPUnit_Framework_TestCase
 {
+    protected $loaders;
+    protected $includePath;
+
     public function setUp()
     {
         // Store original autoloaders
