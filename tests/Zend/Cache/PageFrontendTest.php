@@ -38,6 +38,7 @@ require_once 'Zend/Cache/Backend/Test.php';
 class Zend_Cache_PageFrontendTest extends PHPUnit_Framework_TestCase {
 
     private $_instance;
+    private $_backend;
 
     public function setUp()
     {

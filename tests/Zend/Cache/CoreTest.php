@@ -41,6 +41,7 @@ require_once 'Zend/Config.php';
 class Zend_Cache_CoreTest extends PHPUnit_Framework_TestCase
 {
     private $_instance;
+    private $_backend;
 
     public function setUp()
     {

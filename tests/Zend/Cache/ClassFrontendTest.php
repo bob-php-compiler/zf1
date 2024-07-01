@@ -82,6 +82,8 @@ class Zend_Cache_ClassFrontendTest extends PHPUnit_Framework_TestCase
 {
     private $_instance1;
     private $_instance2;
+    private $_backend1;
+    private $_backend2;
 
     public function setUp()
     {
@@ -243,7 +245,7 @@ class Zend_Cache_ClassFrontendTest extends PHPUnit_Framework_TestCase
 
         $this->assertNull($return);
         $this->assertEquals('foobar_output(param1,param2)', $data);
-      
+
     }
 
     public function testConstructorWithABadCachedEntity()
