@@ -35,6 +35,8 @@ require_once 'Zend/Translate/Adapter/Gettext.php';
  */
 class Zend_Translate_Adapter_GettextTest extends PHPUnit_Framework_TestCase
 {
+    protected $_errorOccurred;
+
     public function setUp()
     {
         if (Zend_Translate_Adapter_Gettext::hasCache()) {
