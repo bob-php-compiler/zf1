@@ -238,7 +238,7 @@ abstract class Zend_Db_Statement implements Zend_Db_Statement_Interface
      * @param mixed $options   OPTIONAL Other options.
      * @return bool
      */
-    public function bindParam($parameter, &$variable, $type = null, $length = null, $options = null)
+    public function bindParam($parameter, &$variable, $type = null, $length = 0, $options = null)
     {
         if (!is_int($parameter) && !is_string($parameter)) {
             /**

@@ -345,7 +345,7 @@ class Zend_Db_Adapter_StaticTest extends PHPUnit_Framework_TestCase
             if (defined('__BPC__')) {
                 $this->assertContains("Failed find 'Test/MyCompany2/Dbadapter.php' for inclusion", $e->getMessage());
             } else {
-                $this->assertContains('failed to open stream', $e->getMessage());
+                $this->assertContains('ailed to open stream', $e->getMessage());
             }
             return;
         }

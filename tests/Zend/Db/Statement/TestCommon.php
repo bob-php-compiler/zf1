@@ -325,10 +325,15 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
             // invalid value
             $stmt->setFetchMode(-999);
             $this->fail('Expected to catch Zend_Db_Statement_Exception');
-        } catch (Zend_Exception $e) {
-            $this->assertTrue($e instanceof Zend_Db_Statement_Exception,
-                'Expecting object of type Zend_Db_Statement_Exception, got '.get_class($e));
-            $this->assertRegExp('#invalid fetch mode#i', $e->getMessage());
+        } catch (Zend_Exception|ValueError $e) {
+            if (PHP_MAJOR_VERSION < 8) {
+                $this->assertTrue($e instanceof Zend_Db_Statement_Exception,
+                    'Expecting object of type Zend_Db_Statement_Exception, got '.get_class($e));
+                $this->assertRegExp('#invalid fetch mode#i', $e->getMessage());
+            } else {
+                $this->assertTrue($e instanceof ValueError);
+                $this->assertEquals('PDOStatement::setFetchMode(): Argument #1 ($mode) must be a bitmask of PDO::FETCH_* constants', $e->getMessage());
+            }
         }
 
         $stmt->destroy();
@@ -442,9 +447,14 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
         try {
             $result = $stmt->fetchAll(-99);
             $this->fail('Expected to catch Zend_Db_Statement_Exception');
-        } catch (Zend_Exception $e) {
-            $this->assertTrue($e instanceof Zend_Db_Statement_Exception,
-                'Expecting object of type Zend_Db_Statement_Exception, got '.get_class($e));
+        } catch (Zend_Exception|ValueError $e) {
+            if (PHP_MAJOR_VERSION < 8) {
+                $this->assertTrue($e instanceof Zend_Db_Statement_Exception,
+                    'Expecting object of type Zend_Db_Statement_Exception, got '.get_class($e));
+            } else {
+                $this->assertTrue($e instanceof ValueError);
+                $this->assertEquals('PDOStatement::fetchAll(): Argument #1 ($mode) must be a bitmask of PDO::FETCH_* constants', $e->getMessage());
+            }
         }
         $stmt->closeCursor();
     }
@@ -585,9 +595,14 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
         try {
             $result = $stmt->fetch(-99);
             $this->fail('Expected to catch Zend_Db_Statement_Exception');
-        } catch (Zend_Exception $e) {
-            $this->assertTrue($e instanceof Zend_Db_Statement_Exception,
-                'Expecting object of type Zend_Db_Statement_Exception, got '.get_class($e));
+        } catch (Zend_Exception|ValueError $e) {
+            if (PHP_MAJOR_VERSION < 8) {
+                $this->assertTrue($e instanceof Zend_Db_Statement_Exception,
+                    'Expecting object of type Zend_Db_Statement_Exception, got '.get_class($e));
+            } else {
+                $this->assertTrue($e instanceof ValueError);
+                $this->assertEquals('PDOStatement::fetch(): Argument #1 ($mode) must be a bitmask of PDO::FETCH_* constants', $e->getMessage());
+            }
         }
         $stmt->closeCursor();
     }
@@ -851,7 +866,7 @@ abstract class Zend_Db_Statement_TestCommon extends Zend_Db_TestSetup
         try {
             $this->assertEquals($value, $stmt->getAttribute(1234), "Expected '$value' #1");
         } catch (Zend_Exception $e) {
-            $this->assertContains('This driver doesn\'t support getting attributes', $e->getMessage());
+            $this->assertRegExp('#driver doesn\'t support getting (that attribute|attributes)#', $e->getMessage());
             return;
         }
 
