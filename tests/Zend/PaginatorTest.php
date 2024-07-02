@@ -118,6 +118,9 @@ class Zend_PaginatorTest extends PHPUnit_Framework_TestCase
 
     protected $_adapter = null;
 
+    protected $cacheDir;
+    protected $_dbConn;
+
     protected function setUp()
     {
         if (!extension_loaded('pdo_sqlite')) {

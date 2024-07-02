@@ -39,6 +39,8 @@ require_once 'Zend/Paginator/Adapter/Iterator.php';
  */
 class Zend_Paginator_Adapter_IteratorTest extends PHPUnit_Framework_TestCase
 {
+    protected $_paginator;
+
     /**
      * @var Zend_Paginator_Adapter_Iterator
      */
