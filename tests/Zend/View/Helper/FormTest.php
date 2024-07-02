@@ -36,6 +36,9 @@ require_once 'Zend/View/Helper/Form.php';
  */
 class Zend_View_Helper_FormTest extends PHPUnit_Framework_TestCase
 {
+    protected $view;
+    protected $helper;
+
     /**
      * Sets up the fixture, for example, open a network connection.
      * This method is called before a test is executed.

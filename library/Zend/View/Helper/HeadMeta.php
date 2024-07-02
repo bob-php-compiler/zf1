@@ -258,7 +258,7 @@ class Zend_View_Helper_HeadMeta extends Zend_View_Helper_Placeholder_Container_S
      * @return void
      * @throws Zend_View_Exception
      */
-    public function offsetSet($index, $value)
+    public function offsetSet($index, $value): void
     {
         if (!$this->_isValid($value)) {
             require_once 'Zend/View/Exception.php';
@@ -267,7 +267,7 @@ class Zend_View_Helper_HeadMeta extends Zend_View_Helper_Placeholder_Container_S
             throw $e;
         }
 
-        return $this->getContainer()->offsetSet($index, $value);
+        $this->getContainer()->offsetSet($index, $value);
     }
 
     /**
@@ -277,7 +277,7 @@ class Zend_View_Helper_HeadMeta extends Zend_View_Helper_Placeholder_Container_S
      * @return void
      * @throws Zend_View_Exception
      */
-    public function offsetUnset($index)
+    public function offsetUnset($index): void
     {
         if (!in_array($index, $this->getContainer()->getKeys())) {
             require_once 'Zend/View/Exception.php';
@@ -286,7 +286,7 @@ class Zend_View_Helper_HeadMeta extends Zend_View_Helper_Placeholder_Container_S
             throw $e;
         }
 
-        return $this->getContainer()->offsetUnset($index);
+        $this->getContainer()->offsetUnset($index);
     }
 
     /**
@@ -389,7 +389,7 @@ class Zend_View_Helper_HeadMeta extends Zend_View_Helper_Placeholder_Container_S
             $this->_escape($item->content),
             $modifiersString
         );
-        
+
         if (isset($item->modifiers['conditional'])
             && !empty($item->modifiers['conditional'])
             && is_string($item->modifiers['conditional']))
@@ -399,7 +399,7 @@ class Zend_View_Helper_HeadMeta extends Zend_View_Helper_Placeholder_Container_S
             }
             $meta = '<!--[if ' . $this->_escape($item->modifiers['conditional']) . ']>' . $meta . '<![endif]-->';
         }
-        
+
         return $meta;
     }
 

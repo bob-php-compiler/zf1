@@ -96,7 +96,7 @@ abstract class Zend_View_Helper_HtmlElement extends Zend_View_Helper_Abstract
         $doctype = $this->view->doctype();
         return $doctype->isStrict();
     }
-    
+
     /**
      * Converts an associative array to a string of tag attributes.
      *
@@ -128,7 +128,7 @@ abstract class Zend_View_Helper_HtmlElement extends Zend_View_Helper_Abstract
                 if (is_array($val)) {
                     $val = implode(' ', $val);
                 }
-                $val = $this->view->escape($val);
+                $val = $this->view->escape((string)$val);
             }
 
             if ('id' == $key) {

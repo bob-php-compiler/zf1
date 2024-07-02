@@ -45,6 +45,8 @@ require_once 'Zend/View.php';
  */
 class Zend_View_Helper_HeadLinkTest extends PHPUnit_Framework_TestCase
 {
+    protected $view;
+
     /**
      * @var Zend_View_Helper_HeadLink
      */

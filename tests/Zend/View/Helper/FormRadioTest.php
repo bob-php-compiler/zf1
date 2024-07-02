@@ -38,6 +38,9 @@ require_once 'Zend/View.php';
  */
 class Zend_View_Helper_FormRadioTest extends PHPUnit_Framework_TestCase
 {
+    protected $view;
+    protected $helper;
+
     public function setUp()
     {
         $this->view   = new Zend_View();

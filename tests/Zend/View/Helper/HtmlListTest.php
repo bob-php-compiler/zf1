@@ -34,6 +34,8 @@ require_once 'Zend/View/Helper/HtmlList.php';
  */
 class Zend_View_Helper_HtmlListTest extends PHPUnit_Framework_TestCase
 {
+    protected $view;
+
     /**
      * @var Zend_View_Helper_HtmlList
      */

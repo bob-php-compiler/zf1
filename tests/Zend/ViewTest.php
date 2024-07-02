@@ -45,6 +45,10 @@ require_once 'Zend/Loader.php';
  */
 class Zend_ViewTest extends PHPUnit_Framework_TestCase
 {
+    protected $notices;
+    protected $errorReporting;
+    protected $displayErrors;
+
     public function setUp()
     {
         $this->notices = array();

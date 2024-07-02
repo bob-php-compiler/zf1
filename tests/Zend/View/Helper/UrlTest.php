@@ -43,6 +43,9 @@ require_once 'Zend/Controller/Request/Http.php';
  */
 class Zend_View_Helper_UrlTest extends PHPUnit_Framework_TestCase
 {
+    protected $front;
+    protected $helper;
+
     /**
      * Sets up the fixture, for example, open a network connection.
      * This method is called before a test is executed.

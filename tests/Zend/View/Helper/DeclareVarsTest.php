@@ -34,6 +34,8 @@ require_once 'Zend/View/Helper/DeclareVars.php';
  */
 class Zend_View_Helper_DeclareVarsTest extends PHPUnit_Framework_TestCase
 {
+    protected $view;
+
     public function setUp()
     {
         $view = new Zend_View();

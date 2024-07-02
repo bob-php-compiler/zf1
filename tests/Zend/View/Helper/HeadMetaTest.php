@@ -45,6 +45,9 @@ require_once 'Zend/View.php';
  */
 class Zend_View_Helper_HeadMetaTest extends PHPUnit_Framework_TestCase
 {
+    protected $error;
+    protected $view;
+
     /**
      * @var Zend_View_Helper_HeadMeta
      */

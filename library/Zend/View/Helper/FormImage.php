@@ -53,7 +53,7 @@ class Zend_View_Helper_FormImage extends Zend_View_Helper_FormElement
      *
      * @return string The element XHTML.
      */
-    public function formImage($name, $value = null, $attribs = null)
+    public function formImage($name, $value = '', $attribs = null)
     {
         $info = $this->_getInfo($name, $value, $attribs);
         extract($info); // name, value, attribs, options, listsep, disable

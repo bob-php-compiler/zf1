@@ -38,6 +38,9 @@ require_once 'Zend/Registry.php';
  */
 class Zend_View_Helper_FormTextTest extends PHPUnit_Framework_TestCase
 {
+    protected $view;
+    protected $helper;
+
     /**
      * Sets up the fixture, for example, open a network connection.
      * This method is called before a test is executed.
@@ -64,7 +67,7 @@ class Zend_View_Helper_FormTextTest extends PHPUnit_Framework_TestCase
 
     public function testSetIdFromAttribs()
     {
-        $element = $this->helper->formText('foo', null, array('id' => 'bar'));
+        $element = $this->helper->formText('foo', '', array('id' => 'bar'));
         $this->assertContains('name="foo"', $element);
         $this->assertContains('id="bar"', $element);
     }
@@ -78,7 +81,7 @@ class Zend_View_Helper_FormTextTest extends PHPUnit_Framework_TestCase
 
     public function testReadOnlyAttribute()
     {
-        $element = $this->helper->formText('foo', null, array('readonly' => 'readonly'));
+        $element = $this->helper->formText('foo', '', array('readonly' => 'readonly'));
         $this->assertContains('readonly="readonly"', $element);
     }
 

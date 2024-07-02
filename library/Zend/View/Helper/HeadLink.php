@@ -233,7 +233,7 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
      * @param  array $value
      * @return void
      */
-    public function offsetSet($index, $value)
+    public function offsetSet($index, $value): void
     {
         if (!$this->_isValid($value)) {
             require_once 'Zend/View/Exception.php';
@@ -242,7 +242,7 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
             throw $e;
         }
 
-        return $this->getContainer()->offsetSet($index, $value);
+        $this->getContainer()->offsetSet($index, $value);
     }
 
     /**
@@ -399,6 +399,8 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
         if(0 < count($args) && is_array($args[0])) {
             $extras = array_shift($args);
             $extras = (array) $extras;
+        } else {
+            $extras = null;
         }
 
         $attributes = compact('rel', 'type', 'href', 'media', 'conditionalStylesheet', 'extras');
@@ -448,6 +450,8 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
             if(isset($extras['media']) && is_array($extras['media'])) {
                 $extras['media'] = implode(',', $extras['media']);
             }
+        } else {
+            $extras = null;
         }
 
         $href  = (string) $href;
