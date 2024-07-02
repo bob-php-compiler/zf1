@@ -40,6 +40,7 @@ class Zend_LocaleTest extends PHPUnit_Framework_TestCase
 {
     private $_cache  = null;
     private $_locale = null;
+    private $_errorOccurred;
 
     public function setUp()
     {

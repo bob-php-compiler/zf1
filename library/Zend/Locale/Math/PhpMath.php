@@ -192,9 +192,9 @@ class Zend_Locale_Math_PhpMath extends Zend_Locale_Math
         if (empty($op2)) {
             return NULL;
         }
-        $op1 = self::normalize($op1);
-        $op2 = self::normalize($op2);
-        if ((int)$op2 == 0) {
+        $op1 = (int)self::normalize($op1);
+        $op2 = (int)self::normalize($op2);
+        if ($op2 == 0) {
             return NULL;
         }
         $result = $op1 % $op2;

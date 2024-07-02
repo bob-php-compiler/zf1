@@ -1459,7 +1459,7 @@ class Zend_Locale
      * @param  string             $value  (Optional) Value for detail list
      * @return array Array with the wished information in the given language
      */
-    public static function getTranslationList($path = null, $locale = null, $value = null)
+    public static function getTranslationList($path = '', $locale = null, $value = '')
     {
         require_once 'Zend/Locale/Data.php';
         $locale = self::findLocale($locale);
@@ -1533,7 +1533,7 @@ class Zend_Locale
      * @param  string|Zend_Locale $locale (Optional) Locale|Language for which this informations should be returned
      * @return string|false The wished information in the given language
      */
-    public static function getTranslation($value = null, $path = null, $locale = null)
+    public static function getTranslation($value = null, $path = '', $locale = null)
     {
         require_once 'Zend/Locale/Data.php';
         $locale = self::findLocale($locale);
