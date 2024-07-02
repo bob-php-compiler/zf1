@@ -33,6 +33,8 @@ require_once 'Zend/Http/Client.php';
  */
 class Zend_Http_Client_ClientTest extends PHPUnit_Framework_TestCase
 {
+    protected $client;
+
     /**
      * Set up the test case
      *

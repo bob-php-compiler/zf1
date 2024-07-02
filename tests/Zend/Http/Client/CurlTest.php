@@ -268,7 +268,11 @@ class Zend_Http_Client_CurlTest extends Zend_Http_Client_CommonHttpTests
         $adapter->setConfig(array('timeout' => 2, 'maxredirects' => 1));
         $adapter->connect("http://framework.zend.com");
 
-        $this->assertTrue(is_resource($adapter->getHandle()));
+        if (PHP_MAJOR_VERSION < 8) {
+            $this->assertTrue(is_resource($adapter->getHandle()));
+        } else {
+            $this->assertTrue($adapter->getHandle() instanceof CurlHandle);
+        }
     }
 
     /**

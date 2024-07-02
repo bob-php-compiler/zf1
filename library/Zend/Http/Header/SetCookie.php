@@ -51,6 +51,7 @@ require_once "Zend/Http/Header/HeaderValue.php";
  */
 class Zend_Http_Header_SetCookie
 {
+    protected $type;
 
     /**
      * Cookie name

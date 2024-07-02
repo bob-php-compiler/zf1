@@ -260,7 +260,11 @@ class Zend_Http_Response
         $body = '';
 
         // Decode the body if it was transfer-encoded
-        switch (strtolower($this->getHeader('transfer-encoding'))) {
+        $encoding = $this->getHeader('transfer-encoding');
+        if ($encoding) {
+            $encoding = strtolower($encoding);
+        }
+        switch ($encoding) {
 
             // Handle chunked body
             case 'chunked':
@@ -275,7 +279,11 @@ class Zend_Http_Response
         }
 
         // Decode any content-encoding (gzip or deflate) if needed
-        switch (strtolower($this->getHeader('content-encoding'))) {
+        $encoding = $this->getHeader('content-encoding');
+        if ($encoding) {
+            $encoding = strtolower($encoding);
+        }
+        switch ($encoding) {
 
             // Handle gzip encoding
             case 'gzip':
