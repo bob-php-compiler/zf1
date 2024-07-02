@@ -674,7 +674,7 @@ class Zend_Mail extends Zend_Mime_Message
      * @return Zend_Mail Provides fluent interface
      * @throws Zend_Mail_Exception if called subsequent times
      */
-    public function setFrom($email, $name = null)
+    public function setFrom($email, $name = '')
     {
         if (null !== $this->_from) {
             /**
