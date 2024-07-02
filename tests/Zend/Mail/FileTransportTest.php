@@ -40,6 +40,7 @@ require_once 'Zend/Mail/Transport/File.php';
  */
 class Zend_Mail_FileTransportTest extends PHPUnit_Framework_TestCase
 {
+    protected $createdTmpDir;
     protected $_params;
     protected $_transport;
     protected $_tmpdir;

@@ -221,7 +221,7 @@ class Zend_Mail_ImapTest extends PHPUnit_Framework_TestCase
         $protocol = new Zend_Mail_Protocol_Imap();
         try {
             $mail = new Zend_Mail_Storage_Imap($protocol);
-        } catch (Zend_Mail_Protocol_Exception $e) {
+        } catch (Zend_Mail_Protocol_Exception|TypeError $e) {
             return; // test ok
         }
 
@@ -303,7 +303,11 @@ class Zend_Mail_ImapTest extends PHPUnit_Framework_TestCase
     public function testSize()
     {
         $mail = new Zend_Mail_Storage_Imap($this->_params);
-        $shouldSizes = array(1 => 397, 89, 694, 452, 497, 101, 139);
+        if (PHP_MAJOR_VERSION < 8) {
+            $shouldSizes = array(1 => 397, 89, 694, 452, 497, 101, 139);
+        } else {
+            $shouldSizes = array(1 => 397, 89, 694, 452, 497, 103, 139);
+        }
 
 
         $sizes = $mail->getSize();
@@ -808,7 +812,7 @@ class Zend_Mail_ImapTest extends PHPUnit_Framework_TestCase
 
         try {
             $protocol->select("foo\nbar");
-        } catch (Exception $e) {
+        } catch (Exception|TypeError $e) {
             return; // ok
         }
         $this->fail('no exception while using procol with closed socket');

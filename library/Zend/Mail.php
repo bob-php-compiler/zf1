@@ -700,7 +700,7 @@ class Zend_Mail extends Zend_Mime_Message
      * @return Zend_Mail
      * @throws Zend_Mail_Exception if called more than one time
      */
-    public function setReplyTo($email, $name = null)
+    public function setReplyTo($email, $name = '')
     {
         if (null !== $this->_replyTo) {
             /**

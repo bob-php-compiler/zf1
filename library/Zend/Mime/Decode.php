@@ -265,7 +265,7 @@ class Zend_Mime_Decode
      * @param  string $wantedPart the wanted part, else an array with all parts is returned
      * @return string|array wanted part or all parts as array('type' => content-type, partname => value)
      */
-    public static function splitContentType($type, $wantedPart = null)
+    public static function splitContentType($type, $wantedPart = '')
     {
         return self::splitHeaderField($type, $wantedPart, 'type');
     }
@@ -280,7 +280,7 @@ class Zend_Mime_Decode
      * @return string|array wanted part or all parts as array($firstName => firstPart, partname => value)
      */
     public static function splitHeaderField(
-        $field, $wantedPart = null, $firstName = 0
+        $field, $wantedPart = '', $firstName = 0
     )
     {
         $wantedPart = strtolower($wantedPart);
