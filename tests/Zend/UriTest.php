@@ -40,6 +40,11 @@ require_once 'Zend/Config.php';
  */
 class Zend_UriTest extends PHPUnit_Framework_TestCase
 {
+    protected $notices;
+    protected $errorReporting;
+    protected $displayErrors;
+    protected $error;
+
     public function setUp()
     {
         $this->notices = array();
