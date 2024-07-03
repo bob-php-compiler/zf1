@@ -35,8 +35,11 @@ class Zend_Crypt_RsaTest extends PHPUnit_Framework_TestCase
 {
 
     protected $_testPemString = null;
+    protected $_testPemStringPublic;
+    protected $_testCertificateString;
 
     protected $_testPemPath = null;
+    protected $_testCertificatePath;
 
     public function setUp()
     {
