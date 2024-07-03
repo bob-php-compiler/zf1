@@ -16,6 +16,8 @@ class Zend_Controller_Action_Helper_CacheTest extends PHPUnit_Framework_TestCase
 {
 
     protected $_requestUriOld;
+    protected $front;
+    protected $request;
 
     public function setUp()
     {

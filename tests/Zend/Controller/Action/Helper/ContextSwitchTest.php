@@ -46,6 +46,15 @@ require_once 'Zend/View/Interface.php';
  */
 class Zend_Controller_Action_Helper_ContextSwitchTest extends PHPUnit_Framework_TestCase
 {
+    protected $front;
+    protected $layout;
+    protected $helper;
+    protected $request;
+    protected $response;
+    protected $view;
+    protected $viewRenderer;
+    protected $controller;
+
     /**
      * Sets up the fixture, for example, open a network connection.
      * This method is called before a test is executed.
@@ -914,6 +923,7 @@ class Zend_Controller_Action_Helper_ContextSwitchTest extends PHPUnit_Framework_
 class Zend_Controller_Action_Helper_ContextSwitchTestController extends Zend_Controller_Action
 {
     public $contextSwitch;
+    public $contexts;
 
     /*
     public $contexts = array(

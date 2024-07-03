@@ -229,6 +229,10 @@ abstract class Zend_Controller_Dispatcher_Abstract implements Zend_Controller_Di
      */
     protected function _formatName($unformatted, $isAction = false)
     {
+        if (!$unformatted) {
+            return '';
+        }
+
         // preserve directories
         if (!$isAction) {
             $segments = explode($this->getPathDelimiter(), $unformatted);

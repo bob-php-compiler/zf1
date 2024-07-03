@@ -36,6 +36,8 @@ require_once 'Zend/Controller/Response/HttpTestCase.php';
  */
 class Zend_Controller_Response_HttpTestCaseTest extends PHPUnit_Framework_TestCase
 {
+    protected $response;
+
     /**
      * Sets up the fixture, for example, open a network connection.
      * This method is called before a test is executed.

@@ -37,6 +37,8 @@ require_once 'Zend/Controller/Response/Cli.php';
  */
 class Zend_Controller_ActionTest extends PHPUnit_Framework_TestCase
 {
+    protected $_controller;
+
     public function setUp()
     {
         Zend_Controller_Action_HelperBroker::resetHelpers();

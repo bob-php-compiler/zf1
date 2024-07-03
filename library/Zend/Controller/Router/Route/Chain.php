@@ -180,8 +180,6 @@ class Zend_Controller_Router_Route_Chain extends Zend_Controller_Router_Route_Ab
      */
     public function setRequest(Zend_Controller_Request_Abstract $request = null)
     {
-        $this->_request = $request;
-
         foreach ($this->_routes as $route) {
             if (method_exists($route, 'setRequest')) {
                 $route->setRequest($request);
