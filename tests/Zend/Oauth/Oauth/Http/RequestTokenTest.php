@@ -35,6 +35,8 @@ class Zend_Oauth_Http_RequestTokenTest extends PHPUnit_Framework_TestCase
 {
 
     protected $stubConsumer = null;
+    protected $stubConsumer2;
+    protected $stubHttpUtility;
 
     public function setup()
     {

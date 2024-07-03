@@ -33,6 +33,8 @@ require_once 'Zend/Oauth/Config.php';
  */
 class Zend_Oauth_ConfigTest extends PHPUnit_Framework_TestCase
 {
+    protected $config;
+
     public function setUp()
     {
         $this->config = new Zend_Oauth_Config();
