@@ -34,6 +34,10 @@ require_once 'Zend/Captcha/Image.php';
  */
 class Zend_Captcha_ImageTest extends PHPUnit_Framework_TestCase
 {
+    protected $testDir;
+    protected $element;
+    protected $captcha;
+
     protected $_tmpDir;
 
     /**
@@ -55,9 +59,6 @@ class Zend_Captcha_ImageTest extends PHPUnit_Framework_TestCase
             $this->markTestSkipped("Image CAPTCHA requires FT fonts support");
         }
 
-        if (isset($this->word)) {
-            unset($this->word);
-        }
         $this->testDir = $this->_getTmpDir() . '/ZF_test_images';
         if(!is_dir($this->testDir)) {
             @mkdir($this->testDir);
@@ -226,7 +227,6 @@ class Zend_Captcha_ImageTest extends PHPUnit_Framework_TestCase
         $id = $this->captcha->generate();
         $this->assertFalse(empty($id));
         $this->assertTrue(is_string($id));
-        $this->id = $id;
     }
 
     public function testGetWordReturnsWord()
@@ -236,7 +236,6 @@ class Zend_Captcha_ImageTest extends PHPUnit_Framework_TestCase
         $this->assertFalse(empty($word));
         $this->assertTrue(is_string($word));
         $this->assertTrue(strlen($word) == 8);
-        $this->word = $word;
     }
 
     public function testGetWordLength()
@@ -246,7 +245,6 @@ class Zend_Captcha_ImageTest extends PHPUnit_Framework_TestCase
         $word = $this->captcha->getWord();
         $this->assertTrue(is_string($word));
         $this->assertTrue(strlen($word) == 4);
-        $this->word = $word;
     }
 
     public function testAdapterElementName()
@@ -350,6 +348,9 @@ class Zend_Captcha_ImageTest extends PHPUnit_Framework_TestCase
 class Zend_Captcha_ImageTest_SessionContainer
 {
     protected static $_word;
+
+    public $setExpirationHops;
+    public $setExpirationSeconds;
 
     public function __get($name)
     {

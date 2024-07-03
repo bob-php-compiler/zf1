@@ -100,6 +100,9 @@ abstract class Zend_Validate_Abstract implements Zend_Validate_Interface
      */
     protected static $_messageLength = -1;
 
+    // @see Zend_Form_Element
+    public $zfBreakChainOnFailure;
+
     /**
      * Returns array of validation failure messages
      *

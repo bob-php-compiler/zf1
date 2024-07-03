@@ -504,8 +504,8 @@ class Zend_Captcha_Image extends Zend_Captcha_Word
         $bg_color   = imagecolorallocate($img, 255, 255, 255);
         imagefilledrectangle($img, 0, 0, $w-1, $h-1, $bg_color);
         $textbox = imageftbbox($fsize, 0, $font, $word);
-        $x = ($w - ($textbox[2] - $textbox[0])) / 2;
-        $y = ($h - ($textbox[7] - $textbox[1])) / 2;
+        $x = (int)round(($w - ($textbox[2] - $textbox[0])) / 2);
+        $y = (int)round(($h - ($textbox[7] - $textbox[1])) / 2);
         imagefttext($img, $fsize, 0, $x, $y, $text_color, $font, $word);
 
        // generate noise
@@ -536,8 +536,8 @@ class Zend_Captcha_Image extends Zend_Captcha_Word
 
         for ($x = 0; $x < $w; $x++) {
             for ($y = 0; $y < $h; $y++) {
-                $sx = $x + (sin($x*$freq1 + $ph1) + sin($y*$freq3 + $ph3)) * $szx;
-                $sy = $y + (sin($x*$freq2 + $ph2) + sin($y*$freq4 + $ph4)) * $szy;
+                $sx = $x + (int)round((sin($x*$freq1 + $ph1) + sin($y*$freq3 + $ph3)) * $szx);
+                $sy = $y + (int)round((sin($x*$freq2 + $ph2) + sin($y*$freq4 + $ph4)) * $szy);
 
                 if ($sx < 0 || $sy < 0 || $sx >= $w - 1 || $sy >= $h - 1) {
                     continue;
