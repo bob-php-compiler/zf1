@@ -46,6 +46,8 @@ class Zend_Application_Resource_TranslateTest extends PHPUnit_Framework_TestCase
         )
     );
 
+    protected $loaders;
+
     /**
      * @var Zend_Loader_Autoloader
      */

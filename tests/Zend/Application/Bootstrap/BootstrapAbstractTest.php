@@ -60,6 +60,11 @@ require_once 'Zend/Application/Bootstrap/Bootstrap.php';
  */
 class Zend_Application_Bootstrap_BootstrapAbstractTest extends PHPUnit_Framework_TestCase
 {
+    protected $loaders;
+    protected $autoloader;
+    protected $application;
+    protected $error;
+
     public function setUp()
     {
         // Store original autoloaders

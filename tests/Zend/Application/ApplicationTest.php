@@ -36,6 +36,12 @@ require_once 'Zend/Application.php';
  */
 class Zend_Application_ApplicationTest extends PHPUnit_Framework_TestCase
 {
+    protected $loaders;
+    protected $includePath;
+    protected $autoloader;
+    protected $application;
+    protected $iniOptions;
+
     public function setUp()
     {
         // Store original autoloaders

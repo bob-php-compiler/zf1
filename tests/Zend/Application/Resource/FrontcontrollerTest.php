@@ -40,6 +40,11 @@ require_once 'Zend/Controller/Front.php';
  */
 class Zend_Application_Resource_FrontcontrollerTest extends PHPUnit_Framework_TestCase
 {
+    protected $loaders;
+    protected $autoloader;
+    protected $application;
+    protected $bootstrap;
+
     public function setUp()
     {
         // Store original autoloaders

@@ -29,6 +29,10 @@
  */
 class Zf7696Bootstrap extends Zend_Application_Bootstrap_BootstrapAbstract
 {
+    public $bar;
+    public $default;
+    public $foo;
+
     public $barExecuted = 0;
     public $fooExecuted = 0;
     public $executedFooResource = false;

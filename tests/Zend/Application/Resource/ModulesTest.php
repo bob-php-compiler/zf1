@@ -35,6 +35,12 @@ require_once 'Zend/Loader/Autoloader.php';
  */
 class Zend_Application_Resource_ModulesTest extends PHPUnit_Framework_TestCase
 {
+    protected $loaders;
+    protected $autoloader;
+    protected $application;
+    protected $bootstrap;
+    protected $front;
+
     protected static $controllerDirs = array(
         'bar'            => __DIR__ . '/../_files/modules/bar/controllers',
         'baz'            => __DIR__ . '/../_files/modules/baz/controllers',

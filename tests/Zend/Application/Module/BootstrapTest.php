@@ -35,6 +35,10 @@ require_once 'Zend/Loader/Autoloader.php';
  */
 class Zend_Application_Module_BootstrapTest extends PHPUnit_Framework_TestCase
 {
+    protected $loaders;
+    protected $autoloader;
+    protected $application;
+
     public function setUp()
     {
         // Store original autoloaders

@@ -55,6 +55,11 @@ require_once 'Zend/Cache/Core.php';
  */
 class Zend_Application_Resource_CacheManagerTest extends PHPUnit_Framework_TestCase
 {
+    protected $loaders;
+    protected $autoloader;
+    protected $application;
+    protected $bootstrap;
+
     public function setUp()
     {
         // Store original autoloaders

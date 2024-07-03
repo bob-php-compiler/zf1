@@ -35,6 +35,11 @@ require_once 'Zend/Loader/Autoloader.php';
  */
 class Zend_Application_Resource_RouterTest extends PHPUnit_Framework_TestCase
 {
+    protected $loaders;
+    protected $autoloader;
+    protected $application;
+    protected $bootstrap;
+
     public function setUp()
     {
         // Store original autoloaders

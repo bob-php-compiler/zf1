@@ -37,6 +37,11 @@ require_once 'Zend/Application/Resource/View.php';
  */
 class Zend_Application_Resource_ViewTest extends PHPUnit_Framework_TestCase
 {
+    protected $loaders;
+    protected $autoloader;
+    protected $application;
+    protected $bootstrap;
+
     public function setUp()
     {
         // Store original autoloaders

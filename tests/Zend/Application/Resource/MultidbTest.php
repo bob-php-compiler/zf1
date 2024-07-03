@@ -43,6 +43,11 @@ require_once 'Zend/Db/Table.php';
  */
 class Zend_Application_Resource_MultidbTest extends PHPUnit_Framework_TestCase
 {
+    protected $loaders;
+    protected $autoloader;
+    protected $application;
+    protected $bootstrap;
+
     protected $_dbOptions = array('db1' => array('adapter' => 'pdo_mysql','dbname' => 'db1','password' => 'XXXX','username' => 'webuser'),
                                 'db2' => array('adapter' => 'pdo_mysql', 'dbname' => 'db2', 'password' => 'notthatpublic', 'username' => 'dba'));
 
