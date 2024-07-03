@@ -239,10 +239,10 @@ class Zend_Mail_Pop3Test extends PHPUnit_Framework_TestCase
     public function testSize()
     {
         $mail = new Zend_Mail_Storage_Pop3($this->_params);
-        if (PHP_MAJOR_VERSION < 8) {
-            $shouldSizes = array(1 => 397, 89, 694, 452, 497, 101, 139);
-        } else {
+        if (strncmp(`dovecot --version`, '2.3.', 4) === 0) {
             $shouldSizes = array(1 => 397, 89, 694, 452, 497, 103, 139);
+        } else {
+            $shouldSizes = array(1 => 397, 89, 694, 452, 497, 101, 139);
         }
 
         $sizes = $mail->getSize();
