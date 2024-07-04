@@ -106,7 +106,7 @@ class Zend_Http_Client_Adapter_Curl implements Zend_Http_Client_Adapter_Interfac
         $this->_invalidOverwritableCurlOptions = array(
             CURLOPT_HTTPGET,
             CURLOPT_POST,
-            CURLOPT_PUT,
+            CURLOPT_UPLOAD,
             CURLOPT_CUSTOMREQUEST,
             CURLOPT_HEADER,
             CURLOPT_RETURNTRANSFER,
@@ -330,7 +330,7 @@ class Zend_Http_Client_Adapter_Curl implements Zend_Http_Client_Adapter_Interfac
                         $body = '';
                     }
 
-                    $curlMethod = CURLOPT_PUT;
+                    $curlMethod = CURLOPT_UPLOAD;
                 } else {
                     $curlMethod = CURLOPT_CUSTOMREQUEST;
                     $curlValue = "PUT";
@@ -368,7 +368,7 @@ class Zend_Http_Client_Adapter_Curl implements Zend_Http_Client_Adapter_Interfac
                 throw new Zend_Http_Client_Adapter_Exception("Method currently not supported");
         }
 
-        if(is_resource($body) && $curlMethod != CURLOPT_PUT) {
+        if(is_resource($body) && $curlMethod != CURLOPT_UPLOAD) {
             require_once 'Zend/Http/Client/Adapter/Exception.php';
             throw new Zend_Http_Client_Adapter_Exception("Streaming requests are allowed only with PUT");
         }
@@ -405,7 +405,7 @@ class Zend_Http_Client_Adapter_Curl implements Zend_Http_Client_Adapter_Interfac
          */
         if ($method == Zend_Http_Client::POST) {
             curl_setopt($this->_curl, CURLOPT_POSTFIELDS, $body);
-        } elseif ($curlMethod == CURLOPT_PUT) {
+        } elseif ($curlMethod == CURLOPT_UPLOAD) {
             // this covers a PUT by file-handle:
             // Make the setting of this options explicit (rather than setting it through the loop following a bit lower)
             // to group common functionality together.
