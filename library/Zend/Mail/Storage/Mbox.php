@@ -298,6 +298,7 @@ class Zend_Mail_Storage_Mbox extends Zend_Mail_Storage_Abstract
 
         if (!$this->_isMboxFile($this->_fh, false)) {
             @fclose($this->_fh);
+            $this->_fh = null;
             /**
              * @see Zend_Mail_Storage_Exception
              */
