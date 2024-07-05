@@ -245,7 +245,8 @@ abstract class Zend_Mail_Storage_Abstract implements Countable, ArrayAccess, See
       * @param    int $id
       * @return   Zend_Mail_Message message object
       */
-     public function offsetGet($id): mixed
+     #[\ReturnTypeWillChange]
+     public function offsetGet($id)
      {
         return $this->getMessage($id);
      }
@@ -301,7 +302,8 @@ abstract class Zend_Mail_Storage_Abstract implements Countable, ArrayAccess, See
       *
       * @return   Zend_Mail_Message current message
       */
-     public function current(): mixed
+     #[\ReturnTypeWillChange]
+     public function current()
      {
         return $this->getMessage($this->_iterationPos);
      }
@@ -312,7 +314,8 @@ abstract class Zend_Mail_Storage_Abstract implements Countable, ArrayAccess, See
       *
       * @return   int id of current position
       */
-     public function key(): mixed
+     #[\ReturnTypeWillChange]
+     public function key()
      {
         return $this->_iterationPos;
      }

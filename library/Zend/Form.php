@@ -3271,7 +3271,8 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
      * @throws Zend_Form_Exception
      * @return Zend_Form_Element|Zend_Form_DisplayGroup|Zend_Form
      */
-    public function current(): mixed
+    #[\ReturnTypeWillChange]
+    public function current()
     {
         $this->_sort();
         current($this->_order);
@@ -3294,7 +3295,8 @@ class Zend_Form implements Iterator, Countable, Zend_Validate_Interface
      *
      * @return string
      */
-    public function key(): mixed
+    #[\ReturnTypeWillChange]
+    public function key()
     {
         $this->_sort();
         return key($this->_order);
