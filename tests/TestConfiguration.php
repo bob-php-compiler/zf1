@@ -7,6 +7,8 @@
  *  mail_location = maildir:~/Maildir
  *  mail_location = mbox:~:INBOX=~/INBOX
  *
+ * sudo systemctl restart dovecot.service
+ *
  * su vmail
  * cd
  * ./dovecot-create-new-account.sh mbox@zf.test 123456
