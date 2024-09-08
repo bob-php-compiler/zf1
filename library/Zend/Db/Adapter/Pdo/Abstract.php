@@ -297,6 +297,9 @@ abstract class Zend_Db_Adapter_Pdo_Abstract extends Zend_Db_Adapter_Abstract
         if (is_int($value) || is_float($value)) {
             return $value;
         }
+        if (is_null($value)) {
+            return "''";
+        }
         $this->_connect();
         return $this->_connection->quote($value);
     }
