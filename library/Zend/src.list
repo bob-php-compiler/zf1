@@ -262,8 +262,6 @@ Mail/Message.php
 Mail/Storage.php
 Mail/Exception.php
 Mail/Part.php
-Mail/Header/HeaderName.php
-Mail/Header/HeaderValue.php
 Mail/Message/File.php
 Mail/Message/Interface.php
 Mail/Protocol/Imap.php

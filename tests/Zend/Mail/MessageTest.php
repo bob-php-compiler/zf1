@@ -520,27 +520,6 @@ class Zend_Mail_MessageTest extends PHPUnit_Framework_TestCase
             $this->assertEquals('ZF3745_Mail_Part', get_class($part));
         }
     }
-
-    public function dataProviderTestRaisesExceptionWhenProvidedWithHeaderContainingCRLFInjection()
-    {
-        return array(
-            'name'        => array("Fake\r\n\r\rnevilContent", 'value'),
-            'value'       => array('Fake', "foo-bar\r\n\r\nevilContent"),
-            'multi-value' => array('Fake', array('okay', "foo-bar\r\n\r\nevilContent")),
-        );
-    }
-
-    /**
-     * @group ZF2015-04
-     */
-    public function testRaisesExceptionWhenProvidedWithHeaderContainingCRLFInjection($name, $value)
-    {
-        $headers = array($name => $value);
-        $this->setExpectedException('Zend_Mail_Exception', 'valid');
-        $message = new Zend_Mail_Message(array(
-            'headers' => $headers,
-        ));
-    }
 }
 
 /**

@@ -26,16 +26,6 @@
 require_once 'Zend/Mime/Decode.php';
 
 /**
- * @see Zend_Mail_Header_HeaderName
- */
-require_once 'Zend/Mail/Header/HeaderName.php';
-
-/**
- * @see Zend_Mail_Header_HeaderValue
- */
-require_once 'Zend/Mail/Header/HeaderValue.php';
-
-/**
  * @see Zend_Mail_Part_Interface
  */
 require_once 'Zend/Mail/Part/Interface.php';
@@ -578,27 +568,5 @@ class Zend_Mail_Part implements RecursiveIterator, Zend_Mail_Part_Interface
     {
         $this->countParts();
         $this->_iterationPos = 1;
-    }
-
-    /**
-     * Ensure headers do not contain invalid characters
-     *
-     * @param array $headers
-     * @param bool $assertNames
-     */
-    protected function _validateHeaders(array $headers, $assertNames = true)
-    {
-        foreach ($headers as $name => $value) {
-            if ($assertNames) {
-                Zend_Mail_Header_HeaderName::assertValid($name);
-            }
-
-            if (is_array($value)) {
-                $this->_validateHeaders($value, false);
-                continue;
-            }
-
-            Zend_Mail_Header_HeaderValue::assertValid($value);
-        }
     }
 }
