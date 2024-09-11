@@ -148,7 +148,6 @@ class Zend_Mail_Part implements RecursiveIterator, Zend_Mail_Part_Interface
         } else if (isset($params['headers'])) {
             if (is_array($params['headers'])) {
                 $this->_headers = $params['headers'];
-                $this->_validateHeaders($this->_headers);
             } else {
                 if (!empty($params['noToplines'])) {
                     Zend_Mime_Decode::splitMessage($params['headers'], $this->_headers, $null, "\r\n");
