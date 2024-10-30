@@ -108,6 +108,11 @@ class Zend_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Abstract
             $this->_config['driver_options'][1002] = $initCommand; // 1002 = PDO::MYSQL_ATTR_INIT_COMMAND
         }
 
+        if (defined('__BPC__')) {
+            $this->_config['driver_options'][PDO::MYSQL_ATTR_SSL_MODE] = PDO_MYSQL_SSL_MODE_DISABLED;
+            $this->_config['driver_options'][PDO::MYSQL_ATTR_GET_SERVER_PUBLIC_KEY] = 1;
+        }
+
         parent::_connect();
     }
 
