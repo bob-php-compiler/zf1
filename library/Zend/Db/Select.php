@@ -43,7 +43,7 @@ require_once 'Zend/Db/Expr.php';
  */
 class Zend_Db_Select
 {
-
+    const OPTIMIZER_HINTS = 'optimizerhints';
     const DISTINCT       = 'distinct';
     const COLUMNS        = 'columns';
     const FROM           = 'from';
@@ -84,7 +84,7 @@ class Zend_Db_Select
     const REGEX_COLUMN_EXPR       = '/^([\w]*\s*\(([^\(\)]|(?1))*\))$/';
     const REGEX_COLUMN_EXPR_ORDER = '/^([\w]+\s*\(([^\(\)]|(?1))*\))$/';
     const REGEX_COLUMN_EXPR_GROUP = '/^([\w]+\s*\(([^\(\)]|(?1))*\))$/';
-    
+
     // @see http://stackoverflow.com/a/13823184/2028814
     const REGEX_SQL_COMMENTS      = '@
     (([\'"]).*?[^\\\]\2) # $1 : Skip single & double quoted expressions
@@ -124,6 +124,7 @@ class Zend_Db_Select
      * @var array
      */
     protected static $_partsInit = array(
+        self::OPTIMIZER_HINTS => false,
         self::DISTINCT     => false,
         self::COLUMNS      => array(),
         self::UNION        => array(),
@@ -207,6 +208,12 @@ class Zend_Db_Select
     {
         $this->_bind = $bind;
 
+        return $this;
+    }
+
+    public function optimizerHints($hints)
+    {
+        $this->_parts[self::OPTIMIZER_HINTS] = $hints;
         return $this;
     }
 
@@ -1075,6 +1082,16 @@ class Zend_Db_Select
     protected function _getQuotedTable($tableName, $correlationName = null)
     {
         return $this->_adapter->quoteTableAs($tableName, $correlationName, true);
+    }
+
+    protected function _renderOptimizerhints($sql)
+    {
+        $hints = $this->_parts[self::OPTIMIZER_HINTS];
+        if ($hints) {
+            $sql .= ' ' . $hints;
+        }
+
+        return $sql;
     }
 
     /**
